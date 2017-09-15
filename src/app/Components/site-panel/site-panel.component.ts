@@ -15,4 +15,5 @@ export class SitePanelComponent implements OnInit {
   ngOnInit() {
 
   }
+
 }
