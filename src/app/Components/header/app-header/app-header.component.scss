@@ -1,0 +1,32 @@
+:host{
+
+    display: flex;
+    flex-direction: column;
+
+    .header-top-content{
+
+        display: flex;
+        flex-direction: row;
+
+        .shop-info{
+            display: flex;
+            flex-direction: column;
+
+            .shop-contacts{
+                display: flex;
+                flex-direction: row;
+    
+            }
+
+            .shop-slogan{
+                color: blue;
+                
+            }
+        }
+    }
+
+    .header-bottom-content{
+        display: flex;
+        flex-direction: row;
+    }    
+}

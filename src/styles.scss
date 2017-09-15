@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+@import 'variables'; 
+@import '../node_modules/bootstrap/scss/bootstrap';
+@import '../node_modules/angular-tree-component/dist/angular-tree-component.css';
+
+html{ 
+    display: flex;
+    justify-content: center;
+    background-color: white;
+    height: 100%;
+}
+
+body.app{
+    display: flex;
+    width: $bodyWidth; 
+    min-width: $bodyMinWidth;
+    justify-content: center;
+
+    min-height: 100%; 
+    background-color: lightcyan;
+}

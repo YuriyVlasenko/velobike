@@ -1,0 +1,9 @@
+$navigation-block-width: 300px;
+:host{
+    display: flex;
+    flex-direction: row;
+
+    .navigation-block{
+        width: $navigation-block-width;
+    }
+}
