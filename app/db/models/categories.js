@@ -12,12 +12,12 @@ const modelSchema = new Schema({
 });
 
 const Model = mongoose.model(modelName, modelSchema);
-
+ 
 class ModelClass extends ModelBase {
-  constructor() {
+  constructor() { 
     super(Model, modelName);
 
-    this.modelFields = ['id', 'name', 'parentId'];
+    this.modelFields = ['id', 'name', 'parentId', 'order'];
 
   }
 
