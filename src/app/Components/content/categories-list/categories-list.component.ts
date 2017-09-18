@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
 import EntityDataProvider from '../../../Services/entity-data-provider.service';
 import CategoryTreeNode from '../../../Model/categoryTreeNode';
+
 
 @Component({
   selector: 'categories-list',
@@ -13,7 +16,7 @@ export class CategoriesListComponent implements OnInit {
   public categoryProducts = [];
   private selectedCategory: CategoryTreeNode;
 
-  constructor(private edp: EntityDataProvider) { }
+  constructor(private edp: EntityDataProvider, private router: Router) { }
 
   ngOnInit() {
 
@@ -26,15 +29,10 @@ export class CategoriesListComponent implements OnInit {
 
   selectedNodeChanged($event) {
 
-    this.selectedCategory = $event.node.data as CategoryTreeNode;
-
-    let findSubject = this.edp.findProducts({ categoryId: this.selectedCategory.id, name: undefined });
-
-    // TODO: unsibscribe
-    findSubject.subscribe((products) => {
-      this.categoryProducts = products;
-      console.log('this.edp.findProducts({})', products);
-    });
+    const selectedCategory = $event.node.data as CategoryTreeNode;
+    if (selectedCategory) {
+      this.router.navigate(['/', selectedCategory.friendlyName]);
+    }
 
   }
 }

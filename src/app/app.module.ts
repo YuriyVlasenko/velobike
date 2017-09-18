@@ -36,7 +36,7 @@ const appRoutes: Routes = [
     component: SitePanelComponent,
     children: [
       {
-        path: '',
+        path: ':category',
         component: MainPageComponent
       },
       {
