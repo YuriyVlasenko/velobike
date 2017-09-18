@@ -43,6 +43,7 @@
     "mongoose": "^4.11.10",
     "node-sass": "^4.5.3",
     "protractor": "~5.1.2",
+    "transliteration": "^1.6.2",
     "ts-node": "~3.2.0",
     "tslint": "~5.3.2",
     "typescript": "^2.3.4",

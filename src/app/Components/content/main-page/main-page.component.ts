@@ -17,9 +17,11 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    /*
     this.edp.displayedProducts.subscribe((displayedProducts) => {
       this.products = displayedProducts;
     })
+    */
   }
 
   selectProduct(productId) {
