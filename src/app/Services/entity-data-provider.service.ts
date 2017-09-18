@@ -44,14 +44,14 @@ export default class EntityDataProviderService {
       });
   }
 
-  findProducts({ categoryId, name }): Observable<Product[]> {
+  findProducts({ categoryId, name, id }): Observable<Product[]> {
 
     const localSubject = new AsyncSubject<Product[]>();
 
     this.products.subscribe((products) => {
 
       let filteredProducts = products.filter((product: Product) => {
-        return product.isMatch({ categoryId }) && product.isContains({ name });
+        return product.isMatch({ id, categoryId }) && product.isContains({ name });
       });
 
       this.activatedRoute.next(filteredProducts);

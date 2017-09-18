@@ -13,6 +13,9 @@ import EntityDataProvider from '../../../Services/entity-data-provider.service';
 export class MainPageComponent implements OnInit {
 
   public products: Product[] = [];
+  public product: Product = null;
+
+  private currentCategoryFriendlyName: String;
 
   constructor(
     private edp: EntityDataProvider,
@@ -22,26 +25,49 @@ export class MainPageComponent implements OnInit {
 
   ngOnInit() {
 
-    this.activatedRoute.params
-      .switchMap((params: Params) => {
+    this.activatedRoute.params.subscribe((params: Params) => {
 
-        if (!params.category) {
-          return [];
-        }
+      this.currentCategoryFriendlyName = params.category;
 
-        return this.edp.findCategory({ friendlyName: params.category })
+      if (params.category && params.id) {
+
+        // load product details view
+        this.edp.findProducts({
+          id: params.id,
+          categoryId: undefined,
+          name: undefined
+        }).subscribe((products) => {
+          if (products.length > 0) {
+            this.product = products[0];
+          }
+          else {
+            this.product = null;
+            this.router.navigate([this.currentCategoryFriendlyName]);
+          }
+        });
+        return;
+      }
+
+      if (params.category) {
+        // load category products
+        this.edp.findCategory({ friendlyName: params.category })
           .switchMap((categories: Category[]) => {
-            return this.edp
-              .findProducts({ categoryId: categories[0].id, name: undefined });
+            return this.edp.findProducts({
+              categoryId: categories[0].id,
+              name: undefined,
+              id: undefined
+            });
+          })
+          .subscribe((products) => {
+            this.products = products;
           });
 
-
-      }).subscribe((products) => {
-        this.products = products;
-      });
+        return;
+      }
+    })
   }
 
   selectProduct(productId) {
-    this.router.navigate(['/product', productId]);
+    this.router.navigate([this.currentCategoryFriendlyName, productId]);
   }
 }

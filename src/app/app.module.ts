@@ -40,6 +40,10 @@ const appRoutes: Routes = [
         component: MainPageComponent
       },
       {
+        path: ':category/:id',
+        component: MainPageComponent
+      },
+      {
         path: 'product/:id',
         component: MainPageComponent
       },
