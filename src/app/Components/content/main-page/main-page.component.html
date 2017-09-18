@@ -1,1 +1,8 @@
-main page
+<div class="products_list">
+    <product-list-item 
+        (productSelected)="selectProduct($event)"
+        class="products_list_item"
+        *ngFor="let product of products"
+        [product]="product">
+    </product-list-item>
+</div>

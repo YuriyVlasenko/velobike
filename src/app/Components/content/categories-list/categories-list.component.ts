@@ -26,8 +26,6 @@ export class CategoriesListComponent implements OnInit {
 
   selectedNodeChanged($event) {
 
-    console.log('selectedNodeChanged');
-
     this.selectedCategory = $event.node.data as CategoryTreeNode;
 
     let findSubject = this.edp.findProducts({ categoryId: this.selectedCategory.id, name: undefined });

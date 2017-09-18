@@ -7,11 +7,8 @@
             <div class="node-content-wrapper" [class.node-content-wrapper-active]="node.isActive" [class.node-content-wrapper-focused]="node.isFocused"
                 (click)="node.mouseAction('click', $event)" (dblclick)="node.mouseAction('dblClick', $event)" (contextmenu)="node.mouseAction('contextMenu', $event)"
                 (treeDrop)="node.onDrop($event)" [treeAllowDrop]="node.allowDrop" [treeDrag]="node" [treeDragEnabled]="node.allowDrag()">
-
                 <tree-node-content [node]="node" [index]="index"></tree-node-content>
             </div>
         </div>
     </ng-template>
 </tree-root>
-
-{{categoryProducts}}

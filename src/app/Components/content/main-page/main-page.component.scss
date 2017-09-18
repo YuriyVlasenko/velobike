@@ -1,0 +1,21 @@
+$productItemMargin: 1%;
+$productItemPadding: 10px;
+
+:host{
+
+    flex-grow: 1;
+
+    .products_list{
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+
+        .products_list_item{
+            flex-grow: 1;
+            margin: $productItemMargin;
+            padding: $productItemPadding;
+            min-width: calc(25% - #{2 * $productItemMargin});
+            max-width: calc(25% - #{2 * $productItemMargin});
+        }
+    }
+}

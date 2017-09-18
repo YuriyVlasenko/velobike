@@ -32,6 +32,8 @@ export default class EntityDataProviderService {
 
   findProducts({ categoryId, name }): Observable<Product[]> {
 
+    const localSubject = new AsyncSubject<Product[]>();
+
     this.products.subscribe((products) => {
 
       let filteredProducts = products.filter((product: Product) => {
@@ -40,8 +42,11 @@ export default class EntityDataProviderService {
 
       this.displayedProducts.next(filteredProducts);
 
+      localSubject.next(filteredProducts);
+      localSubject.complete();
+
     });
 
-    return this.displayedProducts;
+    return localSubject.asObservable();
   }
 }

@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
+
+import Product from '../../../Model/product';
+import EntityDataProvider from '../../../Services/entity-data-provider.service';
 
 @Component({
   selector: 'main-page',
@@ -7,10 +11,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  constructor() { }
+  public products: Product[] = [];
+
+  constructor(private edp: EntityDataProvider, private router: Router) {
+  }
 
   ngOnInit() {
+    this.edp.displayedProducts.subscribe((displayedProducts) => {
+      this.products = displayedProducts;
+    })
+  }
 
-
+  selectProduct(productId) {
+    this.router.navigate(['/product', productId]);
   }
 }

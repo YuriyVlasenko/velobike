@@ -1,0 +1,33 @@
+$productItemBorderColor: gray;
+$productItemHeaderHeigth: 50px;
+$productItemContentHeigth: 150px;
+$productItemFooterHeigth: 40px;
+
+:host{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    border: 1px solid $productItemBorderColor;
+
+    .product_header{
+        height: $productItemHeaderHeigth;
+        overflow: hidden;
+    }
+
+    .product_content{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: $productItemContentHeigth;
+
+        .product_thumbnail{
+            max-height: $productItemContentHeigth;
+            max-width: 100%;
+        }
+    }
+
+    .product_footer{
+        height: $productItemFooterHeigth;
+    }
+}

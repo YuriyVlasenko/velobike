@@ -26,6 +26,8 @@ import { AdminPanelComponent } from './components/admin-panel/admin-panel.compon
 import { SitePanelComponent } from './components/site-panel/site-panel.component';
 import { MainPageComponent } from './components/content/main-page/main-page.component';
 import { DeliveryPageComponent } from './components/content/delivery-page/delivery-page.component';
+import { ProductListItemComponent } from './components/content/product-list-item/product-list-item.component';
+import { ProductDetailComponent } from './components/content/product-detail/product-detail.component';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminPanelComponent },
@@ -38,10 +40,17 @@ const appRoutes: Routes = [
         component: MainPageComponent
       },
       {
+        path: 'product/:id',
+        component: MainPageComponent
+      },
+      {
+        path: 'search/:expression',
+        component: MainPageComponent
+      },
+      {
         path: 'delivery',
         component: DeliveryPageComponent
       }
-
     ]
   },
 
@@ -62,7 +71,9 @@ const appRoutes: Routes = [
     MainPageComponent,
     AdminPanelComponent,
     SitePanelComponent,
-    DeliveryPageComponent
+    DeliveryPageComponent,
+    ProductListItemComponent,
+    ProductDetailComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: true }),
