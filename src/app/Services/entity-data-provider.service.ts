@@ -10,6 +10,7 @@ import Product from '../Model/product';
 export default class EntityDataProviderService {
 
   public categoriesTree = new AsyncSubject();
+  public categories = new AsyncSubject<Category[]>();
   public products = new AsyncSubject<Product[]>();
   public activatedRoute = new BehaviorSubject([]);
 
@@ -17,7 +18,16 @@ export default class EntityDataProviderService {
     private categoriesManager: CategorieManager,
     private productManager: ProductManager) {
 
+    console.log('EntityDataProviderService created');
+
     // load list of categories.
+    this.categoriesManager.getAll()
+      .subscribe((categoryItems: Category[]) => {
+        this.categories.next(categoryItems);
+        this.categories.complete();
+      });
+
+    // load categories tree.
     this.categoriesManager.getAllAsTree()
       .subscribe((categoryItems) => {
         this.categoriesTree.next(categoryItems);
@@ -29,20 +39,17 @@ export default class EntityDataProviderService {
       this.products.next(products);
       this.products.complete();
     });
-
   }
 
   // TODO: check. try to return only one item.
   findCategory({ friendlyName }): Observable<Category[]> {
-    return this.categoriesManager.getAll()
-      .map((categories: Category[]) => {
 
-        const result = categories.filter((category: Category) => {
-          return category.isMatch({ friendlyName })
-        });
-        return result;
-
+    return this.categories.map((categories: Category[]) => {
+      const result = categories.filter((category: Category) => {
+        return category.isMatch({ friendlyName })
       });
+      return result;
+    });
   }
 
   findProducts({ categoryId, name, id }): Observable<Product[]> {
@@ -56,7 +63,7 @@ export default class EntityDataProviderService {
       });
 
       this.activatedRoute.next(filteredProducts);
-      
+
       localSubject.next(filteredProducts);
       localSubject.complete();
 
