@@ -14,9 +14,7 @@ html{
 body.app{
     display: flex;
     width: $bodyWidth; 
-    min-width: $bodyMinWidth;
     justify-content: center;
 
     min-height: 100%; 
-    background-color: lightcyan;
 }

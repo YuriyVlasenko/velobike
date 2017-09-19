@@ -1,10 +1,11 @@
-$navigation-block-width: 300px;
+@import '../../../../variables';
+
 :host{
     display: flex;
     flex-direction: row;
 
     .navigation-block{
-        width: $navigation-block-width;
+        width: $navigationBlockWidth;
         flex-shrink: 0;
     }
 }
