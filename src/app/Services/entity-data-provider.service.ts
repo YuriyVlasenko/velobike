@@ -10,7 +10,7 @@ import Product from '../Model/product';
 export default class EntityDataProviderService {
 
   public categoriesTree = new AsyncSubject();
-  public products = new BehaviorSubject([]);
+  public products = new AsyncSubject<Product[]>();
   public activatedRoute = new BehaviorSubject([]);
 
   constructor(
@@ -27,6 +27,7 @@ export default class EntityDataProviderService {
     // load list of all products
     this.productManager.getAll().subscribe((products) => {
       this.products.next(products);
+      this.products.complete();
     });
 
   }
@@ -48,14 +49,14 @@ export default class EntityDataProviderService {
 
     const localSubject = new AsyncSubject<Product[]>();
 
-    this.products.subscribe((products) => {
+    this.products.subscribe((productItems) => {
 
-      let filteredProducts = products.filter((product: Product) => {
+      let filteredProducts = productItems.filter((product: Product) => {
         return product.isMatch({ id, categoryId }) && product.isContains({ name });
       });
 
       this.activatedRoute.next(filteredProducts);
-
+      
       localSubject.next(filteredProducts);
       localSubject.complete();
 

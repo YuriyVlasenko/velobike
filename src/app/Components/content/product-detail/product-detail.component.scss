@@ -1,0 +1,32 @@
+$productDetailsPadding: 10px;
+$productDetailsMargin: 10px;
+
+:host{
+    display: flex;
+    flex-direction: column;
+
+    .product-details_content{
+        display: flex;
+        flex-direction: row; 
+
+        .product-image{
+
+            width: 50%;
+            padding: $productDetailsPadding;
+            margin: $productDetailsMargin;
+            border: 1px solid gray; // TODO: remove
+        }
+        .product-parameters{
+            width: 50%;
+            padding: $productDetailsPadding;
+            margin: $productDetailsMargin;
+            border: 1px solid gray;// TODO: remove
+        }
+    }   
+
+    .product-details_footer{
+        padding: $productDetailsPadding;
+        margin: $productDetailsMargin;
+        border: 1px solid gray;
+    }
+}

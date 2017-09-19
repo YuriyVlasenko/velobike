@@ -37,7 +37,7 @@ export class MainPageComponent implements OnInit {
           categoryId: undefined,
           name: undefined
         }).subscribe((products) => {
-          if (products.length > 0) {
+          if (products.length > 0 && products[0]) {
             this.product = products[0];
           }
           else {
