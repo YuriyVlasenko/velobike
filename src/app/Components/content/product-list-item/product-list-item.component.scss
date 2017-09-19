@@ -1,16 +1,21 @@
 $productItemBorderColor: gray;
 $productItemHeaderHeigth: 50px;
 $productItemContentHeigth: 150px;
-$productItemFooterHeigth: 40px;
+$productItemFooterHeigth: 50px;
 
 :host{
     display: flex;
     flex-direction: column;
     justify-content: center;
 
+    cursor: pointer;
     border: 1px solid $productItemBorderColor;
 
     .product_header{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         height: $productItemHeaderHeigth;
         overflow: hidden;
     }
@@ -22,6 +27,7 @@ $productItemFooterHeigth: 40px;
         height: $productItemContentHeigth;
 
         .product_thumbnail{
+            display: flex;
             max-height: $productItemContentHeigth;
             max-width: 100%;
         }
@@ -29,5 +35,8 @@ $productItemFooterHeigth: 40px;
 
     .product_footer{
         height: $productItemFooterHeigth;
+        display: flex;
+        justify-content: flex-end;
+align-items: center;
     }
 }

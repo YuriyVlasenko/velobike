@@ -2,7 +2,7 @@
   {{product.name}}
 </div>
 <div class="product_content">
-  <img class="product_thumbnail" />
+  <product-picture  class="product_thumbnail" [productId]="product.id"></product-picture>
 </div>
 <div class="product_footer">
   {{product.price}} <span>грн.</span>

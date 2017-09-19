@@ -10,10 +10,10 @@ $productDetailsMargin: 10px;
         flex-direction: row; 
 
         .product-image{
-
             width: 50%;
             padding: $productDetailsPadding;
             margin: $productDetailsMargin;
+            cursor: pointer;
             border: 1px solid gray; // TODO: remove
         }
         .product-parameters{
