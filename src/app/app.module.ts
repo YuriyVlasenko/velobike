@@ -11,6 +11,7 @@ import ParameterManagerService from './Services/entityManagers/parameter-manager
 import ProductManagerService from './Services/entityManagers/product-manager.service';
 import ProductParametersManagerService from './Services/entityManagers/product-parameters-manager.service';
 import ValueTypeManagerService from './Services/entityManagers/value-type-manager.service';
+import ContactInformationService from './Services/entityManagers/contact-information.service';
 import EntityDataProviderService from './Services/entity-data-provider.service';
 
 import { CategoriesListComponent } from './components/content/categories-list/categories-list.component';
@@ -18,10 +19,8 @@ import { CategoriesListItemComponent } from './components/content/categories-lis
 import { LogoComponent } from './components/header/logo/logo.component';
 import { MenuBarComponent } from './components/header/menu-bar/menu-bar.component';
 import { SearchBarComponent } from './components/header/search-bar/search-bar.component';
-import { WorkTimeComponent } from './components/header/work-time/work-time.component';
 import { AppHeaderComponent } from './components/header/app-header/app-header.component';
 import { AppContentComponent } from './components/content/app-content/app-content.component';
-import { PhonesComponent } from './components/header/phones/phones.component';
 import { AdminPanelComponent } from './components/admin-panel/admin-panel.component';
 import { SitePanelComponent } from './components/site-panel/site-panel.component';
 import { MainPageComponent } from './components/content/main-page/main-page.component';
@@ -69,10 +68,8 @@ const appRoutes: Routes = [
     LogoComponent,
     MenuBarComponent,
     SearchBarComponent,
-    WorkTimeComponent,
     AppHeaderComponent,
     AppContentComponent,
-    PhonesComponent,
     MainPageComponent,
     AdminPanelComponent,
     SitePanelComponent,
@@ -93,7 +90,8 @@ const appRoutes: Routes = [
     { provide: ProductManagerService, useClass: ProductManagerService },
     { provide: ProductParametersManagerService, useClass: ProductParametersManagerService },
     { provide: ValueTypeManagerService, useClass: ValueTypeManagerService },
-    { provide: EntityDataProviderService, useClass: EntityDataProviderService }
+    { provide: EntityDataProviderService, useClass: EntityDataProviderService },
+    { provide: ContactInformationService, useClass: ContactInformationService }
   ],
   bootstrap: [AppComponent]
 })

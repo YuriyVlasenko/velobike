@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import ContactInformation from '../../../Model/contactInformation';
+import EntityDataProviderService from '../../../Services/entity-data-provider.service';
 
 @Component({
   selector: 'app-header',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AppHeaderComponent implements OnInit {
 
-  constructor() { }
+  public contactInfo: ContactInformation;
+
+  constructor(private edp: EntityDataProviderService) {
+    this.contactInfo = new ContactInformation(null, null, null, null);
+  }
 
   ngOnInit() {
+    this.edp.contactInformation.subscribe((contactInfoItems: ContactInformation[]) => {
+      
+      if (contactInfoItems.length) {
+        this.contactInfo = contactInfoItems[0];
+      }
+      
+    });
   }
 
 }

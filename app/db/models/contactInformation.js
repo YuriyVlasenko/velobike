@@ -2,7 +2,7 @@ import mongoose from 'mongoose';
 import ModelBase from './modelBase';
 
 const Schema = mongoose.Schema;
-const modelName = 'contancInformation';
+const modelName = 'contactInformation';
 
 const modelSchema = new Schema({
     id: { type: String, required: true },
@@ -16,8 +16,8 @@ const Model = mongoose.model(modelName, modelSchema);
 class ModelClass extends ModelBase {
 
     constructor() {
-        super(Model, modelName);
 
+        super(Model, modelName);
         this.modelFields = ['phones', 'workTime', 'slogan'];
     }
 
@@ -44,10 +44,12 @@ class ModelClass extends ModelBase {
     }
 
     updateItem(data) {
-        
-            const { id, phones, workTime, slogan } = data;
-        
-            return this._updateItem(id, { phones, workTime, slogan });
-        
-          }
+
+        const { id, phones, workTime, slogan } = data;
+
+        return this._updateItem(id, { phones, workTime, slogan });
+
+    }
 }
+
+export default new ModelClass();

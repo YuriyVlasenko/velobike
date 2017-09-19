@@ -1,12 +1,16 @@
 <div class="header-top-content">
-  <logo></logo>
-  <div class="shop-info">
-      <div class="shop-slogan">slogan</div>
-      <div class="shop-contacts">
-          <phones></phones>
-          <work-time></work-time>
-      </div>
-  </div>
+    <logo></logo>
+    <div class="shop-info">
+        <div class="shop-slogan">{{contactInfo.slogan}}</div>
+        <div class="shop-contacts">
+            <div class="shop-contacts_phones">
+                {{contactInfo.phonesList}}
+            </div>
+            <div class="shop-contacts_work-time">
+                {{contactInfo.workTime}}
+            </div>
+        </div>
+    </div>
 </div>
 <div class="header-bottom-content">
     <menu-bar></menu-bar>

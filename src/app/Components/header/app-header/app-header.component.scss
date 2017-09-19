@@ -7,6 +7,7 @@
 
         display: flex;
         flex-direction: row;
+        background-color: black;
 
         .shop-info{
             display: flex;
@@ -28,5 +29,7 @@
     .header-bottom-content{
         display: flex;
         flex-direction: row;
+
+        background: -webkit-linear-gradient(top, rgb(0,0,0) 0%,rgb(255,255,255) 100%);
     }    
 }

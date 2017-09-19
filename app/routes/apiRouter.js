@@ -5,6 +5,7 @@ import parametersModel from '../db/models/parameters';
 import productParametersModel from '../db/models/productParameters';
 import productsModel from '../db/models/products';
 import valueTypesModel from '../db/models/valueTypes';
+import contactInformationModel from '../db/models/contactInformation';
 
 const ensureAuthenticated = (req, res, next) => {
     // TODO: implement
@@ -47,7 +48,7 @@ const createModelApi = (router, model) => {
             return res.sendStatus(400);
         }
 
-        
+
         console.log(`create or update item for ${model.name} with id ${req.body.id}`);
         console.log(req.body);
 
@@ -84,13 +85,6 @@ createModelApi(apiRouter, parametersModel);
 createModelApi(apiRouter, productParametersModel);
 createModelApi(apiRouter, productsModel);
 createModelApi(apiRouter, valueTypesModel);
+createModelApi(apiRouter, contactInformationModel);
 
 export default apiRouter;
-
-/*
-// create application/json parser
-const jsonParser = bodyParser.json();
-
-// create application/x-www-form-urlencoded parser
-const urlencodedParser = bodyParser.urlencoded({ extended: false });
-*/

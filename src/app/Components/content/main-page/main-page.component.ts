@@ -52,6 +52,12 @@ export class MainPageComponent implements OnInit {
         // load category products
         this.edp.findCategory({ friendlyName: params.category })
           .switchMap((categories: Category[]) => {
+
+            if (categories.length === 0){
+              this.router.navigate(['']);
+              return [];
+            }
+
             return this.edp.findProducts({
               categoryId: categories[0].id,
               name: undefined,

@@ -3,8 +3,11 @@ import { AsyncSubject, BehaviorSubject, Observable } from 'rxjs';
 
 import CategorieManager from './entityManagers/categories-manager.service';
 import ProductManager from './entityManagers/product-manager.service';
+import ContactInformationManager from './entityManagers/contact-information.service';
+
 import Category from '../Model/category';
 import Product from '../Model/product';
+import ContactInformation from '../Model/contactInformation';
 
 @Injectable()
 export default class EntityDataProviderService {
@@ -13,12 +16,20 @@ export default class EntityDataProviderService {
   public categories = new AsyncSubject<Category[]>();
   public products = new AsyncSubject<Product[]>();
   public activatedRoute = new BehaviorSubject([]);
+  public contactInformation = new AsyncSubject<ContactInformation[]>();
 
   constructor(
     private categoriesManager: CategorieManager,
-    private productManager: ProductManager) {
+    private productManager: ProductManager,
+    private contactInformationManager: ContactInformationManager) {
 
-    console.log('EntityDataProviderService created');
+    this.contactInformationManager.getAll()
+      .subscribe((contactInformationItems: ContactInformation[]) => {
+        this.contactInformation.next(contactInformationItems);
+        this.contactInformation.complete();
+
+        console.log('contactInformationItems', contactInformationItems);
+      })
 
     // load list of categories.
     this.categoriesManager.getAll()
