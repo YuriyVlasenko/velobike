@@ -27,8 +27,6 @@ export default class EntityDataProviderService {
       .subscribe((contactInformationItems: ContactInformation[]) => {
         this.contactInformation.next(contactInformationItems);
         this.contactInformation.complete();
-
-        console.log('contactInformationItems', contactInformationItems);
       })
 
     // load list of categories.

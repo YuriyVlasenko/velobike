@@ -5,6 +5,11 @@ import { Observable } from 'rxjs/Rx';
 import EntityManagerService from './entity-manager.service';
 import Product from '../../Model/product';
 
+const mapToEntity = (item)=> {
+    return new Product(item.id, item.name, item.categoryId, item.description,
+        item.price, item.order);
+}
+
 @Injectable()
 export default class ParameterManagerService extends EntityManagerService {
 
@@ -14,18 +19,12 @@ export default class ParameterManagerService extends EntityManagerService {
 
     getAll(): Observable<Product[]> {
         return super.getAll().map((items: any[]) => {
-            return items.map((item) => {
-                return new Product(item.id, item.name, item.categoryId, item.description,
-                    item.price, item.order);
-            });
+            return items.map(mapToEntity);
         });
     }
 
     getOne(id: string): Observable<Product> {
-        return super.getOne(id).map((item) => {
-            return new Product(item.id, item.name, item.categoryId, item.description,
-                item.price, item.order);
-        });
+        return super.getOne(id).map(mapToEntity);
     }
 
 }

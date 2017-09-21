@@ -5,6 +5,10 @@ import { Observable } from 'rxjs/Rx';
 import EntityManagerService from './entity-manager.service';
 import ValueType from '../../Model/valueType';
 
+const mapToEntity = (item) => {
+    return new ValueType(item.id, item.name, item.validationExpression);
+}
+
 @Injectable()
 export default class ParameterManagerService extends EntityManagerService {
 
@@ -14,15 +18,11 @@ export default class ParameterManagerService extends EntityManagerService {
 
     getAll(): Observable<ValueType[]> {
         return super.getAll().map((items: any[]) => {
-            return items.map((item) => {
-                return new ValueType(item.id, item.name, item.validationExpression);
-            });
+            return items.map(mapToEntity);
         });
     }
 
     getOne(id: string): Observable<ValueType> {
-        return super.getOne(id).map((item) => {
-            return new ValueType(item.id, item.name, item.validationExpression);
-        });
+        return super.getOne(id).map(mapToEntity);
     }
 }

@@ -19,7 +19,7 @@ const assignChildItems = (processedItem: Category, allItems: Category[]) => {
   });
 }
 
-const mapToCategory = (item)=>{
+const mapToEntity = (item)=>{
   return new Category(item.id, item.name, item.parentId, item.friendlyName,  item.order);
 }
 
@@ -32,12 +32,12 @@ export default class CategoriesManagerService extends EntityManagerService {
 
   getAll(): Observable<Category[]> {
     return super.getAll().map((items: any[]) => {
-      return items.map(mapToCategory);
+      return items.map(mapToEntity);
     });
   }
 
   getOne(id: string): Observable<Category> {
-    return super.getOne(id).map(mapToCategory);
+    return super.getOne(id).map(mapToEntity);
   }
 
   getAllAsTree(): Observable<CategoryTreeNode[]> {

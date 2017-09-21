@@ -6,6 +6,7 @@ import productParametersModel from '../db/models/productParameters';
 import productsModel from '../db/models/products';
 import valueTypesModel from '../db/models/valueTypes';
 import contactInformationModel from '../db/models/contactInformation';
+import usersModel from '../db/models/users';
 
 const ensureAuthenticated = (req, res, next) => {
     // TODO: implement
@@ -86,5 +87,6 @@ createModelApi(apiRouter, productParametersModel);
 createModelApi(apiRouter, productsModel);
 createModelApi(apiRouter, valueTypesModel);
 createModelApi(apiRouter, contactInformationModel);
+createModelApi(apiRouter, usersModel);
 
 export default apiRouter;

@@ -5,7 +5,7 @@ import { Observable } from 'rxjs/Rx';
 import EntityManagerService from './entity-manager.service';
 import ContactInformation from '../../Model/contactInformation';
 
-const mapToContactInformation = (item) => {
+const mapToEntity = (item) => {
   return new ContactInformation(item.id, item.phones, item.workTime, item.slogan);
 }
 
@@ -18,11 +18,11 @@ export default class ContactInformationService extends EntityManagerService {
 
   getAll(): Observable<ContactInformation[]> {
     return super.getAll().map((items: any[]) => {
-      return items.map(mapToContactInformation);
+      return items.map(mapToEntity);
     });
   }
 
   getOne(id: string): Observable<ContactInformation> {
-    return super.getOne(id).map(mapToContactInformation);
+    return super.getOne(id).map(mapToEntity);
   }
 }
