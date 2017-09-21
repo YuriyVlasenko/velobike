@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import User from '../../Model/user';
+import AuthService from '../../Services/auth.service';
+import { LocalStorageService } from 'angular-2-local-storage';
 
 @Component({
   selector: 'sign-in',
@@ -11,15 +13,17 @@ export class SignInComponent implements OnInit {
   public loading: boolean = false;
   public user: User;
 
-  constructor() { }
+  constructor(private authService: AuthService, private localStorage: LocalStorageService) { }
 
   ngOnInit() {
     this.user = new User();
   }
 
-  login(){
-    console.log('login for ', this.user);
-    //this.loading = true;
-  }
+  login() {
 
+    this.authService.signIn(this.user.name, this.user.password) 
+      .subscribe((userData) => {
+          localStorage.setItem("userName", userData.id);
+      })
+    }
 }

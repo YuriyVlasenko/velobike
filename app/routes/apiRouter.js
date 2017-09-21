@@ -1,5 +1,4 @@
 import express from 'express';
-import bodyParser from 'body-parser';
 import categoriesModel from '../db/models/categories';
 import parametersModel from '../db/models/parameters';
 import productParametersModel from '../db/models/productParameters';
@@ -9,14 +8,14 @@ import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
 
 const ensureAuthenticated = (req, res, next) => {
-    // TODO: implement
-    next();
+    if (req.isAuthenticated()) { return next(); }
+    res.status(403).end();
 }
 
 const createModelApi = (router, model) => {
 
     // get all items
-    router.get(`/${model.name}`, ensureAuthenticated, function (req, res) {
+    router.get(`/${model.name}`, function (req, res) {
 
         console.log(`get all items for ${model.name}`)
         model.getAll().then((data) => {
@@ -28,7 +27,7 @@ const createModelApi = (router, model) => {
     });
 
     // get one item
-    router.get(`/${model.name}/:id`, ensureAuthenticated, function (req, res) {
+    router.get(`/${model.name}/:id`, function (req, res) {
 
         var itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);
@@ -80,13 +79,10 @@ const createModelApi = (router, model) => {
 
 const apiRouter = express.Router();
 
+const models = [categoriesModel, parametersModel, productParametersModel, productsModel, valueTypesModel, contactInformationModel, usersModel];
 // Create routes for models.
-createModelApi(apiRouter, categoriesModel);
-createModelApi(apiRouter, parametersModel);
-createModelApi(apiRouter, productParametersModel);
-createModelApi(apiRouter, productsModel);
-createModelApi(apiRouter, valueTypesModel);
-createModelApi(apiRouter, contactInformationModel);
-createModelApi(apiRouter, usersModel);
+for (let i = 0; i < models.length; i++) {
+    createModelApi(apiRouter, models[i]);
+}
 
 export default apiRouter;

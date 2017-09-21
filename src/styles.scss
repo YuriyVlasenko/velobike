@@ -4,6 +4,9 @@
 @import '../node_modules/bootstrap/scss/bootstrap';
 @import '../node_modules/angular-tree-component/dist/angular-tree-component.css';
 
+$errorMessageHeight: 25px;
+$formGroupBottomPadding: $errorMessageHeight;
+
 html{ 
     display: flex;
     justify-content: center;
@@ -18,3 +21,21 @@ body.app{
 
     min-height: 100%; 
 }
+
+.error-message{
+    min-height: $errorMessageHeight;
+    color: red;
+    display: none;
+}
+
+.form-group{
+    padding-bottom: $errorMessageHeight;
+
+    &.has-error{
+        padding-bottom: 0;
+        .error-message{
+            display: block;
+        }
+    }
+}
+

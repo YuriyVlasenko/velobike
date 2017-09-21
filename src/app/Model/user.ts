@@ -1,8 +1,9 @@
 export default class User {
 
     constructor(
-        public id: String,
-        public name: String) {
+        public id: string = '',
+        public name: string = '', 
+        public password: string = '') {
     }
 
     isMatch({ id = null, name = null, password = null }): boolean {
@@ -15,5 +16,4 @@ export default class User {
         }
         return true;
     }
-
-}
+} 

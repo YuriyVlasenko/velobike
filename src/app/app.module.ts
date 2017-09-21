@@ -1,10 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpModule } from '@angular/http';
+import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
+import { LocalStorageModule } from 'angular-2-local-storage';
 
-import { TreeModule} from 'angular-tree-component';
+import { TreeModule } from 'angular-tree-component';
 
 import CategoriesManagerService from './Services/entityManagers/categories-manager.service';
 import ParameterManagerService from './Services/entityManagers/parameter-manager.service';
@@ -13,6 +15,8 @@ import ProductParametersManagerService from './Services/entityManagers/product-p
 import ValueTypeManagerService from './Services/entityManagers/value-type-manager.service';
 import ContactInformationService from './Services/entityManagers/contact-information.service';
 import EntityDataProviderService from './Services/entity-data-provider.service';
+import UsersManagerService from './Services/entityManagers/users-manager.service';
+import AuthService from './Services/auth.service';
 
 import { CategoriesListComponent } from './components/content/categories-list/categories-list.component';
 import { CategoriesListItemComponent } from './components/content/categories-list-item/categories-list-item.component';
@@ -28,9 +32,11 @@ import { DeliveryPageComponent } from './components/content/delivery-page/delive
 import { ProductListItemComponent } from './components/content/product-list-item/product-list-item.component';
 import { ProductDetailComponent } from './components/content/product-detail/product-detail.component';
 import { ProductPictureComponent } from './components/common/product-picture/product-picture.component';
+import { SignInComponent } from './components/sign-in/sign-in.component';
 
 const appRoutes: Routes = [
   { path: 'admin', component: AdminPanelComponent },
+  { path: 'signin', component: SignInComponent },
   {
     path: '',
     component: SitePanelComponent,
@@ -76,13 +82,19 @@ const appRoutes: Routes = [
     DeliveryPageComponent,
     ProductListItemComponent,
     ProductDetailComponent,
-    ProductPictureComponent
+    ProductPictureComponent,
+    SignInComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: false }),
     BrowserModule,
     HttpModule,
-    TreeModule
+    TreeModule,
+    FormsModule,
+    LocalStorageModule.withConfig({
+      prefix: 'velobike',
+      storageType: 'localStorage'
+    })
   ],
   providers: [
     { provide: CategoriesManagerService, useClass: CategoriesManagerService },
@@ -91,7 +103,9 @@ const appRoutes: Routes = [
     { provide: ProductParametersManagerService, useClass: ProductParametersManagerService },
     { provide: ValueTypeManagerService, useClass: ValueTypeManagerService },
     { provide: EntityDataProviderService, useClass: EntityDataProviderService },
-    { provide: ContactInformationService, useClass: ContactInformationService }
+    { provide: ContactInformationService, useClass: ContactInformationService },
+    { provide: AuthService, useClass: AuthService },
+    { provide: UsersManagerService, useClass: UsersManagerService },
   ],
   bootstrap: [AppComponent]
 })
