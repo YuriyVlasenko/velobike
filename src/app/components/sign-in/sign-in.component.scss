@@ -1,0 +1,11 @@
+:host{
+    display: flex;
+    flex-grow: 1;   
+    justify-content: center;
+    align-items: center;
+
+    .sign-in_form{
+        width: 400px;    
+
+    }
+}
