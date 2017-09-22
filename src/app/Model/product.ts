@@ -1,4 +1,8 @@
+import ProductParameter from './productParameter';
+
 export default class Product {
+
+    public parameters: ProductParameter[];
 
     constructor(
         public id: string,

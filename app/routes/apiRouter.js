@@ -10,6 +10,10 @@ import usersModel from '../db/models/users';
 const protectedModels = [usersModel.name];
 
 const getAuthenticator = (modelName)=>{
+
+    // TODO: remove this face auth
+    return (req, res, next)=> next();
+
     if (modelName){
         if (protectedModels.indexOf(modelName)!== -1){
             return authenticator;                
@@ -54,12 +58,12 @@ const createModelApi = (router, model) => {
     });
 
     // Create item or update.
-    router.post(`/${model.name}`,  getAuthenticator(), function (req, res) {
+    router.post(`/${model.name}`,  function (req, res) {
 
+        console.log(req.body);
         if (!req.body) {
             return res.sendStatus(400);
         }
-
 
         console.log(`create or update item for ${model.name} with id ${req.body.id}`);
         console.log(req.body);
