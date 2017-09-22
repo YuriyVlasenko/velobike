@@ -17,6 +17,7 @@ import ContactInformationService from './Services/entityManagers/contact-informa
 import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
 import AuthService from './Services/auth.service';
+import AuthGuard from './Services/guards/auth.guard';
 
 import { CategoriesListComponent } from './components/content/categories-list/categories-list.component';
 import { CategoriesListItemComponent } from './components/content/categories-list-item/categories-list-item.component';
@@ -35,8 +36,11 @@ import { ProductPictureComponent } from './components/common/product-picture/pro
 import { SignInComponent } from './components/sign-in/sign-in.component';
 
 const appRoutes: Routes = [
-  { path: 'admin', component: AdminPanelComponent },
-  { path: 'signin', component: SignInComponent },
+  { path: 'admin', 
+      component: AdminPanelComponent ,
+      canActivate: [AuthGuard]
+  },
+  { path: 'signin', component: SignInComponent }, 
   {
     path: '',
     component: SitePanelComponent,
@@ -106,6 +110,8 @@ const appRoutes: Routes = [
     { provide: ContactInformationService, useClass: ContactInformationService },
     { provide: AuthService, useClass: AuthService },
     { provide: UsersManagerService, useClass: UsersManagerService },
+    { provide: AuthGuard, useClass: AuthGuard }
+    
   ],
   bootstrap: [AppComponent]
 })

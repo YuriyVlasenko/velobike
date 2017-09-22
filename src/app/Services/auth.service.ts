@@ -25,12 +25,15 @@ export default class AuthService {
     }
 
     signOut(): Observable<boolean> {
-        return httpHelper.processResponse(this.http.get('/signout'));
+        return httpHelper.processResponse(this.http.post('/signout', {}))
+            .map((data) => {
+
+                this.localStorage.remove('user');
+                 return data;
+            })
     }
 
-    getUserData(): any {
-        const userData = this.localStorage.get("user");
-        console.log('gertUserData', userData);
-        return userData;
+    getUserData(): User {
+        return this.localStorage.get<User>("user");
     }
 }

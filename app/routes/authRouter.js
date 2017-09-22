@@ -82,9 +82,9 @@ authRouter.post(`/signin`, (req, res, next) => {
     })(req, res, next);
 });
 
-authRouter.get(`/signout`, (req, res) => {
+authRouter.post(`/signout`, (req, res) => {
     req.logOut();
-    return res.send({ isOk: true});
+    return res.send({ isOk: true, data: true});
 });
 
 export default authRouter;
