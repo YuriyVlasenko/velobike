@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import User from '../../Model/user';
 import AuthService from '../../Services/auth.service';
-import { LocalStorageService } from 'angular-2-local-storage';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'sign-in',
@@ -10,10 +10,12 @@ import { LocalStorageService } from 'angular-2-local-storage';
 })
 export class SignInComponent implements OnInit {
 
+  public isSigninFailed: boolean = false;
   public loading: boolean = false;
   public user: User;
 
-  constructor(private authService: AuthService, private localStorage: LocalStorageService) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.user = new User();
@@ -21,9 +23,20 @@ export class SignInComponent implements OnInit {
 
   login() {
 
-    this.authService.signIn(this.user.name, this.user.password) 
+    this.loading = true;
+
+    this.authService.signIn(this.user.name, this.user.password)
       .subscribe((userData) => {
-          localStorage.setItem("userName", userData.id);
+
+        this.loading = false;
+
+        if (userData) {
+          this.isSigninFailed = false;
+          this.router.navigate(['/admin']);
+        } else {
+          this.isSigninFailed = true;
+        }
+
       })
-    }
+  }
 }

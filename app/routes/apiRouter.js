@@ -7,7 +7,19 @@ import valueTypesModel from '../db/models/valueTypes';
 import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
 
-const ensureAuthenticated = (req, res, next) => {
+const protectedModels = [usersModel.name];
+
+const getAuthenticator = (modelName)=>{
+    if (modelName){
+        if (protectedModels.indexOf(modelName)!== -1){
+            return authenticator;                
+        }
+        return (req, res, next)=> next();
+    }
+    return authenticator;
+}
+
+const authenticator = (req, res, next) => {
     if (req.isAuthenticated()) { return next(); }
     res.status(403).end();
 }
@@ -15,7 +27,7 @@ const ensureAuthenticated = (req, res, next) => {
 const createModelApi = (router, model) => {
 
     // get all items
-    router.get(`/${model.name}`, function (req, res) {
+    router.get(`/${model.name}`, getAuthenticator(model.name), function (req, res) {
 
         console.log(`get all items for ${model.name}`)
         model.getAll().then((data) => {
@@ -27,7 +39,7 @@ const createModelApi = (router, model) => {
     });
 
     // get one item
-    router.get(`/${model.name}/:id`, function (req, res) {
+    router.get(`/${model.name}/:id`,  getAuthenticator(model.name), function (req, res) {
 
         var itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);
@@ -42,7 +54,7 @@ const createModelApi = (router, model) => {
     });
 
     // Create item or update.
-    router.post(`/${model.name}`, ensureAuthenticated, function (req, res) {
+    router.post(`/${model.name}`,  getAuthenticator(), function (req, res) {
 
         if (!req.body) {
             return res.sendStatus(400);
@@ -61,7 +73,7 @@ const createModelApi = (router, model) => {
     });
 
     // delete item
-    router.delete(`/${model.name}/:id`, ensureAuthenticated, function (req, res) {
+    router.delete(`/${model.name}/:id`,  getAuthenticator(), function (req, res) {
 
         var itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);

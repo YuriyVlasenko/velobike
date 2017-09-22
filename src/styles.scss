@@ -24,7 +24,7 @@ body.app{
 
 .error-message{
     min-height: $errorMessageHeight;
-    color: red;
+    color: $errorMessageColor;
     display: none;
 }
 
