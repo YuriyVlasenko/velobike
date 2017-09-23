@@ -81,6 +81,7 @@ export default class EntityDataProviderService {
 
     contactInformationManager.getAll()
       .subscribe((contactInformationItems: ContactInformation[]) => {
+        this.contactInformation.next(contactInformationItems);
         this.contactInformation.complete();
       })
 

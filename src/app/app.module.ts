@@ -46,6 +46,10 @@ const appRoutes: Routes = [
     component: SitePanelComponent,
     children: [
       {
+        path: 'delivery',
+        component: DeliveryPageComponent
+      },
+      {
         path: ':category/:id',
         component: MainPageComponent
       },
@@ -60,10 +64,6 @@ const appRoutes: Routes = [
       {
         path: 'search/:expression',
         component: MainPageComponent
-      },
-      {
-        path: 'delivery',
-        component: DeliveryPageComponent
       }
     ]
   },
@@ -90,7 +90,7 @@ const appRoutes: Routes = [
     SignInComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { enableTracing: false }),
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
     BrowserModule,
     HttpModule,
     TreeModule,

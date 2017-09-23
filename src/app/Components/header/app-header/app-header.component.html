@@ -1,18 +1,24 @@
-<div class="header-top-content">
+<div class="header-content">
     <logo></logo>
     <div class="shop-info">
-        <div class="shop-slogan">{{contactInfo.slogan}}</div>
-        <div class="shop-contacts">
-            <div class="shop-contacts_phones">
-                {{contactInfo.phonesList}}
+        <div class="shop-main-info">
+            <div class="shop-slogan">{{contactInfo.slogan}}</div>
+            <div class="shop-menu">
+                <menu-bar></menu-bar>
+                <search-bar></search-bar>
             </div>
-            <div class="shop-contacts_work-time">
-                {{contactInfo.workTime}}
+        </div>
+        <div class="shop-contacts">
+                <div class="shop-contacts_work-time">
+                        <span>{{contactInfo.workTime}}</span>
+                    </div>
+            <div class="shop-contacts_phone-list">
+                <span *ngFor="let phone of contactInfo.phonesList" class="shop-contacts_phone">
+                    {{phone}}
+                </span>
             </div>
         </div>
     </div>
 </div>
-<div class="header-bottom-content">
-    <menu-bar></menu-bar>
-    <search-bar></search-bar>
+<div class="header-bottom">
 </div>

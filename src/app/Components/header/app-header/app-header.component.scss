@@ -1,32 +1,72 @@
+@import '../../../../variables';
+
 :host{
 
     display: flex;
     flex-direction: column;
 
-    .header-top-content{
+    .header-content{
 
         display: flex;
         flex-direction: row;
-        background-color: black;
+        background-color: #0C0C0C;
 
         .shop-info{
             display: flex;
-            flex-direction: column;
+            flex-direction: row;
+            flex-grow: 1;
+            padding: 10px;
 
             .shop-contacts{
                 display: flex;
-                flex-direction: row;
-    
+                flex-direction: column;
+                justify-content: space-between;
+                font-size: 16pt;
+
+                .shop-contacts_phone-list{
+                    display: flex;
+                    flex-direction: column;
+                    color: white;
+                    padding-bottom: 3px;
+                    .shop-contacts_phone{
+                        padding-top: 5px;
+                    }
+                }
+
+                .shop-contacts_work-time{
+                    color: darkgrey;
+                    font-weight: 500;
+                    text-align: right;
+                }
             }
 
-            .shop-slogan{
-                color: blue;
-                
+            .shop-main-info{
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                flex-grow: 1;
+                padding: 5px 20px 5px 10px;
+
+                .shop-slogan{
+                    flex-grow: 1;
+                    color: $appMainColor1;
+                    font: 36pt Century Gothic;
+                }
+
+                .shop-menu{
+                    color: white;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding-bottom: 5px;
+                }
             }
+
+            
         }
     }
 
-    .header-bottom-content{
+    .header-bottom{
         display: flex;
         flex-direction: row;
 

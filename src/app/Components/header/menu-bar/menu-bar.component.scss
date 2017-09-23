@@ -1,0 +1,19 @@
+@import '../../../../variables';
+
+:host{
+    display: flex;
+    flex-direction: row;
+    align-items: center;   
+
+    nav{
+        a{
+            color: white;
+            font-weight: 500;
+            padding: 5px;
+
+            &.active{
+                color: $appMainColor1;
+            }
+        }
+    }
+}

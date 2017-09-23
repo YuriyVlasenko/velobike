@@ -1,1 +1,8 @@
-
+<nav>
+    <a [routerLink]="['/']" 
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact:true}">Главная</a>
+    <a [routerLink]="['/', 'delivery']" 
+       routerLinkActive="active"
+       [routerLinkActiveOptions]="{exact:true}">Доставка</a>
+</nav>

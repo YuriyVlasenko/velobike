@@ -1,0 +1,35 @@
+$searchBarHeight: 30px;
+
+:host{
+    display: flex;
+    flex-direction: row;
+    height: $searchBarHeight;
+    
+
+    .search-expression{
+        height: 100%;
+        border: 1px solid white;
+        width: 300px;
+    }
+
+    .search-action{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: transparent;
+
+        height: 100%;
+        width: 30px;
+        padding: 0;
+        margin: 0;
+
+        cursor: pointer;
+        border-width: 1px 1px 1px 0;
+        border-style: solid;
+        border-color: white;
+
+        background-image: url('/assets/search.png');
+        background-position: center;
+    }
+
+}
