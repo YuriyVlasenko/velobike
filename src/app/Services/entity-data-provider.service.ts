@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, EventEmitter } from '@angular/core';
 import { AsyncSubject, BehaviorSubject, Observable } from 'rxjs';
 
 import CategorieManager from './entityManagers/categories-manager.service';
@@ -34,7 +34,6 @@ export default class EntityDataProviderService {
     private productParameterManager: ProductParameterManager,
     private valueTypeManager: ValueTypeManager,
     private parameterManager: ParameterManager) {
-
 
     // Load valuetypes
     this.valueTypeManager.getAll()

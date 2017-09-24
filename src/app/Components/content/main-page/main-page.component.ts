@@ -4,6 +4,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 import Product from '../../../Model/product';
 import Category from '../../../Model/category';
 import EntityDataProvider from '../../../Services/entity-data-provider.service';
+import UIEventsService from '../../../Services/ui-events.service';
 
 @Component({
   selector: 'main-page',
@@ -20,6 +21,7 @@ export class MainPageComponent implements OnInit {
   constructor(
     private edp: EntityDataProvider,
     private router: Router,
+    private uiEventsService: UIEventsService,
     private activatedRoute: ActivatedRoute) {
   }
 
@@ -28,6 +30,16 @@ export class MainPageComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.currentCategoryFriendlyName = params.category;
+
+      if (params.category) {
+        this.edp
+          .findCategory({ friendlyName: params.category })
+          .subscribe((categories: Category[]) => {
+            if (categories.length > 0) {
+              this.uiEventsService.onCategorySelected.emit(categories[0]);
+            }
+          });
+      }
 
       if (params.category && params.id) {
 
@@ -53,7 +65,7 @@ export class MainPageComponent implements OnInit {
         this.edp.findCategory({ friendlyName: params.category })
           .switchMap((categories: Category[]) => {
 
-            if (categories.length === 0){
+            if (categories.length === 0) {
               this.router.navigate(['']);
               return [];
             }

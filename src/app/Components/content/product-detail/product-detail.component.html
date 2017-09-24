@@ -1,13 +1,22 @@
-
 <div class="product-details_content">
-  <div class="product-image">
-    <product-picture [productId]="product.id"></product-picture>
-
+  <div class="product-image-description">
+    <div class="product-image">
+      <product-picture [productId]="product.id"></product-picture>
+    </div>
+    <div class="product-description">
+      {{product.description}}
+    </div>
   </div>
-  <div class="product-parameters">
-
+  <div class="product-parameters" >
+    <span class="product-parameters__header"
+      *ngIf="product.parameters.length"
+      >Технічні характеристики:</span>
+    <span class="product-parameters__header"
+      *ngIf="product.parameters.length == 0"
+      >Технічні характеристики будуть додані найближчим часом</span>
+    <div class="product-parameter" *ngFor="let productParameter of product.parameters">
+      <div class="product-parameter__name">{{productParameter.parameter.name}}</div>
+      <div class="product-parameter__value">{{productParameter.value}}</div>
+    </div>
   </div>
-</div>
-<div class="product-details_footer">
-  {{product.description}} 
 </div>

@@ -1,7 +1,7 @@
 $productItemBorderColor: gray;
 $productItemHeaderHeigth: 50px;
 $productItemContentHeigth: 150px;
-$productItemFooterHeigth: 50px;
+$productItemFooterHeigth: 40px;
 
 :host{
     display: flex;
@@ -18,6 +18,8 @@ $productItemFooterHeigth: 50px;
 
         height: $productItemHeaderHeigth;
         overflow: hidden;
+        font-size: 12pt;
+        color: blue;
     }
 
     .product_content{
@@ -36,7 +38,12 @@ $productItemFooterHeigth: 50px;
     .product_footer{
         height: $productItemFooterHeigth;
         display: flex;
-        justify-content: flex-end;
-align-items: center;
+        justify-content: center;
+        align-items: center;
+        font-size: 16pt;
+
+        .currency{
+            font-size: 14pt;
+        }
     }
 }

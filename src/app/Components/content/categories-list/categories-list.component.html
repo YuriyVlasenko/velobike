@@ -1,4 +1,6 @@
 <tree-root [nodes]="rootCategories"
+    (initialized)="treeInitialized()"
+    #tree
     (activate)="selectedNodeChanged($event)">
  
     <ng-template #treeNodeWrapperTemplate let-node let-index="index">

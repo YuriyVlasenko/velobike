@@ -18,6 +18,7 @@ import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
 import AuthService from './Services/auth.service';
 import AuthGuard from './Services/guards/auth.guard';
+import UIEventsService from './Services/ui-events.service';
 
 import { CategoriesListComponent } from './components/content/categories-list/categories-list.component';
 import { CategoriesListItemComponent } from './components/content/categories-list-item/categories-list-item.component';
@@ -90,7 +91,7 @@ const appRoutes: Routes = [
     SignInComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { enableTracing: true }),
+    RouterModule.forRoot(appRoutes, { enableTracing: false }),
     BrowserModule,
     HttpModule,
     TreeModule,
@@ -110,8 +111,8 @@ const appRoutes: Routes = [
     { provide: ContactInformationService, useClass: ContactInformationService },
     { provide: AuthService, useClass: AuthService },
     { provide: UsersManagerService, useClass: UsersManagerService },
-    { provide: AuthGuard, useClass: AuthGuard }
-    
+    { provide: AuthGuard, useClass: AuthGuard },
+    { provide: UIEventsService, useClass: UIEventsService }    
   ],
   bootstrap: [AppComponent]
 })
