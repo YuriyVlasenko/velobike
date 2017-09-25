@@ -1,0 +1,28 @@
+:host{
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+
+    .admin-panel__header{
+        display: flex;
+
+        margin: 5px;
+        padding: 5px;
+        border: 1px solid black;
+    }
+
+    .admin-panel__body{
+        margin: 5px;
+        display: flex;
+        flex-direction: row;
+        flex-grow: 1;
+        
+
+        .admin-panel__entity-types{
+            border: 1px solid black;
+            padding: 5px;
+            display: flex;
+            width: 250px;
+        }
+    }
+}

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import AuthService from '../../Services/auth.service';
-import { Router } from '@angular/router';
+import { Router, Params } from '@angular/router';
 
 @Component({
   selector: 'admin-panel',
@@ -11,7 +11,8 @@ export class AdminPanelComponent implements OnInit {
 
   public activeUserName: string;
 
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     const userData = this.authService.getUserData();
@@ -28,5 +29,4 @@ export class AdminPanelComponent implements OnInit {
       }
     });
   }
-
 }

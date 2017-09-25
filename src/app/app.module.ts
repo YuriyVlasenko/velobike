@@ -35,11 +35,29 @@ import { ProductListItemComponent } from './components/content/product-list-item
 import { ProductDetailComponent } from './components/content/product-detail/product-detail.component';
 import { ProductPictureComponent } from './components/common/product-picture/product-picture.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
-
+import { EntityTypeListComponent } from './components/admin/entity-type-list/entity-type-list.component';
+import { EntityItemsListComponent } from './components/admin/entity-items-list/entity-items-list.component';
+import { EntityEditorComponent } from './components/admin/entity-editor/entity-editor.component';
+ 
 const appRoutes: Routes = [
   { path: 'admin', 
       component: AdminPanelComponent ,
-      canActivate: [AuthGuard]
+      canActivate: [AuthGuard],
+      
+      children: [
+        {
+          path:'',
+          component: EntityItemsListComponent
+        },
+        {
+          path:':entitytypeFriendlyName',
+          component: EntityItemsListComponent
+        },
+        {
+          path: ':entitytypeFriendlyName/:entityId',
+          component: EntityEditorComponent
+        }
+      ]
   },
   { path: 'signin', component: SignInComponent }, 
   {
@@ -88,10 +106,13 @@ const appRoutes: Routes = [
     ProductListItemComponent,
     ProductDetailComponent,
     ProductPictureComponent,
-    SignInComponent
+    SignInComponent,
+    EntityTypeListComponent,
+    EntityItemsListComponent,
+    EntityEditorComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { enableTracing: false }),
+    RouterModule.forRoot(appRoutes, { enableTracing: true }),
     BrowserModule,
     HttpModule,
     TreeModule,

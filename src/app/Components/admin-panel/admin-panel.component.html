@@ -1,5 +1,9 @@
-<p>
-  admin-panel works!
-</p>
-user: {{activeUserName}}
-<button (click)="logOut()">logout</button>
+<div class="admin-panel__header">
+  user: {{activeUserName}}<button (click)="logOut()">logout</button>
+</div>
+<div class="admin-panel__body">
+  <div class="admin-panel__entity-types">
+    <entity-type-list></entity-type-list>
+  </div>
+  <router-outlet></router-outlet>
+</div>
