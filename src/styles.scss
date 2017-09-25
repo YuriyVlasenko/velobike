@@ -40,10 +40,22 @@ body.app{
 }
 
 // tree overloades
-.node-content-wrapper.node-content-wrapper-active{
-    margin-left: -30px;
-    padding-left: 35px;
-    width: 100%;
+.node-content-wrapper{
 
+    &.node-content-wrapper-active{
+        margin-left: -30px;
+        padding-left: 35px;
+        width: 100%;
+        background-color: $appMainColor1 !important;
+    }
+    &.node-content-wrapper-focused    {
+        background-color: $appMainColor1 !important;
+    }
+
+    &:hover{
+        background-color: $appMainColor2 !important;
+    }
 }
+
+
 

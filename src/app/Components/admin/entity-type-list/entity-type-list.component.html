@@ -1,3 +1,8 @@
-<p>
-  entity-type-list works!
-</p>
+<nav>
+  <a class="entity-type-item" 
+    [routerLink]="[item.Name]" 
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{exact:true}"
+    *ngFor="let item of entityTypes">
+    {{item.DisplayName}}</a>
+</nav>

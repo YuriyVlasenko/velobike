@@ -50,11 +50,11 @@ const appRoutes: Routes = [
           component: EntityItemsListComponent
         },
         {
-          path:':entitytypeFriendlyName',
+          path:':entityType',
           component: EntityItemsListComponent
         },
         {
-          path: ':entitytypeFriendlyName/:entityId',
+          path: ':entityType/:entityId',
           component: EntityEditorComponent
         }
       ]

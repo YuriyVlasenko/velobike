@@ -14,6 +14,7 @@ import ProductParameter from '../Model/productParameter';
 import Category from '../Model/category';
 import Product from '../Model/product';
 import ContactInformation from '../Model/contactInformation';
+import IEntity from './../Model/IEntity';
 
 @Injectable()
 export default class EntityDataProviderService {
@@ -152,5 +153,9 @@ export default class EntityDataProviderService {
     });
 
     return localSubject.asObservable();
+  }
+
+  getEntities(entityType: string): IEntity[]{
+    return [];
   }
 }

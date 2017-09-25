@@ -1,6 +1,7 @@
 import ProductParameter from './productParameter';
+import IEntity from './IEntity';
 
-export default class Product {
+export default class Product  implements IEntity {
 
     public parameters: ProductParameter[];
 
@@ -42,4 +43,7 @@ export default class Product {
         return isContains;
     }
 
+    get displayName():string {
+        return this.name;
+    }
 }

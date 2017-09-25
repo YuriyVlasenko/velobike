@@ -1,4 +1,6 @@
-export default class ValueType {
+import IEntity from './IEntity';
+
+export default class ValueType implements IEntity {
 
     constructor(
         public id: string,
@@ -6,4 +8,7 @@ export default class ValueType {
         public validationExpression: string = '') {
     }
 
+    get displayName():string {
+        return this.name;
+    }
 }

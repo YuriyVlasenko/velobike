@@ -1,4 +1,7 @@
-export default class ContactInformation {
+import IEntity from './IEntity';
+
+export default class ContactInformation implements IEntity {
+
     constructor(
         public id: string,
         public phones: string,
@@ -12,5 +15,9 @@ export default class ContactInformation {
             return [];
         }
         return this.phones.split(';');
+    }
+
+    get displayName():string {
+        return `${this.slogan} ${this.workTime}`;
     }
 }

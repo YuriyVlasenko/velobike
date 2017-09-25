@@ -1,0 +1,26 @@
+
+@import '../../../../variables';
+
+:host{
+    width: 100%;
+    nav{
+        display: flex;
+        flex-direction: column;
+
+        .entity-type-item{
+            cursor: pointer;
+            padding: 5px;
+            color: black;
+            text-decoration: none;
+
+            &.active{
+                background-color: $appMainColor1;
+            }
+
+            &:hover{
+                background-color: $appMainColor2;
+
+            }
+        }
+    }
+}

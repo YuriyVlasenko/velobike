@@ -1,13 +1,15 @@
-export default class Category {
+import IEntity from './IEntity';
+
+export default class Category implements IEntity {
 
     public subCategories: Category[];
 
-    constructor(
-        public id: String,
-        public name: String,
-        public parentId: String,
-        public friendlyName: String,
-        public order: Number = 0) {
+    constructor( 
+        public id: string,
+        public name: string,
+        public parentId: string,
+        public friendlyName: string,
+        public order: number = 0) {
     }
 
     isMatch({ id = null, name = null, friendlyName = null }): boolean {
@@ -24,6 +26,10 @@ export default class Category {
         }
 
         return true;
+    }
+
+    get displayName():string {
+        return this.name;
     }
 
 }

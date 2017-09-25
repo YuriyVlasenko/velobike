@@ -1,6 +1,7 @@
+import IEntity from './IEntity';
 import valueType from './valueType';
 
-export default class Parameter {
+export default class Parameter implements IEntity {
 
     public valueType: valueType;
 
@@ -12,4 +13,7 @@ export default class Parameter {
 
     }
 
+    get displayName(): string {
+        return this.name;
+    }
 }

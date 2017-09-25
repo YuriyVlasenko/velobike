@@ -1,3 +1,5 @@
+@import '../../../../variables';
+
 $productDetailsPadding: 10px;
 $productDetailsMargin: 10px;
 
@@ -48,7 +50,7 @@ $productDetailsMargin: 10px;
                 padding: 5px;
 
                 &:nth-child(odd){
-                    background-color: lightblue;
+                    background-color: $appMainColor3;
                 }
             }
             

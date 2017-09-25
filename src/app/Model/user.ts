@@ -1,8 +1,10 @@
-export default class User {
+import IEntity from './IEntity';
+
+export default class User implements IEntity {
 
     constructor(
         public id: string = '',
-        public name: string = '', 
+        public name: string = '',
         public password: string = '') {
     }
 
@@ -15,5 +17,9 @@ export default class User {
             return false;
         }
         return true;
+    }
+
+    get displayName():string {
+        return this.name;
     }
 } 
