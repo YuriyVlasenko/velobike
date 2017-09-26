@@ -1,3 +1,23 @@
-<p>
-  category-editor works!
-</p>
+<form #f="ngForm" name="from" (ngSubmit)="f.form.valid && saveChanges()">
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !categoryName.valid}">
+    <label for="categoryName">Название категории</label>
+    <input class="form-control" type="text" [(ngModel)]="entityData.name" #categoryName="ngModel" required name="categoryName"
+    />
+    <span class="error-message"> введите название категории </span>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !categoryOrder.valid}">
+    <label for="categoryOrder">Порядок отображения в списке</label>
+    <input class="form-control" type="number" min="0" [(ngModel)]="entityData.order" #categoryOrder="ngModel" name="categoryOrder"
+    />
+    <span class="error-message"> введите порядок категории </span>
+  </div>
+  <div class="form-group">
+    <label for="categoryParentId">Родительский элемент</label>
+    <select class="form-control" [(ngModel)]="entityData.parentId" #categoryParentId="ngModel" name="categoryParentId">
+        <option *ngFor="let categoryItem of categoriesList" [ngValue]="categoryItem.id">{{categoryItem.displayName}}</option>
+      </select>
+  </div>
+  <div class="form-group form-actions">
+    <button class="save-button" class="btn btn-primary">Сохранить</button>
+  </div>
+</form>

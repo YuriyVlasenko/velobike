@@ -43,4 +43,9 @@ export class EntityEditorComponent implements OnInit {
       });
 
   }
+
+  processEntity(entityData){
+
+    console.log('processEntity', entityData);
+  }
 }
