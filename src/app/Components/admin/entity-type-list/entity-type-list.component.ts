@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import entityTypes from '../../../Services/entity-types';
 
 class EntityTypeItem {
 
@@ -17,13 +18,13 @@ export class EntityTypeListComponent implements OnInit {
   public entityTypes: EntityTypeItem[];
 
   constructor() {
-    this.entityTypes = [
-      new EntityTypeItem('categories', 'Категории'),
-      new EntityTypeItem('parameters', 'Параметры'),
-      new EntityTypeItem('valueTypes', 'Типы данных'),
-      new EntityTypeItem('products', 'Товары'),
-      new EntityTypeItem('users', 'Пользователи'),
-      new EntityTypeItem('contactInformation', 'Контактная информация')
+  this.entityTypes = [
+      entityTypes.CATEGORIES,
+      entityTypes.PARAMETERS,
+      entityTypes.VALUE_TYPES,
+      entityTypes.PRODUCTS,
+      entityTypes.USERS,
+      entityTypes.CONTACT_INFORMATION,
     ];
   }
 

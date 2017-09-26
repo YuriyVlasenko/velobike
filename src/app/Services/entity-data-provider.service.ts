@@ -7,6 +7,9 @@ import ProductParameterManager from './entityManagers/product-parameters-manager
 import ContactInformationManager from './entityManagers/contact-information.service';
 import ValueTypeManager from './entityManagers/value-type-manager.service';
 import ParameterManager from './entityManagers/parameter-manager.service';
+import UserManager from './entityManagers/users-manager.service';
+import EntityManager from './entityManagers/entity-manager.service';
+
 
 import Parameter from '../Model/parameter';
 import ValueType from '../Model/valueType';
@@ -15,6 +18,8 @@ import Category from '../Model/category';
 import Product from '../Model/product';
 import ContactInformation from '../Model/contactInformation';
 import IEntity from './../Model/IEntity';
+
+import entityTypes from '../Services/entity-types';
 
 @Injectable()
 export default class EntityDataProviderService {
@@ -28,13 +33,16 @@ export default class EntityDataProviderService {
   public activatedRoute = new BehaviorSubject([]);
   public contactInformation = new AsyncSubject<ContactInformation[]>();
 
+
+
   constructor(
     private categoriesManager: CategorieManager,
     private productManager: ProductManager,
     private contactInformationManager: ContactInformationManager,
     private productParameterManager: ProductParameterManager,
     private valueTypeManager: ValueTypeManager,
-    private parameterManager: ParameterManager) {
+    private parameterManager: ParameterManager,
+    private userManager: UserManager) {
 
     // Load valuetypes
     this.valueTypeManager.getAll()
@@ -155,7 +163,39 @@ export default class EntityDataProviderService {
     return localSubject.asObservable();
   }
 
-  getEntities(entityType: string): IEntity[]{
-    return [];
+  getEntity(entityType: string, entityId: string): Observable<any> {
+    return this._getEntityManagerService(entityType).getOne(entityId);
   }
+
+  getEntities(entityType: string): Observable<IEntity[]> {
+    return this._getEntityManagerService(entityType).getAll();
+  }
+
+  _getEntityManagerService(entityType: string): EntityManager {
+    switch (entityType) {
+      case entityTypes.CATEGORIES.Name: {
+        return this.categoriesManager;
+      }
+      case entityTypes.PARAMETERS.Name: {
+        return this.parameterManager;
+      }
+      case entityTypes.VALUE_TYPES.Name: {
+        return this.valueTypeManager;
+      }
+      case entityTypes.PRODUCTS.Name: {
+        return this.productManager;
+      }
+      case entityTypes.USERS.Name: {
+        return this.userManager;
+      }
+      case entityTypes.CONTACT_INFORMATION.Name: {
+        return this.contactInformationManager;
+      }
+      default: {
+        throw new Error(`Loader for ${entityType} wasn't implemented. `);
+      }
+
+    }
+  }
+
 }

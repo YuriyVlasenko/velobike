@@ -1,7 +1,65 @@
+@import '../../../../variables';
+
 :host{
     display: flex;
+    flex-direction: column;
     flex-grow: 1;
     margin-left: 5px;
     border: 1px solid black;
     padding: 5px;
+    
+
+.entity-items-header{
+    display: flex;
+    flex-direction: row;
+    flex-shrink: 0;
+
+    input{
+        width: 100%;
+        padding: 5px;
+    }
+
+    .entity-action{
+        margin-right: 10px;
+        cursor: pointer;
+    }
+}
+
+.entity-items-container{
+    display: flex;
+    flex-grow: 1;
+    flex-direction: column;
+    overflow: auto;
+    margin-top: 10px;
+
+    .entity-item{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        padding: 5px;
+        height: 40px;
+        min-height: 40px;
+
+        .entity-data{
+            flex-grow: 1;
+        }
+        .entity-actions{
+            display: flex;
+            flex-direction: row;
+
+            .entity-action{
+                margin-left: 10px;
+                padding: 5px;
+                cursor: pointer;
+                img{
+                    height: 24px;
+                }
+            }
+        }
+
+        &:nth-child(odd){
+            background-color: $appMainColor3;
+        }
+    }
+}
 }

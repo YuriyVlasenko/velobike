@@ -1,7 +1,6 @@
-<a [routerLink]="['/',currentCategoryFriendlyName]" *ngIf="product!=null">
+<a routerLink="../" *ngIf="product!=null">
     <- вернуться к списку 
 </a>
-
 <product-detail [product]="product" *ngIf="product!=null" class="products_detail">
 </product-detail>
 <div class="products_list">

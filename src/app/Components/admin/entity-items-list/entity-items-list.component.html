@@ -1,3 +1,18 @@
-<p>
-  entity-items-list works!
-</p>
+<div class="entity-items-header">
+  <button class="btn btn-success entity-action"
+    (click)="createItem()">Создать</button>
+  <input placeholder="Введите выражения для фильтрации" [(ngModel)]="filterExpression" />
+</div>
+<div class="entity-items-container">
+  <div *ngFor="let entity of entities|displayName:filterExpression" class="entity-item">
+    <div class="entity-data">{{entity.displayName}}</div>
+    <div class="entity-actions">
+      <button (click)="editItem(entity.id)" class="btn btn-info entity-action">
+            <img src="/assets/edit.png"/>
+          </button>
+      <button (click)="removeItem(entity.id)" class="btn btn-danger entity-action">
+              <img src="/assets/delete.png"/>
+          </button>
+    </div>
+  </div>
+</div>

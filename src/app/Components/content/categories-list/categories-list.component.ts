@@ -35,16 +35,6 @@ export class CategoriesListComponent implements OnInit {
       this.activeCategoryId = category.id;
     });
 
-    //
-
-    /*
-        this.activatedRoute.params.subscribe((params: Params) => {
-    
-          console.log('params', params);
-          //this.currentCategoryFriendlyName = params.category;
-    
-        });
-    */
   }
 
   treeInitialized() {

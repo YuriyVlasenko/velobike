@@ -38,6 +38,7 @@ import { SignInComponent } from './components/sign-in/sign-in.component';
 import { EntityTypeListComponent } from './components/admin/entity-type-list/entity-type-list.component';
 import { EntityItemsListComponent } from './components/admin/entity-items-list/entity-items-list.component';
 import { EntityEditorComponent } from './components/admin/entity-editor/entity-editor.component';
+import { DisplayNamePipe } from './pipes/display-name.pipe';
  
 const appRoutes: Routes = [
   { path: 'admin', 
@@ -109,10 +110,11 @@ const appRoutes: Routes = [
     SignInComponent,
     EntityTypeListComponent,
     EntityItemsListComponent,
-    EntityEditorComponent
+    EntityEditorComponent,
+    DisplayNamePipe
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { enableTracing: true }),
+    RouterModule.forRoot(appRoutes, { enableTracing:false }),
     BrowserModule,
     HttpModule,
     TreeModule,

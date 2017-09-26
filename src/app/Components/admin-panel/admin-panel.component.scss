@@ -5,7 +5,7 @@
 
     .admin-panel__header{
         display: flex;
-
+        flex-shrink: 0;
         margin: 5px;
         padding: 5px;
         border: 1px solid black;

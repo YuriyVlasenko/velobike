@@ -1,6 +1,7 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import { ActivatedRoute, Params } from '@angular/router';
+import { ActivatedRoute, Params, Router } from '@angular/router';
 import EntityDataProviderService from '../../../Services/entity-data-provider.service';
+import IEntity from '../../../Model/IEntity';
 
 @Component({
   selector: 'entity-items-list',
@@ -9,25 +10,39 @@ import EntityDataProviderService from '../../../Services/entity-data-provider.se
 })
 export class EntityItemsListComponent implements OnInit {
 
+  public filterExpression: string;
+  public entities: IEntity[];
+
   @HostBinding('class.entity-items-list') elementClass: boolean = true;
 
-  constructor(private activatedRoute: ActivatedRoute, 
-  private edp: EntityDataProviderService) { }
+  constructor(private activatedRoute: ActivatedRoute,
+    private edp: EntityDataProviderService,
+    private router: Router) { }
 
   ngOnInit() {
 
     this.activatedRoute.params.subscribe((params: Params) => {
 
-      if (params.entityType){
-
-        // load list of all entities for {{params.entityType}}
-
-      } else{
-
+      if (!params.entityType) {
+        this.entities = [];
+        return;
       }
 
+      this.edp.getEntities(params.entityType).subscribe((entitiesList) => {
+        this.entities = entitiesList;
+      });
     });
-
   }
 
+  editItem(entityId: string) {
+    this.router.navigate([entityId], { relativeTo: this.activatedRoute });
+  }
+
+  removeItem(entityId: string) {
+    console.log('remove item', entityId);
+  }
+
+  createItem(){
+    this.router.navigate(['create'], { relativeTo: this.activatedRoute });
+  }
 }
