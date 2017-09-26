@@ -10,6 +10,7 @@ import EntityDataProviderService from '../../../Services/entity-data-provider.se
 })
 export class EntityEditorComponent implements OnInit {
 
+  public entityType: string;
   public entity: any;
 
   @HostBinding('class.entity-editor') elementClass: boolean = true;
@@ -17,18 +18,29 @@ export class EntityEditorComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute,
     private edp: EntityDataProviderService) { }
 
-
-
   ngOnInit() {
 
     this.activatedRoute.params
       .switchMap((params: Params) => {
+        this.entityType = params.entityType;
+
         if (params.entityId === 'create') {
-          return Observable.from([null]);
-        } 
+          return Observable.from([]);
+        }
         return this.edp.getEntity(params.entityType, params.entityId);
       })
-      .subscribe((entities: any[]) => { this.entity = entities[0]; });
-  
-    }
+      .subscribe((entity: any) => {
+
+        if (entity.id) {
+          // TODO: create new instance
+        }
+        else {
+          // TODO: change instance
+        }
+
+
+        this.entity = entity;
+      });
+
+  }
 }

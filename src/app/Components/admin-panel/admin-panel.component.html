@@ -1,5 +1,6 @@
 <div class="admin-panel__header">
-  user: {{activeUserName}}<button (click)="logOut()">logout</button>
+  <span>{{activeUserName}}</span>
+  <button (click)="logOut()" class="btn btn-info action-button">logout</button>
 </div>
 <div class="admin-panel__body">
   <div class="admin-panel__entity-types">

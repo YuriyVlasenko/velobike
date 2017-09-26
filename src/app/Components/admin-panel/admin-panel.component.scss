@@ -9,6 +9,13 @@
         margin: 5px;
         padding: 5px;
         border: 1px solid black;
+        justify-content: flex-end;
+        align-items: center;
+
+        .action-button{
+            cursor: pointer;
+            margin-left: 10px;
+        }
     }
 
     .admin-panel__body{

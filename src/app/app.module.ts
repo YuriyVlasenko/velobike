@@ -39,6 +39,12 @@ import { EntityTypeListComponent } from './components/admin/entity-type-list/ent
 import { EntityItemsListComponent } from './components/admin/entity-items-list/entity-items-list.component';
 import { EntityEditorComponent } from './components/admin/entity-editor/entity-editor.component';
 import { DisplayNamePipe } from './pipes/display-name.pipe';
+import { CategoryEditorComponent } from './components/admin/category-editor/category-editor.component';
+import { ValueTypeEditorComponent } from './components/admin/value-type-editor/value-type-editor.component';
+import { UserEditorComponent } from './components/admin/user-editor/user-editor.component';
+import { ContactInformationEditorComponent } from './components/admin/contact-information-editor/contact-information-editor.component';
+import { ParameterEditorComponent } from './components/admin/parameter-editor/parameter-editor.component';
+import { ProductEditorComponent } from './components/admin/product-editor/product-editor.component';
  
 const appRoutes: Routes = [
   { path: 'admin', 
@@ -111,7 +117,13 @@ const appRoutes: Routes = [
     EntityTypeListComponent,
     EntityItemsListComponent,
     EntityEditorComponent,
-    DisplayNamePipe
+    DisplayNamePipe,
+    CategoryEditorComponent,
+    ValueTypeEditorComponent,
+    UserEditorComponent,
+    ContactInformationEditorComponent,
+    ParameterEditorComponent,
+    ProductEditorComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing:false }),

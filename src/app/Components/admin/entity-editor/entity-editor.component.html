@@ -1,6 +1,10 @@
 <a routerLink="../" class="back-link">
-  <- вернуться к списку 
-</a>
-<div class="editor-content">
-    entity-editor works!
-</div>
+  <- вернуться к списку </a>
+    <div class="editor-content">
+      <category-editor [entityData]="entity" *ngIf="entityType === 'categories'"></category-editor>
+      <contact-information-editor [entityData]="entity" *ngIf="entityType === 'contactInformation'"></contact-information-editor>
+      <parameter-editor [entityData]="entity" *ngIf="entityType === 'parameters'"></parameter-editor>
+      <product-editor [entityData]="entity" *ngIf="entityType === 'products'"></product-editor>
+      <user-editor [entityData]="entity" *ngIf="entityType === 'users'"></user-editor>
+      <value-type-editor [entityData]="entity" *ngIf="entityType === 'valueTypes'"></value-type-editor>
+    </div>

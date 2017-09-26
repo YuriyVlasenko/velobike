@@ -10,6 +10,7 @@ import IEntity from '../../../Model/IEntity';
 })
 export class EntityItemsListComponent implements OnInit {
 
+  public isEntityTypeSelected: boolean = false;
   public filterExpression: string;
   public entities: IEntity[];
 
@@ -21,17 +22,22 @@ export class EntityItemsListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.activatedRoute.params.subscribe((params: Params) => {
+    this.activatedRoute.params
+      .subscribe((params: Params) => {
 
-      if (!params.entityType) {
-        this.entities = [];
-        return;
-      }
+        if (!params.entityType) {
+          this.isEntityTypeSelected = false;
+          this.entities = [];
+          return;
+        }
 
-      this.edp.getEntities(params.entityType).subscribe((entitiesList) => {
-        this.entities = entitiesList;
+        this.isEntityTypeSelected = true;
+
+        this.edp.getEntities(params.entityType)
+          .subscribe((entitiesList) => {
+            this.entities = entitiesList;
+          });
       });
-    });
   }
 
   editItem(entityId: string) {
@@ -42,7 +48,7 @@ export class EntityItemsListComponent implements OnInit {
     console.log('remove item', entityId);
   }
 
-  createItem(){
+  createItem() {
     this.router.navigate(['create'], { relativeTo: this.activatedRoute });
   }
 }
