@@ -1,3 +1,25 @@
-<p>
-  parameter-editor works!
-</p>
+<form #f="ngForm" name="from" (ngSubmit)="f.form.valid && saveChanges()">
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !parameterName.valid}">
+    <label for="parameterName">Название параметра</label>
+    <input class="form-control" type="text" [(ngModel)]="entityData.name" #parameterName="ngModel" 
+      required name="parameterName"
+    />
+    <span class="error-message"> введите название параметра </span>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !parameterValueTypeId.valid}">
+    <label for="parameterValueTypeId">Тип данных</label>
+    <select class="form-control" [(ngModel)]="entityData.valueTypeId" #parameterValueTypeId="ngModel" 
+        name="parameterValueTypeId" required>
+        <option *ngFor="let valueTypeItem of valueTypesList" [ngValue]="valueTypeItem.id">{{valueTypeItem.displayName}}</option>
+      </select>
+    <span class="error-message"> выберите тип данных </span>
+  </div>
+  <div class="form-group">
+    <label for="description">Описание</label>
+    <input class="form-control" type="text" [(ngModel)]="entityData.description" name="description"
+    />
+  </div>
+  <div class="form-group form-actions">
+    <button class="save-button" class="btn btn-primary">{{isCreating?'Создать':'Сохранить'}} </button>
+  </div>
+</form>

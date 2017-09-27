@@ -31,5 +31,4 @@ export class CategoryEditorComponent implements OnInit {
   saveChanges() {
     this.onChange.emit(this.entityData);
   }
-
 }
