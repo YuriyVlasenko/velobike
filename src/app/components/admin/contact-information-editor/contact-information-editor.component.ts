@@ -1,5 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import ContactInformation from '../../../Model/contactInformation';
+import EntityDataProvider from '../../../Services/entity-data-provider.service';
+import EntityTypes from '../../../Services/entity-types';
+import IEntity from '../../../Model/IEntity';
 
 @Component({
   selector: 'contact-information-editor',
@@ -9,10 +12,18 @@ import ContactInformation from '../../../Model/contactInformation';
 export class ContactInformationEditorComponent implements OnInit {
 
   @Input() entityData: ContactInformation;
+  @Output() onChange = new EventEmitter<ContactInformation>();
 
-  constructor() { }
+  public isCreating: boolean = false;
+
+  constructor(private edp: EntityDataProvider) { }
 
   ngOnInit() {
+    this.isCreating = !this.entityData.id;
+  }
+
+  saveChanges() {
+    this.onChange.emit(this.entityData);
   }
 
 }
