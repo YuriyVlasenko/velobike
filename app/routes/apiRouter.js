@@ -64,6 +64,12 @@ const createModelApi = (router, model) => {
             return res.sendStatus(400);
         }
 
+        if (model.name === usersModel.name) {
+            if (req.body.id) {
+                req.body.name = null;
+            }
+        }
+
         console.log(`create or update item for ${model.name} with id ${req.body.id}`);
         console.log(req.body);
 
