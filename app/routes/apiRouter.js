@@ -9,16 +9,16 @@ import usersModel from '../db/models/users';
 
 const protectedModels = [usersModel.name];
 
-const getAuthenticator = (modelName)=>{
+const getAuthenticator = (modelName) => {
 
     // TODO: remove this face auth
-    return (req, res, next)=> next();
+    return (req, res, next) => next();
 
-    if (modelName){
-        if (protectedModels.indexOf(modelName)!== -1){
-            return authenticator;                
+    if (modelName) {
+        if (protectedModels.indexOf(modelName) !== -1) {
+            return authenticator;
         }
-        return (req, res, next)=> next();
+        return (req, res, next) => next();
     }
     return authenticator;
 }
@@ -43,7 +43,7 @@ const createModelApi = (router, model) => {
     });
 
     // get one item
-    router.get(`/${model.name}/:id`,  getAuthenticator(model.name), function (req, res) {
+    router.get(`/${model.name}/:id`, getAuthenticator(model.name), function (req, res) {
 
         var itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);
@@ -58,9 +58,8 @@ const createModelApi = (router, model) => {
     });
 
     // Create item or update.
-    router.post(`/${model.name}`,  function (req, res) {
+    router.post(`/${model.name}`, function (req, res) {
 
-        console.log(req.body);
         if (!req.body) {
             return res.sendStatus(400);
         }
@@ -68,16 +67,18 @@ const createModelApi = (router, model) => {
         console.log(`create or update item for ${model.name} with id ${req.body.id}`);
         console.log(req.body);
 
-        model.createOrUpdate(req.body).then((data) => {
-            return res.send({ isOk: true, data });
-        }).catch((error) => {
-            return res.send({ isOk: false, error });
-        });
+        model.createOrUpdate(req.body)
+            .then((data) => {
+                return res.send({ isOk: true, data });
+            })
+            .catch((error) => {
+                return res.send({ isOk: false, error });
+            });
 
     });
 
     // delete item
-    router.delete(`/${model.name}/:id`,  getAuthenticator(), function (req, res) {
+    router.delete(`/${model.name}/:id`, getAuthenticator(), function (req, res) {
 
         var itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);

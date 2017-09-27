@@ -15,10 +15,14 @@ export class CategoryEditorComponent implements OnInit {
   @Output() onChange = new EventEmitter<Category>();
 
   public categoriesList: IEntity[];
+  public isCreating: boolean = false;
 
   constructor(private edp: EntityDataProvider) { }
 
   ngOnInit() {
+
+    this.isCreating = !this.entityData.id;
+
     this.edp.getEntities(EntityTypes.CATEGORIES.Name).subscribe((entities: IEntity[]) => {
       this.categoriesList = [new Category('', '', '', ''), ...entities];
     });

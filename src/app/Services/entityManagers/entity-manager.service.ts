@@ -20,13 +20,12 @@ export default class EntityManagerService {
     return httpHelper.processResponse(this.http.get(`${apiPrefix}/${this.apiMethod}/${id}`));
   }
 
-  update(data: any): Observable<boolean> {
-    return httpHelper.processResponse(this.http.post(`${apiPrefix}/${this.apiMethod}/${data.id}`, data));
+  createOrUpdate(data: any): Observable<boolean> {
+    return httpHelper.processResponse(this.http.post(`${apiPrefix}/${this.apiMethod}`, data));
   }
 
   delete(id: string): Observable<boolean> {
     return httpHelper.processResponse(this.http.delete(`${apiPrefix}/${this.apiMethod}/${id}`));
   }
-
 }
 

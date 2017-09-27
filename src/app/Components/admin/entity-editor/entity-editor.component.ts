@@ -25,27 +25,23 @@ export class EntityEditorComponent implements OnInit {
         this.entityType = params.entityType;
 
         if (params.entityId === 'create') {
-          return Observable.from([]);
+          console.log('params.entityId create');
+          return Observable.from([{ id: null }]);
         }
         return this.edp.getEntity(params.entityType, params.entityId);
       })
       .subscribe((entity: any) => {
-
-        if (entity.id) {
-          // TODO: create new instance
-        }
-        else {
-          // TODO: change instance
-        }
-
-
         this.entity = entity;
       });
 
   }
 
-  processEntity(entityData){
-
+  processEntity(entityData) {
     console.log('processEntity', entityData);
+    this.edp
+      .createOrUpdateEntity(this.entityType, entityData)
+      .subscribe((isCompleted) => {
+        console.log('isCompleted', isCompleted);
+      });
   }
 }

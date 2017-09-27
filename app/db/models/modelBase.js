@@ -12,17 +12,17 @@ export default class ModelBase {
     }
 
     getAll() {
-        return new Promise((res, req) => {
+        return new Promise((resolve, reject) => {
             this._model.find((error, items) => {
-                error ? rej(error) : res(items);
+                error ? reject(error) : resolve(items);
             })
         });
     }
 
     find(filter) {
-        return new Promise((res, req) => {
+        return new Promise((resolve, reject) => {
             this._model.find(filter, (error, items) => {
-                error ? rej(error) : res(items);
+                error ? reject(error) : resolve(items);
             })
         });
     }
@@ -32,21 +32,21 @@ export default class ModelBase {
         const filter = {};
         filter[this.idField] = id;
 
-        return new Promise((res, req) => {
+        return new Promise((resolve, reject) => {
 
             this._model.find(filter, (error, items) => {
 
                 if (error) {
-                    rej(error);
+                    reject(error);
                     return;
                 }
 
                 if (!items || items.count == 0) {
-                    rej("Can't find item");
+                    reject("Can't find item");
                     return;
                 }
 
-                res(items[0]);
+                resolve(items[0]);
             })
         });
     }
@@ -56,17 +56,17 @@ export default class ModelBase {
         const filter = {};
         filter[this.idField] = id;
 
-        return new Promise((res, rej) => {
+        return new Promise((resolve, reject) => {
             this._model.deleteOne(filter, (error) => {
-                error ? rej(error) : res();
+                error ? reject(error) : resolve();
             });
         });
     }
 
     save(item) {
-        return new Promise((res, rej) => {
+        return new Promise((resolve, reject) => {
             item.save((error) => {
-                error ? rej(error) : res();
+                error ? reject(error) : resolve();
             });
         });
     }
@@ -79,12 +79,11 @@ export default class ModelBase {
 
         data = this.__restrictFields(data, this.modelFields);
 
-        const isCreate = data.id != undefined;
-
+        const isCreateMode = !data.id;
         let error = null;
 
         try {
-            this.validate(data, isCreate);
+            this.validate(data, isCreateMode);
         }
         catch (exc) {
             error = exc;
@@ -95,26 +94,22 @@ export default class ModelBase {
             return Promise.reject(error);
         }
 
-        if (isCreate) {
-            return this.updateItem(data);
-        }
-        else {
+        if (isCreateMode) {
             data.id = this.__generateId();
             return this.createItem(data);
         }
+        else {
+            return this.updateItem(data);
+        }
     }
-
-    
 
     _updateItem(id, newData) {
 
-        const filter = {};
-        filter[this.idField] = id;
-
-        return getOne(filter).then((item) => {
-            Object.assign(item, newData);
-            return this.save(item);
-        });
+        return this.getOne(id)
+            .then((item) => {
+                Object.assign(item, newData);
+                return this.save(item);
+            });
     }
 
     __generateId() {

@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import ModelBase from './modelBase';
-import { transliterate, slugify  } from 'transliteration';
+import { transliterate, slugify } from 'transliteration';
 
 const Schema = mongoose.Schema;
 const modelName = 'categories';
@@ -8,9 +8,9 @@ const modelName = 'categories';
 const modelSchema = new Schema({
   name: { type: String, required: true },
   id: { type: String, required: true },
-  order: {type: Number, default: 0 },
-  parentId: { type: String}, 
-  friendlyName: {type: String}
+  order: { type: Number, default: 0 },
+  parentId: { type: String },
+  friendlyName: { type: String }
 });
 
 const buidFriendlyName = (name) => {
@@ -20,9 +20,9 @@ const buidFriendlyName = (name) => {
 }
 
 const Model = mongoose.model(modelName, modelSchema);
- 
+
 class ModelClass extends ModelBase {
-  constructor() { 
+  constructor() {
     super(Model, modelName);
 
     this.modelFields = ['id', 'name', 'parentId', 'order', 'friendlyName'];
@@ -60,7 +60,6 @@ class ModelClass extends ModelBase {
     const friendlyName = buidFriendlyName(name);
 
     return this._updateItem(id, { name, parentId, order, friendlyName });
-
   }
 }
 

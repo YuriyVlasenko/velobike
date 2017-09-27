@@ -125,8 +125,6 @@ export default class EntityDataProviderService {
 
       })
       .subscribe((products) => {
-
-        console.log('products loaded', products);
         this.products.next(products);
         this.products.complete();
       });
@@ -161,6 +159,11 @@ export default class EntityDataProviderService {
     });
 
     return localSubject.asObservable();
+  }
+
+  createOrUpdateEntity(entityType: string, entityData: any): Observable<boolean> {
+    const entityManager = this._getEntityManagerService(entityType);
+    return entityManager.createOrUpdate(entityData);
   }
 
   getEntity(entityType: string, entityId: string): Observable<any> {
