@@ -8,7 +8,7 @@ export default class ValueType implements IEntity {
         public validationExpression: string = '') {
     }
 
-    get displayName():string {
-        return this.name;
+    get displayName(): string {
+        return `${this.name} ${this.validationExpression}`;
     }
 }

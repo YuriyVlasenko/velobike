@@ -1,3 +1,15 @@
-<p>
-  value-type-editor works!
-</p>
+<form #f="ngForm" name="from" (ngSubmit)="f.form.valid && saveChanges()">
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !typeName.valid}">
+    <label for="typeName">Название типа данных</label>
+    <input class="form-control" type="text" [(ngModel)]="entityData.name" #typeName="ngModel" required name="typeName" />
+    <span class="error-message"> введите название типа </span>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !validationExpression.valid}">
+    <label for="validationExpression">Выражене проверки</label>
+    <input class="form-control" type="text" [(ngModel)]="entityData.validationExpression" #validationExpression="ngModel" name="validationExpression"
+    />
+  </div>
+  <div class="form-group form-actions">
+    <button class="save-button" class="btn btn-primary">{{isCreating?'Создать':'Сохранить'}} </button>
+  </div>
+</form>
