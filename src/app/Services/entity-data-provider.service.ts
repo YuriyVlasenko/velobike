@@ -161,6 +161,11 @@ export default class EntityDataProviderService {
     return localSubject.asObservable();
   }
 
+  deleteEntity(entityType: string, entityId: string){
+    const entityManager = this._getEntityManagerService(entityType);
+    return entityManager.delete(entityId);
+  }
+
   createOrUpdateEntity(entityType: string, entityData: any): Observable<boolean> {
     const entityManager = this._getEntityManagerService(entityType);
     return entityManager.createOrUpdate(entityData);

@@ -1,4 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
+import {Location} from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import EntityDataProviderService from '../../../Services/entity-data-provider.service';
@@ -16,6 +17,7 @@ export class EntityEditorComponent implements OnInit {
   @HostBinding('class.entity-editor') elementClass: boolean = true;
 
   constructor(private activatedRoute: ActivatedRoute,
+    private location: Location,
     private edp: EntityDataProviderService) { }
 
   ngOnInit() {
@@ -41,7 +43,11 @@ export class EntityEditorComponent implements OnInit {
     this.edp
       .createOrUpdateEntity(this.entityType, entityData)
       .subscribe((isCompleted) => {
-        console.log('isCompleted', isCompleted);
+        if (isCompleted) {
+          this.location.back();
+          return;
+        }
+
       });
   }
 }

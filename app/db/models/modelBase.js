@@ -58,7 +58,7 @@ export default class ModelBase {
 
         return new Promise((resolve, reject) => {
             this._model.deleteOne(filter, (error) => {
-                error ? reject(error) : resolve();
+                error ? reject(error) : resolve(true);
             });
         });
     }
@@ -66,7 +66,7 @@ export default class ModelBase {
     save(item) {
         return new Promise((resolve, reject) => {
             item.save((error) => {
-                error ? reject(error) : resolve();
+                error ? reject(error) : resolve(true);
             });
         });
     }

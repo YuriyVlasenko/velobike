@@ -85,8 +85,8 @@ const createModelApi = (router, model) => {
 
         console.log(`remove item for ${model.name} with id ${itemId}`);
 
-        model.deleteOne(itemId).then(() => {
-            return res.send({ isOk: true });
+        model.deleteOne(itemId).then((isCompleted) => {
+            return res.send({ isOk: true, data: isCompleted });
         }).catch((error) => {
             return res.send({ isOk: false, error });
         })

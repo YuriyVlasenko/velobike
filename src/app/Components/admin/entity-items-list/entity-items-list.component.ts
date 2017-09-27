@@ -10,7 +10,7 @@ import IEntity from '../../../Model/IEntity';
 })
 export class EntityItemsListComponent implements OnInit {
 
-  public isEntityTypeSelected: boolean = false;
+  private entityType: string;
   public filterExpression: string;
   public entities: IEntity[];
 
@@ -26,12 +26,12 @@ export class EntityItemsListComponent implements OnInit {
       .subscribe((params: Params) => {
 
         if (!params.entityType) {
-          this.isEntityTypeSelected = false;
+          this.entityType = null;
           this.entities = [];
           return;
         }
 
-        this.isEntityTypeSelected = true;
+        this.entityType = params.entityType;
 
         this.edp.getEntities(params.entityType)
           .subscribe((entitiesList) => {
@@ -45,7 +45,15 @@ export class EntityItemsListComponent implements OnInit {
   }
 
   removeItem(entityId: string) {
-    console.log('remove item', entityId);
+    this.edp
+      .deleteEntity(this.entityType, entityId)
+      .subscribe((isComplete) => {
+        if (isComplete) {
+          this.entities = this.entities.filter((entity) => {
+            return entity.id !== entityId;
+          })
+        }
+      });
   }
 
   createItem() {

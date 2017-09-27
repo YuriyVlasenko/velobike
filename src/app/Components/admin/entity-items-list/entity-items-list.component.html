@@ -1,10 +1,10 @@
 <div class="entity-items-header">
   <button class="btn btn-success entity-action"
-    *ngIf="isEntityTypeSelected"
+    *ngIf="entityType"
     (click)="createItem()">Создать</button>
-  <input *ngIf="isEntityTypeSelected"
+  <input *ngIf="entityType"
     placeholder="Введите выражения для фильтрации" [(ngModel)]="filterExpression" />
-  <span *ngIf="!isEntityTypeSelected">выберите тип записи</span>
+  <span *ngIf="!entityType">выберите тип записи</span>
 </div>
 <div class="entity-items-container">
   <div *ngFor="let entity of entities|displayName:filterExpression" class="entity-item">
