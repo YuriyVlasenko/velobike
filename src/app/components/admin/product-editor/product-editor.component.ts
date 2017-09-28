@@ -1,5 +1,11 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import Product from '../../../Model/product';
+import ProductParameter from '../../../Model/productParameter';
+import Parameter from '../../../Model/parameter';
+import Category from '../../../Model/category';
+import EntityDataProvider from '../../../Services/entity-data-provider.service';
+import EntityTypes from '../../../Services/entity-types';
+import IEntity from '../../../Model/IEntity';
 
 @Component({
   selector: 'product-editor',
@@ -9,10 +15,43 @@ import Product from '../../../Model/product';
 export class ProductEditorComponent implements OnInit {
 
   @Input() entityData: Product;
+  @Output() onChange = new EventEmitter<Product>();
 
-  constructor() { }
+  public categoriesList: Category[];
+  public isCreating: boolean = false;
+  public selectedParameterId: string;
+  public selectedParameterValue: string;
+  public allParameters: Parameter[];
+
+  constructor(private edp: EntityDataProvider) { }
 
   ngOnInit() {
+
+    console.log(this.entityData);
+    
+    this.isCreating = !this.entityData.id;
+
+    // todo: load exist product parameters
+    //productParameters
+
+    this.edp.parameters.subscribe((parametersList:Parameter[])=>{
+      this.allParameters = parametersList;
+    })
+
+    this.edp.getEntities(EntityTypes.CATEGORIES.Name).subscribe((entities: Category[]) => {
+      this.categoriesList = entities;
+    });
   }
 
+  saveChanges() {
+    this.onChange.emit(this.entityData);
+  }
+
+  addParameter(){
+
+  }
+
+  selectProductParameter(productParameter: ProductParameter){
+    console.log('product parameter selected', productParameter);
+  }
 }

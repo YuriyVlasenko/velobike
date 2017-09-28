@@ -25,8 +25,8 @@ import entityTypes from '../Services/entity-types';
 export default class EntityDataProviderService {
 
   private valueTypes = new AsyncSubject();
-  private parameters = new AsyncSubject();
-  private productParameters = new AsyncSubject();
+  public parameters = new AsyncSubject();
+  public productParameters = new AsyncSubject();
   public categoriesTree = new AsyncSubject();
   public categories = new AsyncSubject<Category[]>();
   public products = new AsyncSubject<Product[]>();

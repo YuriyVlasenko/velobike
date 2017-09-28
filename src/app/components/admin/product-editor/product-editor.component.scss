@@ -1,0 +1,21 @@
+:host{
+
+    display: flex;
+    flex-direction: column;
+
+    .tab-pane{
+     padding: 10px;   
+    }
+
+    .exist-parameters{
+        border: 1px solid gray;
+        display: flex;
+        flex-direction: column;
+
+        .exist-parameter   {
+            display: flex;
+            flex-direction: row;
+        }
+    }
+  
+}

@@ -1,5 +1,5 @@
 import { Component, OnInit, HostBinding } from '@angular/core';
-import {Location} from '@angular/common';
+import { Location } from '@angular/common';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Observable } from 'rxjs';
 import EntityDataProviderService from '../../../Services/entity-data-provider.service';
@@ -27,7 +27,6 @@ export class EntityEditorComponent implements OnInit {
         this.entityType = params.entityType;
 
         if (params.entityId === 'create') {
-          console.log('params.entityId create');
           return Observable.from([{ id: null }]);
         }
         return this.edp.getEntity(params.entityType, params.entityId);
