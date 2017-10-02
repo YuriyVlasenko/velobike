@@ -28,13 +28,13 @@ export class ProductEditorComponent implements OnInit {
   ngOnInit() {
 
     console.log(this.entityData);
-    
+
     this.isCreating = !this.entityData.id;
 
     // todo: load exist product parameters
     //productParameters
 
-    this.edp.parameters.subscribe((parametersList:Parameter[])=>{
+    this.edp.parameters.subscribe((parametersList: Parameter[]) => {
       this.allParameters = parametersList;
     })
 
@@ -47,11 +47,15 @@ export class ProductEditorComponent implements OnInit {
     this.onChange.emit(this.entityData);
   }
 
-  addParameter(){
+  addParameter() {
 
   }
 
-  selectProductParameter(productParameter: ProductParameter){
+  selectProductParameter(productParameter: ProductParameter) {
     console.log('product parameter selected', productParameter);
+  }
+
+  imageSelected(imageData) {
+    console.log('image data', imageData);
   }
 }

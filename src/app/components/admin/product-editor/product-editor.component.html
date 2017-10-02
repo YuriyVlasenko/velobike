@@ -49,7 +49,7 @@
     <form #fParams="ngForm" name="paramsFrom" (ngSubmit)="fParams.form.valid && addParameter()">
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !name.valid}">
           <label for="parameterValue">Параметр</label>
-        <select class="form-control" [(ngModel)]="selectedParameterId" required>
+        <select class="form-control" [(ngModel)]="selectedParameterId" required name="selectedParameterId">
               <option *ngFor="let parameter of allParameters" [ngValue]="parameter.id">{{parameter.displayName}}</option>
             </select>
       </div>
@@ -69,9 +69,9 @@
           <div class="exist-parameter__name">{{productParameter.parameter.displayName}}</div>
           <div class="exist-parameter__name">{{productParameter.value}}</div>
       </div>
-    </div>
+    </div>   
   </div>
   <div role="tabpanel" class="tab-pane fade" id="images">
-    TODO: implement
+    <photo-upload></photo-upload>
   </div>
 </div>

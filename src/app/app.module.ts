@@ -5,8 +5,12 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule, Routes } from '@angular/router';
 import { AppComponent } from './app.component';
 import { LocalStorageModule } from 'angular-2-local-storage';
-
+import { CloudinaryModule } from '@cloudinary/angular-4.x';
+import * as  Cloudinary from 'cloudinary-core';
+import cloudinaryConfiguration from './Config/cloudinaryConfiguration';
 import { TreeModule } from 'angular-tree-component';
+import { FileUploadModule } from 'ng2-file-upload';
+import {Angular2ImageGalleryModule} from 'angular2-image-gallery';
 
 import CategoriesManagerService from './Services/entityManagers/categories-manager.service';
 import ParameterManagerService from './Services/entityManagers/parameter-manager.service';
@@ -45,28 +49,31 @@ import { UserEditorComponent } from './components/admin/user-editor/user-editor.
 import { ContactInformationEditorComponent } from './components/admin/contact-information-editor/contact-information-editor.component';
 import { ParameterEditorComponent } from './components/admin/parameter-editor/parameter-editor.component';
 import { ProductEditorComponent } from './components/admin/product-editor/product-editor.component';
- 
+import { PhotoUploadComponent } from './components/admin/photo-upload/photo-upload.component';
+import { PhotoViewerComponent } from './components/photo-viewer/photo-viewer.component';
+
 const appRoutes: Routes = [
-  { path: 'admin', 
-      component: AdminPanelComponent ,
-      canActivate: [AuthGuard],
-      
-      children: [
-        {
-          path:'',
-          component: EntityItemsListComponent
-        },
-        {
-          path:':entityType',
-          component: EntityItemsListComponent
-        },
-        {
-          path: ':entityType/:entityId',
-          component: EntityEditorComponent
-        }
-      ]
+  {
+    path: 'admin',
+    component: AdminPanelComponent,
+    canActivate: [AuthGuard],
+
+    children: [
+      {
+        path: '',
+        component: EntityItemsListComponent
+      },
+      {
+        path: ':entityType',
+        component: EntityItemsListComponent
+      },
+      {
+        path: ':entityType/:entityId',
+        component: EntityEditorComponent
+      }
+    ]
   },
-  { path: 'signin', component: SignInComponent }, 
+  { path: 'signin', component: SignInComponent },
   {
     path: '',
     component: SitePanelComponent,
@@ -123,10 +130,12 @@ const appRoutes: Routes = [
     UserEditorComponent,
     ContactInformationEditorComponent,
     ParameterEditorComponent,
-    ProductEditorComponent
+    ProductEditorComponent,
+    PhotoUploadComponent,
+    PhotoViewerComponent
   ],
   imports: [
-    RouterModule.forRoot(appRoutes, { enableTracing:false }),
+    RouterModule.forRoot(appRoutes, { enableTracing: false }),
     BrowserModule,
     HttpModule,
     TreeModule,
@@ -134,7 +143,10 @@ const appRoutes: Routes = [
     LocalStorageModule.withConfig({
       prefix: 'velobike',
       storageType: 'localStorage'
-    })
+    }),
+    CloudinaryModule.forRoot(Cloudinary, { cloud_name: cloudinaryConfiguration.cloudName, upload_preset: cloudinaryConfiguration.uploadPreset }),
+    FileUploadModule,
+    Angular2ImageGalleryModule
   ],
   providers: [
     { provide: CategoriesManagerService, useClass: CategoriesManagerService },
@@ -147,8 +159,8 @@ const appRoutes: Routes = [
     { provide: AuthService, useClass: AuthService },
     { provide: UsersManagerService, useClass: UsersManagerService },
     { provide: AuthGuard, useClass: AuthGuard },
-    { provide: UIEventsService, useClass: UIEventsService }    
+    { provide: UIEventsService, useClass: UIEventsService }
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent] 
 })
 export class AppModule { }
