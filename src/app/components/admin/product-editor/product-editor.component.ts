@@ -28,10 +28,13 @@ export class ProductEditorComponent implements OnInit {
   ngOnInit() {
 
     console.log(this.entityData);
-    
+
     this.isCreating = !this.entityData.id;
 
-    this.edp.parameters.subscribe((parametersList:Parameter[])=>{
+    // todo: load exist product parameters
+    //productParameters
+
+    this.edp.parameters.subscribe((parametersList: Parameter[]) => {
       this.allParameters = parametersList;
     })
 
@@ -44,24 +47,31 @@ export class ProductEditorComponent implements OnInit {
     this.onChange.emit(this.entityData);
   }
 
-  addParameter(){
+  addParameter() {
 
   }
 
-  editProductParameter(productParameter: ProductParameter){
-    
+  editProductParameter(productParameter: ProductParameter) {
+
     console.log('product parameter selected for editing', productParameter);
     this.selectedParameterId = productParameter.parameterId;
     this.selectedParameterValue = productParameter.value;
   }
 
-  deleteProductParameter(productParameter: ProductParameter){
+  deleteProductParameter(productParameter: ProductParameter) {
     console.log('product parameter deleted', productParameter);
 
     //productParameter.id // TODO: remove from db
-    this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter)=>{
-       return parameter.id !== productParameter.id;
+    this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter) => {
+      return parameter.id !== productParameter.id;
     })
+  }
 
+  selectProductParameter(productParameter: ProductParameter) {
+    console.log('product parameter selected', productParameter);
+  }
+
+  imageSelected(imageData) {
+    console.log('image data', imageData);
   }
 }
