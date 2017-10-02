@@ -10,7 +10,7 @@ const mapToEntity = (item) => {
 }
 
 @Injectable()
-export class ProductImagesManagerService extends EntityManagerService {
+export default class ProductImagesManagerService extends EntityManagerService {
 
   constructor(http: Http) {
     super(http, 'productImages')

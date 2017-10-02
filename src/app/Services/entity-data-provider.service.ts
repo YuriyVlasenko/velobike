@@ -9,13 +9,14 @@ import ValueTypeManager from './entityManagers/value-type-manager.service';
 import ParameterManager from './entityManagers/parameter-manager.service';
 import UserManager from './entityManagers/users-manager.service';
 import EntityManager from './entityManagers/entity-manager.service';
-
+import ProductImageManager from './entityManagers/product-images-manager.service';
 
 import Parameter from '../Model/parameter';
 import ValueType from '../Model/valueType';
 import ProductParameter from '../Model/productParameter';
 import Category from '../Model/category';
 import Product from '../Model/product';
+import ProductImage from '../Model/productImage';
 import ContactInformation from '../Model/contactInformation';
 import IEntity from './../Model/IEntity';
 
@@ -27,13 +28,12 @@ export default class EntityDataProviderService {
   private valueTypes = new AsyncSubject();
   public parameters = new AsyncSubject();
   public productParameters = new AsyncSubject();
+  public productImages = new AsyncSubject();
   public categoriesTree = new AsyncSubject();
   public categories = new AsyncSubject<Category[]>();
   public products = new AsyncSubject<Product[]>();
   public activatedRoute = new BehaviorSubject([]);
   public contactInformation = new AsyncSubject<ContactInformation[]>();
-
-
 
   constructor(
     private categoriesManager: CategorieManager,
@@ -42,7 +42,15 @@ export default class EntityDataProviderService {
     private productParameterManager: ProductParameterManager,
     private valueTypeManager: ValueTypeManager,
     private parameterManager: ParameterManager,
-    private userManager: UserManager) {
+    private userManager: UserManager,
+    private productImageManager: ProductImageManager) {
+
+    //productImages
+    this.productImageManager.getAll()
+      .subscribe((productImages) => {
+        this.productImages.next(productImages);
+        this.productImages.complete();
+      });
 
     // Load valuetypes
     this.valueTypeManager.getAll()
@@ -101,7 +109,7 @@ export default class EntityDataProviderService {
       });
 
     // load categories tree.
-    this.categoriesManager.getAllAsTree()  
+    this.categoriesManager.getAllAsTree()
       .subscribe((categoryItems) => {
         this.categoriesTree.next(categoryItems);
         this.categoriesTree.complete();
@@ -161,7 +169,7 @@ export default class EntityDataProviderService {
     return localSubject.asObservable();
   }
 
-  deleteEntity(entityType: string, entityId: string){
+  deleteEntity(entityType: string, entityId: string) {
     const entityManager = this._getEntityManagerService(entityType);
     return entityManager.delete(entityId);
   }
