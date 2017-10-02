@@ -33,7 +33,57 @@ export default class EntityDataProviderService {
   public activatedRoute = new BehaviorSubject([]);
   public contactInformation = new AsyncSubject<ContactInformation[]>();
 
+  _resolveValueTypes(itemsLoader: Observable<any[]>): Observable<any[]> {
 
+    return itemsLoader
+      .switchMap((items) => {
+        return this.valueTypes
+          .map((valueTypeItems: ValueType[]) => {
+
+            items.forEach((parameter) => {
+              parameter.valueType = valueTypeItems.find((valueTypeItem) => valueTypeItem.id === parameter.valueTypeId);
+            })
+
+            return items;
+          });
+      });
+  }
+
+  _resolveParameters(itemsLoader: Observable<any[]>): Observable<any[]> {
+    return itemsLoader.switchMap((items) => {
+
+      console.log('_resolveParameters', items);
+
+      return this.parameters.map((parameterItems: Parameter[]) => {
+
+        items.forEach((productParameterItem) => {
+          productParameterItem.parameter = parameterItems.find((parameterItem) => parameterItem.id === productParameterItem.parameterId);
+        });
+
+        return items;
+      });
+    });
+  }
+
+  _resolveProductParameters(itemsLoader: Observable<any[]>): Observable<any[]> {
+    return itemsLoader.switchMap((items) => {
+
+      console.log('_resolveProductParameters', items);
+
+      return this.productParameters.map((productParameterItems: ProductParameter[]) => {
+
+        console.log('productParameterItems', productParameterItems);
+
+        // Add parameters to products
+        items.forEach((productItem: Product) => {
+          productItem.parameters = productParameterItems.filter((productParameterItem) => {
+            return productParameterItem.productId === productItem.id
+          })
+        })
+        return items;
+      })
+    });
+  }
 
   constructor(
     private categoriesManager: CategorieManager,
@@ -52,40 +102,21 @@ export default class EntityDataProviderService {
       });
 
     // Load parameters
+
     this.parameterManager.getAll()
-      .switchMap((parameters) => {
-        return this.valueTypes.map((valueTypeItems: ValueType[]) => {
-
-          parameters.forEach((parameter) => {
-            parameter.valueType = valueTypeItems.find((valueTypeItem) => valueTypeItem.id === parameter.valueTypeId);
-          })
-
-          return parameters;
-        });
-      })
       .subscribe((parameters) => {
         this.parameters.next(parameters);
         this.parameters.complete();
       });
 
     // Load productParameters
-    this.productParameterManager.getAll()
-      .switchMap((productParameterItems) => {
 
-        return this.parameters.map((parameterItems: Parameter[]) => {
-
-          productParameterItems.forEach((productParameterItem) => {
-            productParameterItem.parameter = parameterItems.find((parameterItem) => parameterItem.id === productParameterItem.parameterId);
-          });
-
-          return productParameterItems;
-        });
-
-      })
+    this._resolveParameters(this.productParameterManager.getAll())
       .subscribe((productParameterItems) => {
         this.productParameters.next(productParameterItems);
         this.productParameters.complete();
       });
+
 
     contactInformationManager.getAll()
       .subscribe((contactInformationItems: ContactInformation[]) => {
@@ -102,32 +133,20 @@ export default class EntityDataProviderService {
 
     // load categories tree.
     this.categoriesManager.getAllAsTree()
+
       .subscribe((categoryItems) => {
         this.categoriesTree.next(categoryItems);
         this.categoriesTree.complete();
       });
 
     // load list of all products
-    this.productManager.getAll()
-      .switchMap((products) => {
 
-        return this.productParameters.map((productParameterItems: ProductParameter[]) => {
-
-          // Add parameters to products
-          products.forEach((productItem: Product) => {
-            productItem.parameters = productParameterItems.filter((productParameterItem) => {
-              return productParameterItem.productId === productItem.id
-            })
-          })
-
-          return products;
-        })
-
-      })
+    this._resolveProductParameters(this.productManager.getAll())
       .subscribe((products) => {
         this.products.next(products);
         this.products.complete();
-      });
+      })
+
   }
 
   // TODO: check. try to return only one item.
@@ -161,7 +180,26 @@ export default class EntityDataProviderService {
     return localSubject.asObservable();
   }
 
-  deleteEntity(entityType: string, entityId: string){
+  getEntity(entityType: string, entityId: string): Observable<any> {
+    const itemLoader = this._getEntityManagerService(entityType).getOne(entityId);
+
+    if (entityType === entityTypes.PRODUCTS.Name) {
+      return this._resolveProductParameters(itemLoader.map((product) => { return [product]; })).map((products) => products[0]);
+    }
+    return itemLoader;
+  }
+
+  getEntities(entityType: string): Observable<IEntity[]> {
+    const itemsLoader = this._getEntityManagerService(entityType).getAll();
+
+    if (entityType === entityTypes.PRODUCTS.Name) {
+      return this._resolveProductParameters(itemsLoader);
+    }
+
+    return itemsLoader;
+  }
+
+  deleteEntity(entityType: string, entityId: string) {
     const entityManager = this._getEntityManagerService(entityType);
     return entityManager.delete(entityId);
   }
@@ -169,14 +207,6 @@ export default class EntityDataProviderService {
   createOrUpdateEntity(entityType: string, entityData: any): Observable<boolean> {
     const entityManager = this._getEntityManagerService(entityType);
     return entityManager.createOrUpdate(entityData);
-  }
-
-  getEntity(entityType: string, entityId: string): Observable<any> {
-    return this._getEntityManagerService(entityType).getOne(entityId);
-  }
-
-  getEntities(entityType: string): Observable<IEntity[]> {
-    return this._getEntityManagerService(entityType).getAll();
   }
 
   _getEntityManagerService(entityType: string): EntityManager {

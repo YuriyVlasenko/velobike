@@ -46,10 +46,11 @@
     </form>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="parameters">
+    
     <form #fParams="ngForm" name="paramsFrom" (ngSubmit)="fParams.form.valid && addParameter()">
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !name.valid}">
           <label for="parameterValue">Параметр</label>
-        <select class="form-control" [(ngModel)]="selectedParameterId" required>
+        <select class="form-control" [(ngModel)]="selectedParameterId" required name="selectedParameterId">
               <option *ngFor="let parameter of allParameters" [ngValue]="parameter.id">{{parameter.displayName}}</option>
             </select>
       </div>
@@ -60,16 +61,24 @@
       </div>
       <div class="form-group form-actions">
         <button class="save-button" class="btn btn-primary">Добавить / Изменить</button>
-      </div>
+      </div> 
     </form>
-    <div class="exist-parameters">
+    <div class="exist-parameters" *ngIf="entityData.parameters.length">
       <div class="exist-parameter" 
-          (click)="selectProductParameter(productParameter)"
           *ngFor="let productParameter of entityData.parameters">
           <div class="exist-parameter__name">{{productParameter.parameter.displayName}}</div>
-          <div class="exist-parameter__name">{{productParameter.value}}</div>
+          <div class="exist-parameter__value">{{productParameter.value}}</div>
+          <div class="exist-parameter__actions">
+              <button class="btn btn-info" (click)="editProductParameter(productParameter)">
+                  <img src="/assets/edit.png"/>
+                </button>
+            <button class="btn btn-danger" (click)="deleteProductParameter(productParameter)">
+              <img src="/assets/delete.png"/>
+            </button>
+          </div>
       </div>
     </div>
+    <span *ngIf="!entityData.parameters.length">Параметров еще нет</span>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="images">
     TODO: implement

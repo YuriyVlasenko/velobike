@@ -1,3 +1,6 @@
+
+@import '../../../../variables';
+
 :host{
 
     display: flex;
@@ -15,6 +18,36 @@
         .exist-parameter   {
             display: flex;
             flex-direction: row;
+
+            .exist-parameter__name{
+                width: 30%;
+            }
+
+            .exist-parameter__value{
+                flex-grow: 1;
+            }
+
+            .exist-parameter__name, .exist-parameter__value{
+                padding: 5px;
+                align-self: center;
+            }
+
+            &:nth-child(odd){
+                background-color: $appMainColor3;
+            }
+
+            .exist-parameter__actions{
+                padding: 5px;
+                margin-left: 10px;
+
+                button{
+                    cursor: pointer;
+                }
+
+                img{
+                    height: 16px;
+                }
+            }
         }
     }
   

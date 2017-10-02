@@ -31,9 +31,6 @@ export class ProductEditorComponent implements OnInit {
     
     this.isCreating = !this.entityData.id;
 
-    // todo: load exist product parameters
-    //productParameters
-
     this.edp.parameters.subscribe((parametersList:Parameter[])=>{
       this.allParameters = parametersList;
     })
@@ -51,7 +48,20 @@ export class ProductEditorComponent implements OnInit {
 
   }
 
-  selectProductParameter(productParameter: ProductParameter){
-    console.log('product parameter selected', productParameter);
+  editProductParameter(productParameter: ProductParameter){
+    
+    console.log('product parameter selected for editing', productParameter);
+    this.selectedParameterId = productParameter.parameterId;
+    this.selectedParameterValue = productParameter.value;
+  }
+
+  deleteProductParameter(productParameter: ProductParameter){
+    console.log('product parameter deleted', productParameter);
+
+    //productParameter.id // TODO: remove from db
+    this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter)=>{
+       return parameter.id !== productParameter.id;
+    })
+
   }
 }
