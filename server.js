@@ -6,6 +6,8 @@ import session from 'express-session';
 import passport from 'passport';
 import path from 'path';
 import flash from 'connect-flash';
+import cloudinary from 'cloudinary';
+import cloudinaryConfig from './config/cloudinaryConfiguration';
 
 import dbProvider from './app/db/provider'
 import apiRouter from './app/routes/apiRouter'
@@ -13,6 +15,12 @@ import authRouter from './app/routes/authRouter'
 
 const staticFolder = 'dist';
 const app = express();
+
+cloudinary.config({
+    cloud_name: cloudinaryConfig.cloudName,
+    api_key: cloudinaryConfig.APIKey,
+    api_secret: cloudinaryConfig.APISecret
+});
 
 app.use(bodyParser.json())
 app.use(express.static(`${__dirname}/${staticFolder}`)); 

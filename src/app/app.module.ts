@@ -51,6 +51,7 @@ import { ParameterEditorComponent } from './components/admin/parameter-editor/pa
 import { ProductEditorComponent } from './components/admin/product-editor/product-editor.component';
 import { PhotoUploadComponent } from './components/admin/photo-upload/photo-upload.component';
 import { PhotoViewerComponent } from './components/photo-viewer/photo-viewer.component';
+import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 
 const appRoutes: Routes = [
   {
@@ -132,7 +133,8 @@ const appRoutes: Routes = [
     ParameterEditorComponent,
     ProductEditorComponent,
     PhotoUploadComponent,
-    PhotoViewerComponent
+    PhotoViewerComponent,
+    PhotoEditorComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: false }),

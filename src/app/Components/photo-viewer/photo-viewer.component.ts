@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'photo-viewer',
@@ -7,9 +7,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PhotoViewerComponent implements OnInit {
 
+  @Input() 
+  productId: string;
+  
   // TODO: implement
 
-  constructor() { }
+  constructor() { } 
 
   ngOnInit() {
   }

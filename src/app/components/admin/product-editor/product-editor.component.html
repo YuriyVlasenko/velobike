@@ -70,8 +70,6 @@
     </div>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="images">
-    <gallery (viewerChange)="imageSelected($event)">
-    </gallery>
-    <photo-upload></photo-upload>
+    <photo-editor [product]="entityData"></photo-editor>
   </div>
 </div>

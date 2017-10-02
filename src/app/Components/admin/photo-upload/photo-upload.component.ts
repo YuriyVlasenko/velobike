@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, NgZone } from '@angular/core';
+import { Component, OnInit, NgZone, Output, EventEmitter, Input } from '@angular/core';
 import { Http, Response, RequestOptions, Headers } from '@angular/http';
 import { FileUploader, FileUploaderOptions, ParsedResponseHeaders } from 'ng2-file-upload';
 import 'rxjs/add/operator/toPromise';
@@ -6,12 +6,15 @@ import { Cloudinary } from '@cloudinary/angular-4.x';
 
 @Component({
   selector: 'photo-upload',
-  templateUrl: 'photo-upload.component.html'
+  templateUrl: './photo-upload.component.html'
 })
 export class PhotoUploadComponent implements OnInit {
 
-  @Input()
+  @Input() 
   responses: Array<any>;
+
+  @Output()
+  imageUploaded: EventEmitter<string>;
 
   private hasBaseDropZoneOver: boolean = false;
   private uploader: FileUploader;
@@ -133,14 +136,5 @@ export class PhotoUploadComponent implements OnInit {
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
-  }
-
-  getFileProperties(fileProperties: any) {
-    // Transforms Javascript Object to an iterable to be used by *ngFor
-    if (!fileProperties) {
-      return null;
-    }
-    return Object.keys(fileProperties)
-      .map((key) => ({ 'key': key, 'value': fileProperties[key] }));
   }
 }

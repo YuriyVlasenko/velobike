@@ -7,6 +7,7 @@ import valueTypesModel from '../db/models/valueTypes';
 import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
 import productImagesModel from '../db/models/productImages';
+import cloudinary from 'cloudinary';
 
 const protectedModels = [usersModel.name];
 
@@ -90,6 +91,19 @@ const createModelApi = (router, model) => {
         var itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);
 
+        if (model.name === productImagesModel.name) {
+
+            model.getOne(id).then((entity) => {
+               // TODO: implement. 
+            });
+
+            // remove image from cloudinary
+            /*
+            cloudinary.v2.api.delete_resources(['image1', 'image2'],
+            function(error, result){console.log(result);});
+            */
+        }
+
         console.log(`remove item for ${model.name} with id ${itemId}`);
 
         model.deleteOne(itemId).then((isCompleted) => {
@@ -105,7 +119,7 @@ const apiRouter = express.Router();
 
 const models = [categoriesModel, parametersModel, productParametersModel, productsModel, valueTypesModel,
     contactInformationModel, usersModel, productImagesModel];
-    
+
 // Create routes for models.
 for (let i = 0; i < models.length; i++) {
     createModelApi(apiRouter, models[i]);
