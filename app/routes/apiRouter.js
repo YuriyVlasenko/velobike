@@ -6,6 +6,7 @@ import productsModel from '../db/models/products';
 import valueTypesModel from '../db/models/valueTypes';
 import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
+import productImagesModel from '../db/models/productImages';
 
 const protectedModels = [usersModel.name];
 
@@ -102,7 +103,9 @@ const createModelApi = (router, model) => {
 
 const apiRouter = express.Router();
 
-const models = [categoriesModel, parametersModel, productParametersModel, productsModel, valueTypesModel, contactInformationModel, usersModel];
+const models = [categoriesModel, parametersModel, productParametersModel, productsModel, valueTypesModel,
+    contactInformationModel, usersModel, productImagesModel];
+    
 // Create routes for models.
 for (let i = 0; i < models.length; i++) {
     createModelApi(apiRouter, models[i]);

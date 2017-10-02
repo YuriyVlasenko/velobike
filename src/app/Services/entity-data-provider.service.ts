@@ -101,7 +101,7 @@ export default class EntityDataProviderService {
       });
 
     // load categories tree.
-    this.categoriesManager.getAllAsTree()
+    this.categoriesManager.getAllAsTree()  
       .subscribe((categoryItems) => {
         this.categoriesTree.next(categoryItems);
         this.categoriesTree.complete();

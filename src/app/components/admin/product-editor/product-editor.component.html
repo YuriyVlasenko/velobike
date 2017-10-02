@@ -48,7 +48,7 @@
   <div role="tabpanel" class="tab-pane fade" id="parameters">
     <form #fParams="ngForm" name="paramsFrom" (ngSubmit)="fParams.form.valid && addParameter()">
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !name.valid}">
-          <label for="parameterValue">Параметр</label>
+        <label for="parameterValue">Параметр</label>
         <select class="form-control" [(ngModel)]="selectedParameterId" required name="selectedParameterId">
               <option *ngFor="let parameter of allParameters" [ngValue]="parameter.id">{{parameter.displayName}}</option>
             </select>
@@ -63,15 +63,15 @@
       </div>
     </form>
     <div class="exist-parameters">
-      <div class="exist-parameter" 
-          (click)="selectProductParameter(productParameter)"
-          *ngFor="let productParameter of entityData.parameters">
-          <div class="exist-parameter__name">{{productParameter.parameter.displayName}}</div>
-          <div class="exist-parameter__name">{{productParameter.value}}</div>
+      <div class="exist-parameter" (click)="selectProductParameter(productParameter)" *ngFor="let productParameter of entityData.parameters">
+        <div class="exist-parameter__name">{{productParameter.parameter.displayName}}</div>
+        <div class="exist-parameter__name">{{productParameter.value}}</div>
       </div>
-    </div>   
+    </div>
   </div>
   <div role="tabpanel" class="tab-pane fade" id="images">
+    <gallery (viewerChange)="imageSelected($event)">
+    </gallery>
     <photo-upload></photo-upload>
   </div>
 </div>
