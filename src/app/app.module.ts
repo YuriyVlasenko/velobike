@@ -17,6 +17,7 @@ import ParameterManagerService from './Services/entityManagers/parameter-manager
 import ProductManagerService from './Services/entityManagers/product-manager.service';
 import ProductParametersManagerService from './Services/entityManagers/product-parameters-manager.service';
 import ValueTypeManagerService from './Services/entityManagers/value-type-manager.service';
+import ProductImagesManagerService from './Services/entityManagers/product-images-manager.service';
 import ContactInformationService from './Services/entityManagers/contact-information.service';
 import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
@@ -161,7 +162,8 @@ const appRoutes: Routes = [
     { provide: AuthService, useClass: AuthService },
     { provide: UsersManagerService, useClass: UsersManagerService },
     { provide: AuthGuard, useClass: AuthGuard },
-    { provide: UIEventsService, useClass: UIEventsService }
+    { provide: UIEventsService, useClass: UIEventsService },
+    { provide: ProductImagesManagerService, useClass: ProductImagesManagerService }
   ],
   bootstrap: [AppComponent] 
 })

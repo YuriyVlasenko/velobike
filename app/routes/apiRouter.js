@@ -94,14 +94,13 @@ const createModelApi = (router, model) => {
         if (model.name === productImagesModel.name) {
 
             model.getOne(id).then((entity) => {
-               // TODO: implement. 
-            });
+                const imageCode = entity.getImageCode();
+                console.log('imageCode', imageCode);
 
-            // remove image from cloudinary
-            /*
-            cloudinary.v2.api.delete_resources(['image1', 'image2'],
-            function(error, result){console.log(result);});
-            */
+                cloudinary.v2.api.delete_resources([imageCode], function (error, result) {
+                    console.log(error, result);
+                });
+            });
         }
 
         console.log(`remove item for ${model.name} with id ${itemId}`);

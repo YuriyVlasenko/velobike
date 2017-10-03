@@ -7,7 +7,7 @@ import passport from 'passport';
 import path from 'path';
 import flash from 'connect-flash';
 import cloudinary from 'cloudinary';
-import cloudinaryConfig from './config/cloudinaryConfiguration';
+import cloudinaryConfig from './config/cloudinaryConfig';
 
 import dbProvider from './app/db/provider'
 import apiRouter from './app/routes/apiRouter'

@@ -12,6 +12,11 @@ const modelSchema = new Schema({
     height: { type: Number, required: true }
 });
 
+modelSchema.methods.getImageCode = function (cb) {
+    console.log('getImageCode', this.url);
+    return this.url;
+};
+
 const Model = mongoose.model(modelName, modelSchema);
 
 class ModelClass extends ModelBase {
@@ -37,7 +42,7 @@ class ModelClass extends ModelBase {
 
             this._fieldValidator.validateStringEmpty(productId, 'productId');
             this._fieldValidator.validateStringEmpty(url, 'url');
-            
+
         }
 
         this._fieldValidator.validateNumber(width, "width", 0, 20000);
