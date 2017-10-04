@@ -64,7 +64,7 @@ export default class EntityDataProviderService {
     });
   }
 
-  _resolveProductParameters(itemsLoader: Observable<any[]>): Observable<any[]> {
+  _resolveProductParameters(itemsLoader: Observable<any[]>, reload: boolean): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
       return this.productParameters.map((productParameterItems: ProductParameter[]) => {
         // Add parameters to products
@@ -78,7 +78,7 @@ export default class EntityDataProviderService {
     });
   }
 
-  _resolvProductImages(itemsLoader: Observable<any[]>): Observable<any[]> {
+  _resolveProductImages(itemsLoader: Observable<any[]>, reload: boolean): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
 
       return this.productImages.map((productImageItems: ProductImage[]) => {
@@ -112,7 +112,7 @@ export default class EntityDataProviderService {
       .subscribe((productImages) => {
         this.productImages.next(productImages);
         this.productImages.complete();
-    });
+      });
 
     // Load valuetypes
     this.valueTypeManager.getAll()
@@ -161,8 +161,8 @@ export default class EntityDataProviderService {
     // load list of all products
 
     let productLoader = this.productManager.getAll();
-    productLoader = this._resolveProductParameters(productLoader);
-    productLoader = this._resolvProductImages(productLoader);
+    productLoader = this._resolveProductParameters(productLoader, false);
+    productLoader = this._resolveProductImages(productLoader, false);
 
     productLoader.subscribe((products) => {
       this.products.next(products);
@@ -202,14 +202,14 @@ export default class EntityDataProviderService {
     return localSubject.asObservable();
   }
 
-  getEntity(entityType: string, entityId: string): Observable<any> {
+  getEntity(entityType: string, entityId: string, reload: boolean = false): Observable<any> {
     const itemLoader = this._getEntityManagerService(entityType).getOne(entityId);
 
     if (entityType === entityTypes.PRODUCTS.Name) {
 
       let productLoader = itemLoader.map((product) => { return [product]; });
-      productLoader = this._resolveProductParameters(productLoader);
-      productLoader = this._resolvProductImages(productLoader);
+      productLoader = this._resolveProductParameters(productLoader, reload);
+      productLoader = this._resolveProductImages(productLoader, reload);
 
       return productLoader.map((products) => products[0]);
 
@@ -217,14 +217,14 @@ export default class EntityDataProviderService {
     return itemLoader;
   }
 
-  getEntities(entityType: string): Observable<IEntity[]> {
+  getEntities(entityType: string, reload: boolean = false): Observable<IEntity[]> {
     const itemsLoader = this._getEntityManagerService(entityType).getAll();
 
     if (entityType === entityTypes.PRODUCTS.Name) {
 
       let productLoader = itemsLoader;
-      productLoader = this._resolveProductParameters(productLoader);
-      productLoader = this._resolvProductImages(productLoader);
+      productLoader = this._resolveProductParameters(productLoader, reload);
+      productLoader = this._resolveProductImages(productLoader , reload);
 
       return itemsLoader;
     }

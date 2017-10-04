@@ -1,5 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import Product from '../../Model/product';
+import ProductImage from '../../Model/productImage';
+
 import ProductImageManager from '../../Services/entityManagers/product-images-manager.service';
 
 @Component({
@@ -17,8 +19,20 @@ export class PhotoEditorComponent implements OnInit {
     console.log('this.product', this.product);
   }
 
-  addImage(imageUrl) {
-    console.log(`add url: ${imageUrl}`)
+  addImage({ url, width, height }) {
+
+    console.log(`add `, url, width, height);
+
+    const productImage = new ProductImage('', this.product.id, url, width, height);
+
+    this.productImageManager
+      .createOrUpdate(productImage)
+      .subscribe((isCompleted) => {
+        if (isCompleted) {
+          // TODO: remoad 
+        }
+      })
+
   }
 
   removeImage(imageId) {
@@ -32,4 +46,5 @@ export class PhotoEditorComponent implements OnInit {
         }
       })
   }
+
 }

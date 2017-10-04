@@ -11,7 +11,7 @@ import { Cloudinary } from '@cloudinary/angular-4.x';
 
 export class PhotoUploadComponent implements OnInit {
 
-  @Output() imageUploaded = new EventEmitter<string>();
+  @Output() imageUploaded = new EventEmitter<{ url: string, width: number, height: number }>();
 
   private responses: Array<any>;
   private hasBaseDropZoneOver: boolean = false;
@@ -73,6 +73,12 @@ export class PhotoUploadComponent implements OnInit {
       this.zone.run(() => {
         // Update an existing entry if it's upload hasn't completed yet
 
+        let { url, width, height } = fileItem.data;
+
+        if (url) {
+          this.imageUploaded.emit({ url, width, height })
+        }
+
         // Find the id of an existing item
         const existingId = this.responses.reduce((prev, current, index) => {
           if (current.file.name === fileItem.file.name && !current.status) {
@@ -91,46 +97,17 @@ export class PhotoUploadComponent implements OnInit {
     };
 
     // Update model on completion of uploading a file
-    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) =>
-      upsertResponse(
-        {
-          file: item.file,
-          status,
-          data: JSON.parse(response)
-        }
-      );
+    this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
+      return upsertResponse({ file: item.file, status, data: JSON.parse(response) })
+
+    }
+
 
     // Update model on upload progress event
-    this.uploader.onProgressItem = (fileItem: any, progress: any) =>
-      upsertResponse(
-        {
-          file: fileItem.file,
-          progress,
-          data: {}
-        }
-      );
+    this.uploader.onProgressItem = (fileItem: any, progress: any) => {
+      return upsertResponse({ file: fileItem.file, progress, data: {} });
+    }
   }
-
-  // Delete an uploaded image
-  // Requires setting "Return delete token" to "Yes" in your upload preset configuration
-  // See also https://support.cloudinary.com/hc/en-us/articles/202521132-How-to-delete-an-image-from-the-client-side-
-  deleteImage = function (data: any, index: number) {
-    const url = `https://api.cloudinary.com/v1_1/${this.cloudinary.config().cloud_name}/delete_by_token`;
-    let headers = new Headers({ 'Content-Type': 'application/json', 'X-Requested-With': 'XMLHttpRequest' });
-    let options = new RequestOptions({ headers: headers });
-    const body = {
-      token: data.delete_token
-    };
-    this.http.post(url, body, options)
-      .toPromise()
-      .then((response) => {
-        console.log(`Deleted image - ${data.public_id} ${response.json().result}`);
-        // Remove deleted item for responses
-        this.responses.splice(index, 1);
-      }).catch((err: any) => {
-        console.log(`Failed to delete image ${data.public_id} ${err}`);
-      });
-  };
 
   fileOverBase(e: any): void {
     this.hasBaseDropZoneOver = e;
