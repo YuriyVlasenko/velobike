@@ -27,8 +27,6 @@ export class ProductEditorComponent implements OnInit {
 
   ngOnInit() {
 
-    console.log(this.entityData);
-
     this.isCreating = !this.entityData.id;
 
     // todo: load exist product parameters
@@ -40,7 +38,7 @@ export class ProductEditorComponent implements OnInit {
 
     this.edp.getEntities(EntityTypes.CATEGORIES.Name).subscribe((entities: Category[]) => {
       this.categoriesList = entities;
-    });
+    }); 
   }
 
   saveChanges() {

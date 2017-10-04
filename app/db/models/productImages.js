@@ -14,7 +14,14 @@ const modelSchema = new Schema({
 
 modelSchema.methods.getImageCode = function (cb) {
     console.log('getImageCode', this.url);
-    return this.url;
+    if (this.url){
+        var publicIdRx = new RegExp('(\\w+)\\.\\w+$');
+        let matches = this.url.match(publicIdRx)
+        if (matches.length> 1){
+            return matches[1];
+        }
+    }
+    return '';
 };
 
 const Model = mongoose.model(modelName, modelSchema);

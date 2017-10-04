@@ -1,0 +1,29 @@
+:host{
+    .image-container{
+
+        display: flex;
+        flex-wrap: wrap;
+        flex-direction: row;
+
+        .image-item{
+            position: relative;
+            max-width: 300px;
+            max-height: 300px;
+            padding: 5px;
+            margin: 5px;
+            border: 1px solid gray;
+
+            button{
+                cursor: pointer;
+                position: absolute;
+                right: 5px;
+                top: 5px;
+            }
+
+            img{
+                max-height: 100%;
+                max-width: 100%;
+            }
+        }
+    }
+}

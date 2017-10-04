@@ -1,9 +1,12 @@
 import ProductParameter from './productParameter';
+import ProductImage from './productImage';
 import IEntity from './IEntity';
+
 
 export default class Product  implements IEntity {
 
-    public parameters: ProductParameter[];
+    public parameters: ProductParameter[]; 
+    public images: ProductImage[];
 
     constructor(
         public id: string,

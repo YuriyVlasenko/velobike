@@ -53,9 +53,6 @@ export default class EntityDataProviderService {
 
   _resolveParameters(itemsLoader: Observable<any[]>): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
-
-      console.log('_resolveParameters', items);
-
       return this.parameters.map((parameterItems: Parameter[]) => {
 
         items.forEach((productParameterItem) => {
@@ -69,13 +66,7 @@ export default class EntityDataProviderService {
 
   _resolveProductParameters(itemsLoader: Observable<any[]>): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
-
-      console.log('_resolveProductParameters', items);
-
       return this.productParameters.map((productParameterItems: ProductParameter[]) => {
-
-        console.log('productParameterItems', productParameterItems);
-
         // Add parameters to products
         items.forEach((productItem: Product) => {
           productItem.parameters = productParameterItems.filter((productParameterItem) => {
@@ -85,6 +76,25 @@ export default class EntityDataProviderService {
         return items;
       })
     });
+  }
+
+  _resolvProductImages(itemsLoader: Observable<any[]>): Observable<any[]> {
+    return itemsLoader.switchMap((items) => {
+
+      return this.productImages.map((productImageItems: ProductImage[]) => {
+
+        // Add images to products
+        items.forEach((productItem: Product) => {
+
+          productItem.images = productImageItems.filter((productImage) => {
+            return productImage.productId === productItem.id
+          })
+        })
+
+        return items;
+      });
+    }
+    );
   }
 
   constructor(
@@ -102,7 +112,7 @@ export default class EntityDataProviderService {
       .subscribe((productImages) => {
         this.productImages.next(productImages);
         this.productImages.complete();
-      });
+    });
 
     // Load valuetypes
     this.valueTypeManager.getAll()
@@ -120,7 +130,6 @@ export default class EntityDataProviderService {
       });
 
     // Load productParameters
-
     this._resolveParameters(this.productParameterManager.getAll())
       .subscribe((productParameterItems) => {
         this.productParameters.next(productParameterItems);
@@ -151,11 +160,14 @@ export default class EntityDataProviderService {
 
     // load list of all products
 
-    this._resolveProductParameters(this.productManager.getAll())
-      .subscribe((products) => {
-        this.products.next(products);
-        this.products.complete();
-      })
+    let productLoader = this.productManager.getAll();
+    productLoader = this._resolveProductParameters(productLoader);
+    productLoader = this._resolvProductImages(productLoader);
+
+    productLoader.subscribe((products) => {
+      this.products.next(products);
+      this.products.complete();
+    })
 
   }
 
@@ -194,7 +206,13 @@ export default class EntityDataProviderService {
     const itemLoader = this._getEntityManagerService(entityType).getOne(entityId);
 
     if (entityType === entityTypes.PRODUCTS.Name) {
-      return this._resolveProductParameters(itemLoader.map((product) => { return [product]; })).map((products) => products[0]);
+
+      let productLoader = itemLoader.map((product) => { return [product]; });
+      productLoader = this._resolveProductParameters(productLoader);
+      productLoader = this._resolvProductImages(productLoader);
+
+      return productLoader.map((products) => products[0]);
+
     }
     return itemLoader;
   }
@@ -203,7 +221,12 @@ export default class EntityDataProviderService {
     const itemsLoader = this._getEntityManagerService(entityType).getAll();
 
     if (entityType === entityTypes.PRODUCTS.Name) {
-      return this._resolveProductParameters(itemsLoader);
+
+      let productLoader = itemsLoader;
+      productLoader = this._resolveProductParameters(productLoader);
+      productLoader = this._resolvProductImages(productLoader);
+
+      return itemsLoader;
     }
 
     return itemsLoader;

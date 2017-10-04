@@ -88,29 +88,47 @@ const createModelApi = (router, model) => {
     // delete item
     router.delete(`/${model.name}/:id`, getAuthenticator(), function (req, res) {
 
-        var itemId = req.params.id;
+        let itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);
 
-        if (model.name === productImagesModel.name) {
+        let modelSpecificAction = new Promise((resolve, reject) => {
+            if (model.name === productImagesModel.name) {
 
-            model.getOne(id).then((entity) => {
-                const imageCode = entity.getImageCode();
-                console.log('imageCode', imageCode);
+                console.log('get entity wit id: ' + itemId);
 
-                cloudinary.v2.api.delete_resources([imageCode], function (error, result) {
-                    console.log(error, result);
+                model.getOne(itemId).then((entity) => {
+
+                    console.log(entity);
+
+                    if (entity) {
+                        const imageCode = entity.getImageCode();
+                        console.log('imageCode', imageCode);
+
+                        cloudinary.v2.api.delete_resources([imageCode], function (error, result) {
+                            console.log(error, result);
+                            resolve();
+                        });
+                    }
+                    else {
+                        resolve();
+                    }
                 });
-            });
-        }
-
-        console.log(`remove item for ${model.name} with id ${itemId}`);
-
-        model.deleteOne(itemId).then((isCompleted) => {
-            return res.send({ isOk: true, data: isCompleted });
-        }).catch((error) => {
-            return res.send({ isOk: false, error });
+            }
+            else {
+                resolve();
+            }
         })
 
+        console.log(`remove item for ${model.name} with id ${itemId}`);
+        modelSpecificAction.then(() => {
+            console.log('modelSpecificAction resolved');
+
+            model.deleteOne(itemId).then((isCompleted) => {
+                return res.send({ isOk: true, data: isCompleted });
+            }).catch((error) => {
+                return res.send({ isOk: false, error });
+            })
+        })
     });
 }
 
