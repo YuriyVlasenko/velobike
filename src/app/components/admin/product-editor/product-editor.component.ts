@@ -32,13 +32,14 @@ export class ProductEditorComponent implements OnInit {
     // todo: load exist product parameters
     //productParameters
 
-    this.edp.parameters.subscribe((parametersList: Parameter[]) => {
-      this.allParameters = parametersList;
-    })
+    this.edp.getParameters()
+      .subscribe((parametersList: Parameter[]) => {
+        this.allParameters = parametersList;
+      })
 
     this.edp.getEntities(EntityTypes.CATEGORIES.Name).subscribe((entities: Category[]) => {
       this.categoriesList = entities;
-    }); 
+    });
   }
 
   saveChanges() {

@@ -29,7 +29,7 @@ export class PhotoEditorComponent implements OnInit {
       .createOrUpdate(productImage)
       .subscribe((isCompleted) => {
         if (isCompleted) {
-          // TODO: remoad 
+          // TODO: reload product images
         }
       })
 

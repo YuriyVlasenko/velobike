@@ -26,7 +26,7 @@ export class CategoriesListComponent implements OnInit {
 
   ngOnInit() {
 
-    this.edp.categoriesTree
+    this.edp.getCategoriesTree()
       .subscribe((categoryTreeNodes) => {
         this.rootCategories = categoryTreeNodes;
       });
@@ -38,14 +38,12 @@ export class CategoriesListComponent implements OnInit {
   }
 
   treeInitialized() {
-    console.log('treeInitialized');
-
     // Wait for tree rendered.
-    setTimeout(()=>{
+    setTimeout(() => {
 
-      if (this.activeCategoryId){
+      if (this.activeCategoryId) {
         const treeNode = this.tree.treeModel.getNodeById(this.activeCategoryId)
-        if (treeNode){
+        if (treeNode) {
           treeNode.toggleActivated();
           treeNode.ensureVisible();
         }

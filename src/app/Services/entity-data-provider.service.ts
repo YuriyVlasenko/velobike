@@ -19,83 +19,14 @@ import Product from '../Model/product';
 import ProductImage from '../Model/productImage';
 import ContactInformation from '../Model/contactInformation';
 import IEntity from './../Model/IEntity';
-
+ 
 import entityTypes from '../Services/entity-types';
+import CategoryTreeNode from '../Model/categoryTreeNode';
 
 @Injectable()
 export default class EntityDataProviderService {
 
-  private valueTypes = new AsyncSubject();
-  public parameters = new AsyncSubject();
-  public productParameters = new AsyncSubject();
-  public productImages = new AsyncSubject();
-  public categoriesTree = new AsyncSubject();
-  public categories = new AsyncSubject<Category[]>();
-  public products = new AsyncSubject<Product[]>();
-  public activatedRoute = new BehaviorSubject([]);
-  public contactInformation = new AsyncSubject<ContactInformation[]>();
-
-  _resolveValueTypes(itemsLoader: Observable<any[]>): Observable<any[]> {
-
-    return itemsLoader
-      .switchMap((items) => {
-        return this.valueTypes
-          .map((valueTypeItems: ValueType[]) => {
-
-            items.forEach((parameter) => {
-              parameter.valueType = valueTypeItems.find((valueTypeItem) => valueTypeItem.id === parameter.valueTypeId);
-            })
-
-            return items;
-          });
-      });
-  }
-
-  _resolveParameters(itemsLoader: Observable<any[]>): Observable<any[]> {
-    return itemsLoader.switchMap((items) => {
-      return this.parameters.map((parameterItems: Parameter[]) => {
-
-        items.forEach((productParameterItem) => {
-          productParameterItem.parameter = parameterItems.find((parameterItem) => parameterItem.id === productParameterItem.parameterId);
-        });
-
-        return items;
-      });
-    });
-  }
-
-  _resolveProductParameters(itemsLoader: Observable<any[]>, reload: boolean): Observable<any[]> {
-    return itemsLoader.switchMap((items) => {
-      return this.productParameters.map((productParameterItems: ProductParameter[]) => {
-        // Add parameters to products
-        items.forEach((productItem: Product) => {
-          productItem.parameters = productParameterItems.filter((productParameterItem) => {
-            return productParameterItem.productId === productItem.id
-          })
-        })
-        return items;
-      })
-    });
-  }
-
-  _resolveProductImages(itemsLoader: Observable<any[]>, reload: boolean): Observable<any[]> {
-    return itemsLoader.switchMap((items) => {
-
-      return this.productImages.map((productImageItems: ProductImage[]) => {
-
-        // Add images to products
-        items.forEach((productItem: Product) => {
-
-          productItem.images = productImageItems.filter((productImage) => {
-            return productImage.productId === productItem.id
-          })
-        })
-
-        return items;
-      });
-    }
-    );
-  }
+  public activatedRoute = new BehaviorSubject([]); // TODO: check
 
   constructor(
     private categoriesManager: CategorieManager,
@@ -107,74 +38,108 @@ export default class EntityDataProviderService {
     private userManager: UserManager,
     private productImageManager: ProductImageManager) {
 
-    //productImages
-    this.productImageManager.getAll()
-      .subscribe((productImages) => {
-        this.productImages.next(productImages);
-        this.productImages.complete();
-      });
-
-    // Load valuetypes
-    this.valueTypeManager.getAll()
-      .subscribe((valueTypes) => {
-        this.valueTypes.next(valueTypes);
-        this.valueTypes.complete();
-      });
-
-    // Load parameters
-
-    this.parameterManager.getAll()
-      .subscribe((parameters) => {
-        this.parameters.next(parameters);
-        this.parameters.complete();
-      });
-
-    // Load productParameters
-    this._resolveParameters(this.productParameterManager.getAll())
-      .subscribe((productParameterItems) => {
-        this.productParameters.next(productParameterItems);
-        this.productParameters.complete();
-      });
+  }
 
 
-    contactInformationManager.getAll()
-      .subscribe((contactInformationItems: ContactInformation[]) => {
-        this.contactInformation.next(contactInformationItems);
-        this.contactInformation.complete();
-      })
-
-    // load list of categories.
-    this.categoriesManager.getAll()
-      .subscribe((categoryItems: Category[]) => {
-        this.categories.next(categoryItems);
-        this.categories.complete();
-      });
-
-    // load categories tree.
-    this.categoriesManager.getAllAsTree()
-
-      .subscribe((categoryItems) => {
-        this.categoriesTree.next(categoryItems);
-        this.categoriesTree.complete();
-      });
-
-    // load list of all products
-
+  getProducts(): Observable<Product[]> {
     let productLoader = this.productManager.getAll();
-    productLoader = this._resolveProductParameters(productLoader, false);
-    productLoader = this._resolveProductImages(productLoader, false);
+    productLoader = this._applyImagesForProducts(productLoader);
+    productLoader = this._applyParametersForProduct(productLoader);
 
-    productLoader.subscribe((products) => {
-      this.products.next(products);
-      this.products.complete();
-    })
+    return productLoader;
+  }
 
+  _applyImagesForProducts(productsLoader: Observable<any[]>): Observable<any[]> {
+    return productsLoader.switchMap((products) => {
+      return this._getProductImages().map((productImages: ProductImage[]) => {
+        // Add images to products
+        products.forEach((product: Product) => {
+
+          product.images = productImages.filter((productImage) => {
+            return productImage.productId === product.id
+          })
+        })
+        return products;
+      });
+    }
+    );
+  }
+
+  _getProductImages(): Observable<ProductImage[]> {
+    return this.productImageManager.getAll();
+  }
+
+  _applyParametersForProductParameters(productParametersLoader: Observable<any[]>): Observable<any[]> {
+    return productParametersLoader.switchMap((productParameters) => {
+
+      return this.getParameters().map((parameterItems: Parameter[]) => {
+
+        productParameters.forEach((productParameter) => {
+          productParameter.parameter = parameterItems.find((parameterItem) => parameterItem.id === productParameter.parameterId);
+        });
+
+        return productParameters;
+      });
+    });
+  }
+
+  _applyValueTypesForParameters(parametersLoader: Observable<any[]>): Observable<any[]> {
+
+    return parametersLoader.switchMap((parameters) => {
+      return this._getValueTypes().map((valueTypeItems: ValueType[]) => {
+
+        parameters.forEach((parameter) => {
+          parameter.valueType = valueTypeItems.find((valueTypeItem) => valueTypeItem.id === parameter.valueTypeId);
+        })
+
+        return parameters;
+      });
+    });
+  }
+
+  _applyParametersForProduct(itemsLoader: Observable<any[]>): Observable<any[]> {
+    return itemsLoader.switchMap((items) => {
+      return this._getProductParameters().map((productParameterItems: ProductParameter[]) => {
+        // Add parameters to products
+        items.forEach((productItem: Product) => {
+          productItem.parameters = productParameterItems.filter((productParameterItem) => {
+            return productParameterItem.productId === productItem.id
+          })
+        })
+        return items;
+      })
+    });
+  }
+
+  _getProductParameters():Observable<ProductParameter[]> {
+    let ppLoader  =this.productParameterManager.getAll();
+    ppLoader = this._applyParametersForProductParameters(ppLoader);
+    return ppLoader;
+  }
+
+  _getParameters(): Observable<Parameter[]> {
+    return this._applyValueTypesForParameters(this.parameterManager.getAll());
+  }
+
+  _getValueTypes(): Observable<ValueType[]> {
+    return this.valueTypeManager.getAll();
+  }
+
+  getParameters(): Observable<Parameter[]> {
+    return this._getParameters();
+  }
+
+  getCategoriesTree(): Observable<CategoryTreeNode[]> {
+    return this.categoriesManager.getAllAsTree();
+  }
+
+  getContactInformation(): Observable<ContactInformation[]> {
+    return this.contactInformationManager.getAll();
   }
 
   // TODO: check. try to return only one item.
   findCategory({ friendlyName }): Observable<Category[]> {
-
-    return this.categories.map((categories: Category[]) => {
+    return this.categoriesManager.getAll().map((categories: Category[]) => {
       const result = categories.filter((category: Category) => {
         return category.isMatch({ friendlyName })
       });
@@ -186,7 +151,7 @@ export default class EntityDataProviderService {
 
     const localSubject = new AsyncSubject<Product[]>();
 
-    this.products.subscribe((productItems) => {
+    this.getProducts().subscribe((productItems) => {
 
       let filteredProducts = productItems.filter((product: Product) => {
         return product.isMatch({ id, categoryId }) && product.isContains({ name });
@@ -202,14 +167,14 @@ export default class EntityDataProviderService {
     return localSubject.asObservable();
   }
 
-  getEntity(entityType: string, entityId: string, reload: boolean = false): Observable<any> {
+  getEntity(entityType: string, entityId: string): Observable<any> {
     const itemLoader = this._getEntityManagerService(entityType).getOne(entityId);
 
     if (entityType === entityTypes.PRODUCTS.Name) {
 
       let productLoader = itemLoader.map((product) => { return [product]; });
-      productLoader = this._resolveProductParameters(productLoader, reload);
-      productLoader = this._resolveProductImages(productLoader, reload);
+      productLoader = this._applyParametersForProduct(productLoader);
+      productLoader = this._applyImagesForProducts(productLoader);
 
       return productLoader.map((products) => products[0]);
 
@@ -217,14 +182,14 @@ export default class EntityDataProviderService {
     return itemLoader;
   }
 
-  getEntities(entityType: string, reload: boolean = false): Observable<IEntity[]> {
+  getEntities(entityType: string): Observable<IEntity[]> {
     const itemsLoader = this._getEntityManagerService(entityType).getAll();
 
     if (entityType === entityTypes.PRODUCTS.Name) {
 
       let productLoader = itemsLoader;
-      productLoader = this._resolveProductParameters(productLoader, reload);
-      productLoader = this._resolveProductImages(productLoader , reload);
+      productLoader = this._applyParametersForProduct(productLoader);
+      productLoader = this._applyImagesForProducts(productLoader);
 
       return itemsLoader;
     }

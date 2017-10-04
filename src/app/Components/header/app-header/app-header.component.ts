@@ -16,13 +16,14 @@ export class AppHeaderComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.edp.contactInformation.subscribe((contactInfoItems: ContactInformation[]) => {
-      
-      if (contactInfoItems.length) {
-        this.contactInfo = contactInfoItems[0];
-      }
-      
-    });
+    this.edp.getContactInformation()
+      .subscribe((contactInfoItems: ContactInformation[]) => {
+
+        if (contactInfoItems.length) {
+          this.contactInfo = contactInfoItems[0];
+        }
+
+      });
   }
 
 }
