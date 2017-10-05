@@ -8,6 +8,7 @@ import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
 import productImagesModel from '../db/models/productImages';
 import cloudinary from 'cloudinary';
+import cacheManager from '../cacheManager';
 
 const protectedModels = [usersModel.name];
 
@@ -35,8 +36,14 @@ const createModelApi = (router, model) => {
     // get all items
     router.get(`/${model.name}`, getAuthenticator(model.name), function (req, res) {
 
+        if (cacheManager.contain(model.name)) {
+            return res.send({ isOk: true, data: cacheManager.get(model.name) });
+        }
+
         console.log(`get all items for ${model.name}`)
+
         model.getAll().then((data) => {
+            cacheManager.set(model.name, data);
             return res.send({ isOk: true, data });
         }).catch((error) => {
             return res.send({ isOk: false, error });
@@ -66,6 +73,8 @@ const createModelApi = (router, model) => {
             return res.sendStatus(400);
         }
 
+        cacheManager.reset(model.name);
+
         if (model.name === usersModel.name) {
             if (req.body.id) {
                 req.body.name = null;
@@ -90,6 +99,8 @@ const createModelApi = (router, model) => {
 
         let itemId = req.params.id;
         if (!itemId) return res.sendStatus(400);
+
+        cacheManager.reset(model.name);
 
         let modelSpecificAction = new Promise((resolve, reject) => {
             if (model.name === productImagesModel.name) {

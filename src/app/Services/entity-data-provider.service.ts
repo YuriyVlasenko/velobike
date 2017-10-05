@@ -19,7 +19,7 @@ import Product from '../Model/product';
 import ProductImage from '../Model/productImage';
 import ContactInformation from '../Model/contactInformation';
 import IEntity from './../Model/IEntity';
- 
+
 import entityTypes from '../Services/entity-types';
 import CategoryTreeNode from '../Model/categoryTreeNode';
 
@@ -37,7 +37,6 @@ export default class EntityDataProviderService {
     private parameterManager: ParameterManager,
     private userManager: UserManager,
     private productImageManager: ProductImageManager) {
-
   }
 
 
@@ -45,7 +44,6 @@ export default class EntityDataProviderService {
     let productLoader = this.productManager.getAll();
     productLoader = this._applyImagesForProducts(productLoader);
     productLoader = this._applyParametersForProduct(productLoader);
-
     return productLoader;
   }
 
@@ -111,8 +109,8 @@ export default class EntityDataProviderService {
     });
   }
 
-  _getProductParameters():Observable<ProductParameter[]> {
-    let ppLoader  =this.productParameterManager.getAll();
+  _getProductParameters(): Observable<ProductParameter[]> {
+    let ppLoader = this.productParameterManager.getAll();
     ppLoader = this._applyParametersForProductParameters(ppLoader);
     return ppLoader;
   }
@@ -122,7 +120,7 @@ export default class EntityDataProviderService {
   }
 
   _getValueTypes(): Observable<ValueType[]> {
-    return this.valueTypeManager.getAll();
+    return this.valueTypeManager.getAll()
   }
 
   getParameters(): Observable<Parameter[]> {

@@ -26,7 +26,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    console.time();
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.currentCategoryFriendlyName = params.category;
@@ -77,6 +77,7 @@ export class MainPageComponent implements OnInit {
             });
           })
           .subscribe((products) => {
+            console.timeEnd();
             this.products = products;
           });
 
