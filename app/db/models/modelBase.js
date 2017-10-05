@@ -66,7 +66,8 @@ export default class ModelBase {
     save(item) {
         return new Promise((resolve, reject) => {
             item.save((error) => {
-                error ? reject(error) : resolve(true);
+                // Return item id.
+                error ? reject(error) : resolve(item.id);
             });
         });
     }

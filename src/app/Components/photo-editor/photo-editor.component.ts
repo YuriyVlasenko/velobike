@@ -27,9 +27,10 @@ export class PhotoEditorComponent implements OnInit {
 
     this.productImageManager
       .createOrUpdate(productImage)
-      .subscribe((isCompleted) => {
-        if (isCompleted) {
-          // TODO: reload product images
+      .subscribe((newItemId) => {
+        if (newItemId) {
+          productImage.id = newItemId;
+          this.product.images.push(productImage);
         }
       })
 

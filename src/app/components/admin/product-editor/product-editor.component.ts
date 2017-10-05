@@ -69,8 +69,4 @@ export class ProductEditorComponent implements OnInit {
   selectProductParameter(productParameter: ProductParameter) {
     console.log('product parameter selected', productParameter);
   }
-
-  imageSelected(imageData) {
-    console.log('image data', imageData);
-  }
 }

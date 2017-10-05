@@ -29,7 +29,7 @@ export default class EntityManagerService {
     }));
   }
 
-  createOrUpdate(data: any): Observable<boolean> {
+  createOrUpdate(data: any): Observable<string> {
     return httpHelper.processResponse(this.http.post(`${apiPrefix}/${this.apiMethod}`, data));
   }
 

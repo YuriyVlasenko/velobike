@@ -200,7 +200,7 @@ export default class EntityDataProviderService {
     return entityManager.delete(entityId);
   }
 
-  createOrUpdateEntity(entityType: string, entityData: any): Observable<boolean> {
+  createOrUpdateEntity(entityType: string, entityData: any): Observable<string> {
     const entityManager = this._getEntityManagerService(entityType);
     return entityManager.createOrUpdate(entityData);
   }
