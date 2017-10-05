@@ -10,7 +10,7 @@ import * as  Cloudinary from 'cloudinary-core';
 import cloudinaryConfiguration from './Config/cloudinaryConfiguration';
 import { TreeModule } from 'angular-tree-component';
 import { FileUploadModule } from 'ng2-file-upload';
-import {Angular2ImageGalleryModule} from 'angular2-image-gallery';
+import { NgxGalleryModule  } from 'ngx-gallery';
 
 import CategoriesManagerService from './Services/entityManagers/categories-manager.service';
 import ParameterManagerService from './Services/entityManagers/parameter-manager.service';
@@ -147,7 +147,7 @@ const appRoutes: Routes = [
     }),
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: cloudinaryConfiguration.cloudName, upload_preset: cloudinaryConfiguration.uploadPreset }),
     FileUploadModule,
-    Angular2ImageGalleryModule
+    NgxGalleryModule
   ],
   providers: [
     { provide: CategoriesManagerService, useClass: CategoriesManagerService },
