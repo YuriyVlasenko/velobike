@@ -22,6 +22,11 @@ $productDetailsMargin: 10px;
                 margin: $productDetailsMargin;
                 cursor: pointer;
                 border: 1px solid gray; // TODO: remove
+
+                img{
+                    width: 100%;
+                    height: 100%;
+                }
             }
 
             .product-description{

@@ -38,7 +38,6 @@ import { MainPageComponent } from './components/content/main-page/main-page.comp
 import { DeliveryPageComponent } from './components/content/delivery-page/delivery-page.component';
 import { ProductListItemComponent } from './components/content/product-list-item/product-list-item.component';
 import { ProductDetailComponent } from './components/content/product-detail/product-detail.component';
-import { ProductPictureComponent } from './components/common/product-picture/product-picture.component';
 import { SignInComponent } from './components/sign-in/sign-in.component';
 import { EntityTypeListComponent } from './components/admin/entity-type-list/entity-type-list.component';
 import { EntityItemsListComponent } from './components/admin/entity-items-list/entity-items-list.component';
@@ -121,7 +120,6 @@ const appRoutes: Routes = [
     DeliveryPageComponent,
     ProductListItemComponent,
     ProductDetailComponent,
-    ProductPictureComponent,
     SignInComponent,
     EntityTypeListComponent,
     EntityItemsListComponent,
@@ -168,3 +166,4 @@ const appRoutes: Routes = [
   bootstrap: [AppComponent] 
 })
 export class AppModule { }
+ 

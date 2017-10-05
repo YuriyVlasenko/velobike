@@ -6,7 +6,7 @@ import IEntity from './IEntity';
 export default class Product implements IEntity {
 
     public parameters: ProductParameter[];
-    public images: ProductImage[];
+    public images: ProductImage[] = [];
 
     constructor(
         public id: string,
@@ -16,7 +16,6 @@ export default class Product implements IEntity {
         public price: number = 0,
         public order: number = 0) {
         this.parameters = [];
-        this.images = [];
     }
 
     isMatch({ id = null, categoryId = null }): boolean {
@@ -51,4 +50,8 @@ export default class Product implements IEntity {
     get displayName(): string {
         return this.name;
     }
-}
+
+    get thumbnailPhoto(): string {
+        return this.images.length > 0? this.images[0].url: '/assets/noPhoto.png';
+    } 
+} 
