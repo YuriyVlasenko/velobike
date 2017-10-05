@@ -3,9 +3,9 @@ import ProductImage from './productImage';
 import IEntity from './IEntity';
 
 
-export default class Product  implements IEntity {
+export default class Product implements IEntity {
 
-    public parameters: ProductParameter[]; 
+    public parameters: ProductParameter[];
     public images: ProductImage[];
 
     constructor(
@@ -15,6 +15,8 @@ export default class Product  implements IEntity {
         public description: string,
         public price: number = 0,
         public order: number = 0) {
+        this.parameters = [];
+        this.images = [];
     }
 
     isMatch({ id = null, categoryId = null }): boolean {
@@ -46,7 +48,7 @@ export default class Product  implements IEntity {
         return isContains;
     }
 
-    get displayName():string {
+    get displayName(): string {
         return this.name;
     }
 }

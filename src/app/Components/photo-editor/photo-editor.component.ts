@@ -16,12 +16,9 @@ export class PhotoEditorComponent implements OnInit {
   constructor(private productImageManager: ProductImageManager) { }
 
   ngOnInit() {
-    console.log('this.product', this.product);
   }
 
   addImage({ url, width, height }) {
-
-    console.log(`add `, url, width, height);
 
     const productImage = new ProductImage('', this.product.id, url, width, height);
 

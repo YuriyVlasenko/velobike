@@ -10,6 +10,7 @@ export default class Category implements IEntity {
         public parentId: string,
         public friendlyName: string,
         public order: number = 0) {
+            this.subCategories = [];
     }
 
     isMatch({ id = null, name = null, friendlyName = null }): boolean {

@@ -2,10 +2,10 @@
   <li class="nav-item">
     <a class="nav-link active" href="#mainInfo" role="tab" data-toggle="tab">Основная информация</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" *ngIf="entityData.id">
     <a class="nav-link" href="#parameters" role="tab" data-toggle="tab">Параметры</a>
   </li>
-  <li class="nav-item">
+  <li class="nav-item" *ngIf="entityData.id && entityData.parameters.length">
     <a class="nav-link" href="#images" role="tab" data-toggle="tab">Изображения</a>
   </li>
 </ul>
@@ -14,19 +14,19 @@
 <div class="tab-content">
   <div role="tabpanel" class="tab-pane fade show active" id="mainInfo">
     <form #f="ngForm" name="from" (ngSubmit)="f.form.valid && saveChanges()">
-      <div class="form-group" [ngClass]="{'has-error': f.submitted && !name.valid}">
+      <div class="form-group" [ngClass]="{'has-error': f.submitted && !productName.valid}">
         <label for="name">Название товара</label>
-        <input class="form-control" type="text" [(ngModel)]="entityData.name" #name="ngModel" required name="name" />
+        <input class="form-control" type="text" [(ngModel)]="entityData.name" #productName="ngModel" required name="name" />
         <span class="error-message"> введите название товара </span>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': f.submitted && !order.valid}">
+      <div class="form-group" [ngClass]="{'has-error': f.submitted && !productOrder.valid}">
         <label for="order">Порядок отображения в списке</label>
-        <input class="form-control" type="number" min="0" [(ngModel)]="entityData.order" #categoryOrder="ngModel" name="order" />
+        <input class="form-control" type="number" min="0" [(ngModel)]="entityData.order" #productOrder="ngModel" name="order" required/>
         <span class="error-message"> введите порядок категории </span>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': f.submitted && !price.valid}">
+      <div class="form-group" [ngClass]="{'has-error': f.submitted && !productPrice.valid}">
         <label for="price">Стоимость</label>
-        <input class="form-control" type="number" min="0" [(ngModel)]="entityData.price" #categoryOrder="ngModel" name="price" />
+        <input class="form-control" type="number" min="0" [(ngModel)]="entityData.price" #productPrice="ngModel" name="price" required/>
         <span class="error-message"> введите стоимость </span>
       </div>
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !categoryId.valid}">
@@ -38,32 +38,34 @@
       </div>
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !description.valid}">
         <label for="description">Описание</label>
-        <input class="form-control" type="text" [(ngModel)]="entityData.description" #categoryName="ngModel" name="description" />
+        <input class="form-control" type="text" [(ngModel)]="entityData.description" #description="ngModel" name="description" />
       </div>
       <div class="form-group form-actions">
         <button class="save-button" class="btn btn-primary">{{isCreating?'Создать':'Сохранить'}} </button>
       </div>
     </form>
   </div>
-  <div role="tabpanel" class="tab-pane fade" id="parameters">
-    
+  <div role="tabpanel" class="tab-pane fade" id="parameters" *ngIf="entityData.id">
     <form #fParams="ngForm" name="paramsFrom" (ngSubmit)="fParams.form.valid && addParameter()">
-      <div class="form-group" [ngClass]="{'has-error': f.submitted && !name.valid}">
-          <label for="parameterValue">Параметр</label>
-        <select class="form-control" [(ngModel)]="selectedParameterId" required name="selectedParameterId">
+      <div class="form-group" [ngClass]="{'has-error': fParams.submitted && !selParameterId.valid}">
+          <label for="selectedParameterId">Параметр</label>
+        <select #selParameterId="ngModel" class="form-control" [(ngModel)]="selectedParameterId" required name="selectedParameterId" >
               <option *ngFor="let parameter of allParameters" [ngValue]="parameter.id">{{parameter.displayName}}</option>
             </select>
+            <span class="error-message">выберите параметр</span>
       </div>
-      <div class="form-group" [ngClass]="{'has-error': fParams.form.valid && !parameterValue.valid}">
+      <div class="form-group" [ngClass]="{'has-error': fParams.submitted && !parameterValue.valid}">
         <label for="parameterValue">Описание</label>
-        <input class="form-control" type="text" [(ngModel)]="selectedParameterValue" name="parameterValue" #parameterValue="ngModel"
+        <input class="form-control" type="text" [(ngModel)]="selectedParameterValue" 
+          name="parameterValue" #parameterValue="ngModel" required
           placeholder="введите значение" />
+          <span class="error-message">введите значение параметра</span>
       </div>
       <div class="form-group form-actions">
-        <button class="save-button" class="btn btn-primary">Добавить / Изменить</button>
+        <button class="save-button" class="btn btn-primary">Добавить / Сохранить</button>
       </div> 
     </form>
-    <div class="exist-parameters" *ngIf="entityData.parameters.length">
+    <div class="exist-parameters" *ngIf="entityData.id && entityData.parameters.length">
       <div class="exist-parameter" 
           *ngFor="let productParameter of entityData.parameters">
           <div class="exist-parameter__name">{{productParameter.parameter.displayName}}</div>

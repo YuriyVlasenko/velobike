@@ -9,5 +9,6 @@ export default class ProductParameter {
         public productId: string,
         public parameterId: string,
         public value: string) {
+        this.parameter = new Parameter('', '', '', '');
     }
 }

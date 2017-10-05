@@ -225,6 +225,9 @@ export default class EntityDataProviderService {
       case entityTypes.CONTACT_INFORMATION.Name: {
         return this.contactInformationManager;
       }
+      case entityTypes.PRODUCT_PARAMETER.Name: {
+        return this.productParameterManager;
+      }
       default: {
         throw new Error(`Loader for ${entityType} wasn't implemented. `);
       }
