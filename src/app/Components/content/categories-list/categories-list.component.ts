@@ -40,22 +40,28 @@ export class CategoriesListComponent implements OnInit {
   treeInitialized() {
     // Wait for tree rendered.
     setTimeout(() => {
-
       if (this.activeCategoryId) {
         const treeNode = this.tree.treeModel.getNodeById(this.activeCategoryId)
         if (treeNode) {
+          const selectedCategory = treeNode.data as CategoryTreeNode;
+          selectedCategory.shouldLoadProducts = false;
+
           treeNode.toggleActivated();
           treeNode.ensureVisible();
         }
       }
-    }, 1000);
+    }, 500);
   }
 
   selectedNodeChanged($event) {
 
     const selectedCategory = $event.node.data as CategoryTreeNode;
     if (selectedCategory) {
-      this.router.navigate(['/', selectedCategory.friendlyName]);
+
+      if (selectedCategory.shouldLoadProducts) {
+        this.router.navigate(['/', selectedCategory.friendlyName]);
+      }
+      selectedCategory.shouldLoadProducts = true;
     }
 
   }

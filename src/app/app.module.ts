@@ -26,7 +26,6 @@ import AuthGuard from './Services/guards/auth.guard';
 import UIEventsService from './Services/ui-events.service';
 
 import { CategoriesListComponent } from './components/content/categories-list/categories-list.component';
-import { CategoriesListItemComponent } from './components/content/categories-list-item/categories-list-item.component';
 import { LogoComponent } from './components/header/logo/logo.component';
 import { MenuBarComponent } from './components/header/menu-bar/menu-bar.component';
 import { SearchBarComponent } from './components/header/search-bar/search-bar.component';
@@ -108,7 +107,6 @@ const appRoutes: Routes = [
   declarations: [
     AppComponent,
     CategoriesListComponent,
-    CategoriesListItemComponent,
     LogoComponent,
     MenuBarComponent,
     SearchBarComponent,
