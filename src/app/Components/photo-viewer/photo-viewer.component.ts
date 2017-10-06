@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import ProductImage from '../../Model/productImage';
-import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryAnimation, INgxGalleryImage } from 'ngx-gallery';
+import { NgxGalleryOptions, NgxGalleryImage, NgxGalleryImageSize, NgxGalleryAnimation, INgxGalleryImage } from 'ngx-gallery';
 
 class GalleryImage {
 
@@ -33,6 +33,19 @@ export class PhotoViewerComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+
+    this.galleryOptions = [
+      {
+        width : '600px',
+        height: '500px',
+        thumbnailsColumns: 4,
+        imageAnimation: NgxGalleryAnimation.Slide,
+        imageSize : NgxGalleryImageSize.Contain,
+        arrowPrevIcon : 'fa fa-arrow-circle-o-left',
+        arrowNextIcon : 'fa fa-arrow-circle-o-right'
+      }
+    ];
+
     this.galleryImages = this.images.map((productImage) => {
       return new GalleryImage(productImage.url);
     });
