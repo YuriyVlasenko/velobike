@@ -79,3 +79,19 @@ body.app{
 ngx-gallery-preview.ngx-gallery-active{
     background-color: white !important;
 }
+
+.ngx-gallery-arrow-wrapper.ngx-gallery-arrow-left{
+    left: -30px !important;
+}
+
+.ngx-gallery-arrow-wrapper.ngx-gallery-arrow-right{
+    right: -30px !important;
+}
+
+ngx-gallery-preview .ngx-gallery-arrow-wrapper.ngx-gallery-arrow-right{
+    right: 0px !important;
+}
+
+ngx-gallery-preview .ngx-gallery-arrow-wrapper.ngx-gallery-arrow-left{
+    left: 0px !important;
+}

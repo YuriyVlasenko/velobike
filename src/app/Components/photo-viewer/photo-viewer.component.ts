@@ -41,6 +41,7 @@ export class PhotoViewerComponent implements OnInit {
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageSize : NgxGalleryImageSize.Contain,
+        thumbnailSize : NgxGalleryImageSize.Contain,
         arrowPrevIcon : 'fa fa-arrow-circle-o-left',
         arrowNextIcon : 'fa fa-arrow-circle-o-right'
       }
