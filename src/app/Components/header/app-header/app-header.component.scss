@@ -1,9 +1,7 @@
 @import '../../../../variables';
 
 :host{
-
-    display: none;
-    //display: flex;
+    display: flex;
     flex-direction: column;
 
     .header-content{

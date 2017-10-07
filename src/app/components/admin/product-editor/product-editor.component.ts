@@ -27,21 +27,17 @@ export class ProductEditorComponent implements OnInit {
 
   ngOnInit() {
 
-    this.isCreating = !this.entityData.id;
-
-    if (this.isCreating) {
-      this.entityData = new Product('', '', '', '', 0, 0);
-    }
-
     console.log(this.entityData);
+
+    this.isCreating = !this.entityData.id;
 
     // todo: load exist product parameters
     //productParameters
 
-    this.edp.getParameters()
-      .subscribe((parametersList: Parameter[]) => {
-        this.allParameters = parametersList;
-      })
+    
+    this.edp.getParameters().subscribe((parametersList: Parameter[]) => {
+      this.allParameters = parametersList;
+    })
 
     this.edp.getEntities(EntityTypes.CATEGORIES.Name).subscribe((entities: Category[]) => {
       this.categoriesList = entities;
@@ -54,52 +50,29 @@ export class ProductEditorComponent implements OnInit {
 
   addParameter() {
 
-    let selectedPP = this.entityData.parameters.find((productParameter) => {
-      return productParameter.parameterId === this.selectedParameterId;
-    })
-
-    if (selectedPP) {
-      // update product parameter
-      selectedPP.value = this.selectedParameterValue;
-      this.edp.createOrUpdateEntity(EntityTypes.PRODUCT_PARAMETER.Name, selectedPP);
-    }
-    else {
-      let newProductParameter = new ProductParameter('', this.entityData.id, this.selectedParameterId, this.selectedParameterValue);
-      this.edp
-        .createOrUpdateEntity(EntityTypes.PRODUCT_PARAMETER.Name, newProductParameter)
-        .subscribe((newItemId) => {
-          newProductParameter.id = newItemId;
-          newProductParameter.parameter = this.allParameters.find((parameter) => {
-            return parameter.id === newProductParameter.parameterId;
-          });
-          this.entityData.parameters.push(newProductParameter);
-        });
-    }
   }
 
   editProductParameter(productParameter: ProductParameter) {
+
     console.log('product parameter selected for editing', productParameter);
     this.selectedParameterId = productParameter.parameterId;
     this.selectedParameterValue = productParameter.value;
   }
 
   deleteProductParameter(productParameter: ProductParameter) {
+    console.log('product parameter deleted', productParameter);
 
-    this.edp
-      .deleteEntity(EntityTypes.PRODUCT_PARAMETER.Name, productParameter.id)
-      .subscribe((isCompleted) => {
-        if (isCompleted) {
-          this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter) => {
-            return parameter.id !== productParameter.id;
-          })
-        }
-        else {
-          console.error(`erro on deleting item with id: ${productParameter.id}`)
-        }
-      })
+    //productParameter.id // TODO: remove from db
+    this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter) => {
+      return parameter.id !== productParameter.id;
+    });
   }
 
   selectProductParameter(productParameter: ProductParameter) {
     console.log('product parameter selected', productParameter);
+  }
+
+  imageSelected(imageData) {
+    console.log('image data', imageData);
   }
 }

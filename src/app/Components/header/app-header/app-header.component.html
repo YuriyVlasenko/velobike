@@ -5,7 +5,7 @@
             <div class="shop-slogan">{{contactInfo.slogan}}</div>
             <div class="shop-menu">
                 <menu-bar></menu-bar>
-                <search-bar></search-bar>
+                <search-bar (onSearch)="searchProducts($event);"></search-bar>
             </div>
         </div>
         <div class="shop-contacts">
