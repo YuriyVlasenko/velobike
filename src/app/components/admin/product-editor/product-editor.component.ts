@@ -31,10 +31,6 @@ export class ProductEditorComponent implements OnInit {
 
     this.isCreating = !this.entityData.id;
 
-    // todo: load exist product parameters
-    //productParameters
-
-    
     this.edp.getParameters().subscribe((parametersList: Parameter[]) => {
       this.allParameters = parametersList;
     })
@@ -50,6 +46,35 @@ export class ProductEditorComponent implements OnInit {
 
   addParameter() {
 
+    let existParameters = this.entityData.parameters
+      .filter((parameter: ProductParameter) => {
+        return parameter.parameterId === this.selectedParameterId;
+      });
+
+    const isAdd = existParameters.length === 0;
+    let pp: ProductParameter;
+    if (isAdd) {
+      pp = new ProductParameter('', this.entityData.id, this.selectedParameterId, this.selectedParameterValue);
+    }
+    else {
+      pp = existParameters[0];
+      pp.value = this.selectedParameterValue;
+    }
+
+    this.edp
+      .createOrUpdateEntity(EntityTypes.PRODUCT_PARAMETER.Name, pp)
+      .subscribe((newItemId) => {
+        if (isAdd) {
+          pp.id = newItemId;
+
+          pp.parameter = this.allParameters.filter((parameter) => {
+            return parameter.id === pp.parameterId;
+          })[0];
+
+          this.entityData.parameters.push(pp);
+          
+        }
+      })
   }
 
   editProductParameter(productParameter: ProductParameter) {
@@ -60,19 +85,14 @@ export class ProductEditorComponent implements OnInit {
   }
 
   deleteProductParameter(productParameter: ProductParameter) {
-    console.log('product parameter deleted', productParameter);
-
-    //productParameter.id // TODO: remove from db
-    this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter) => {
-      return parameter.id !== productParameter.id;
-    });
-  }
-
-  selectProductParameter(productParameter: ProductParameter) {
-    console.log('product parameter selected', productParameter);
-  }
-
-  imageSelected(imageData) {
-    console.log('image data', imageData);
+    this.edp
+      .deleteEntity(EntityTypes.PRODUCT_PARAMETER.Name, productParameter.id)
+      .subscribe((isCompleted) => {
+        if (isCompleted) {
+          this.entityData.parameters = this.entityData.parameters.filter((parameter: ProductParameter) => {
+            return parameter.id !== productParameter.id;
+          });
+        }
+      })
   }
 }
