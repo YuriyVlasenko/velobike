@@ -4,6 +4,7 @@
 <product-detail [product]="product" *ngIf="product!=null" class="products_detail">
 </product-detail>
 <div class="products_list">
+    <span *ngIf="!products.length">Товари відсутні </span>
     <product-list-item (productSelected)="selectProduct($event)" class="products_list_item" *ngFor="let product of products"
         [product]="product">
     </product-list-item>

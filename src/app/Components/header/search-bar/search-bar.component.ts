@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, EventEmitter } from '@angular/core'
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -13,13 +14,12 @@ export class SearchBarComponent implements OnInit {
 
   public searchExpression: string;
 
-  constructor() { }
+  constructor(private router:  Router) { }
 
   ngOnInit() {
   }
 
   search() {
-    this.onSearch.emit(this.searchExpression);
+    this.router.navigate(['search', this.searchExpression]);
   }
-
 }

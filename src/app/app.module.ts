@@ -79,6 +79,10 @@ const appRoutes: Routes = [
     component: SitePanelComponent,
     children: [
       {
+        path: 'search/:expression',
+        component: MainPageComponent
+      },
+      {
         path: 'delivery',
         component: DeliveryPageComponent
       },
@@ -92,10 +96,6 @@ const appRoutes: Routes = [
       },
       {
         path: 'product/:id',
-        component: MainPageComponent
-      },
-      {
-        path: 'search/:expression',
         component: MainPageComponent
       }
     ]

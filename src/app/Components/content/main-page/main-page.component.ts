@@ -26,10 +26,19 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.time();
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.currentCategoryFriendlyName = params.category;
+
+      if (params.expression) {
+        this.edp.findProducts({ categoryId: null, id: null, name: params.expression })
+          .subscribe((products) => {
+            this.products = products;
+          });
+        return;
+      }
+
+
 
       if (params.category) {
         this.edp
@@ -77,7 +86,6 @@ export class MainPageComponent implements OnInit {
             });
           })
           .subscribe((products) => {
-            console.timeEnd();
             this.products = products;
           });
 
