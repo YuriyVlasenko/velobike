@@ -15,6 +15,7 @@ export class MainPageComponent implements OnInit {
 
   public products: Product[] = [];
   public product: Product = null;
+  public isMainPageContentVisible: boolean = true;
 
   private currentCategoryFriendlyName: String;
 
@@ -29,6 +30,7 @@ export class MainPageComponent implements OnInit {
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.currentCategoryFriendlyName = params.category;
+      this.isMainPageContentVisible = false;
 
       if (params.expression) {
         this.edp.findProducts({ categoryId: null, id: null, name: params.expression })
@@ -37,8 +39,6 @@ export class MainPageComponent implements OnInit {
           });
         return;
       }
-
-
 
       if (params.category) {
         this.edp
@@ -51,7 +51,6 @@ export class MainPageComponent implements OnInit {
       }
 
       if (params.category && params.id) {
-
         // load product details view
         this.edp.findProducts({
           id: params.id,
@@ -91,6 +90,9 @@ export class MainPageComponent implements OnInit {
 
         return;
       }
+
+      this.isMainPageContentVisible = true; 
+      this.uiEventsService.onCategorySelected.emit(null);
     })
   }
 

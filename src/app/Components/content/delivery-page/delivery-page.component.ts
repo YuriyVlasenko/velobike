@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import UIEventsService from '../../../Services/ui-events.service';
 
 @Component({
   selector: 'delivery-page',
@@ -7,9 +8,10 @@ import { Component, OnInit } from '@angular/core';
 })
 export class DeliveryPageComponent implements OnInit {
 
-  constructor() { }
+  constructor(private uiEventsService: UIEventsService) { }
 
   ngOnInit() {
+    this.uiEventsService.onCategorySelected.emit(null);
   }
 
 }

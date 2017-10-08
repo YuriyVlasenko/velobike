@@ -10,6 +10,10 @@ $searchBarHeight: 30px;
         height: 100%;
         border: 1px solid white;
         width: 300px;
+
+        @media (max-width: 1200px){
+            width: 150px;
+        }
     }
 
     .search-action{

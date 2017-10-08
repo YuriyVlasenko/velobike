@@ -32,7 +32,18 @@ export class CategoriesListComponent implements OnInit {
       });
 
     this.uiEventsService.onCategorySelected.subscribe((category) => {
-      this.activeCategoryId = category.id;
+      if (category){
+        this.activeCategoryId = category.id;
+      }
+      else{
+        let activeNode =  this.tree.treeModel.getActiveNode();
+        if (activeNode){
+          activeNode.toggleActivated();
+          this.tree.treeModel.setFocusedNode();
+          this.tree.treeModel.collapseAll();
+        }
+      }
+      
     });
 
   }
