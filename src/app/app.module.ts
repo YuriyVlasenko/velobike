@@ -83,6 +83,10 @@ const appRoutes: Routes = [
         component: MainPageComponent
       },
       {
+        path: '',
+        component: MainPageComponent
+      },
+      {
         path: 'delivery',
         component: DeliveryPageComponent
       },
