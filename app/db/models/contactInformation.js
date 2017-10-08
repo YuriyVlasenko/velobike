@@ -18,7 +18,7 @@ class ModelClass extends ModelBase {
     constructor() {
 
         super(Model, modelName);
-        this.modelFields = ['phones', 'workTime', 'slogan'];
+        this.modelFields = ['phones', 'workTime', 'slogan', 'id'];
     }
 
     createItem(data) {

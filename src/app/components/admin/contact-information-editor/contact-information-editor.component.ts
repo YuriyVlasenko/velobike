@@ -19,10 +19,11 @@ export class ContactInformationEditorComponent implements OnInit {
   constructor(private edp: EntityDataProvider) { }
 
   ngOnInit() {
-    this.isCreating = !this.entityData.id;
+
   }
 
   saveChanges() {
+    console.log(this.entityData);
     this.onChange.emit(this.entityData);
   }
 
