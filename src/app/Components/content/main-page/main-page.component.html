@@ -24,6 +24,7 @@
                 </div>
             </div>
         </div>
+        <div [innerHTML]="this.mainPageContent"></div>
 
         <product-detail [product]="product" *ngIf="product!=null" class="products_detail">
         </product-detail>

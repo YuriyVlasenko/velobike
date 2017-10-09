@@ -11,6 +11,7 @@ import cloudinaryConfiguration from './Config/cloudinaryConfiguration';
 import { TreeModule } from 'angular-tree-component';
 import { FileUploadModule } from 'ng2-file-upload';
 import { NgxGalleryModule  } from 'ngx-gallery';
+import { CKEditorModule } from 'ng2-ckeditor';
 
 import CategoriesManagerService from './Services/entityManagers/categories-manager.service';
 import ParameterManagerService from './Services/entityManagers/parameter-manager.service';
@@ -149,7 +150,8 @@ const appRoutes: Routes = [
     }),
     CloudinaryModule.forRoot(Cloudinary, { cloud_name: cloudinaryConfiguration.cloudName, upload_preset: cloudinaryConfiguration.uploadPreset }),
     FileUploadModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    CKEditorModule
   ],
   providers: [
     { provide: CategoriesManagerService, useClass: CategoriesManagerService },

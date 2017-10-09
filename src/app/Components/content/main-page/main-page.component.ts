@@ -3,6 +3,7 @@ import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import Product from '../../../Model/product';
 import Category from '../../../Model/category';
+import ContactInformation from '../../../Model/contactInformation';
 import EntityDataProvider from '../../../Services/entity-data-provider.service';
 import UIEventsService from '../../../Services/ui-events.service';
 
@@ -16,6 +17,7 @@ export class MainPageComponent implements OnInit {
   public products: Product[] = [];
   public product: Product = null;
   public isMainPageContentVisible: boolean = true;
+  public mainPageContent: string;
 
   private currentCategoryFriendlyName: String;
 
@@ -91,8 +93,14 @@ export class MainPageComponent implements OnInit {
         return;
       }
 
-      this.isMainPageContentVisible = true; 
+      this.isMainPageContentVisible = true;
       this.uiEventsService.onCategorySelected.emit(null);
+
+      this.edp.getContactInformation().subscribe((contactInformationItems) => {
+        if (contactInformationItems.length > 0) {
+          this.mainPageContent = contactInformationItems[0].mainPageContent;
+        }
+      })
     })
   }
 

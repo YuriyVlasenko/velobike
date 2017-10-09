@@ -6,7 +6,9 @@ export default class ContactInformation implements IEntity {
         public id: string,
         public phones: string,
         public workTime: string,
-        public slogan: string) {
+        public slogan: string, 
+        public deliveryPageContent: string,
+        public mainPageContent: string) {
     }
 
     get phonesList(): String[] {

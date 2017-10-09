@@ -13,6 +13,16 @@
     <label for="workTime">Время работы</label>
     <input class="form-control" [(ngModel)]="entityData.workTime" required name="workTime" />
   </div>
+
+  <div class="form-group">
+    <label for="mainPageContent">Контент главной страницы</label>
+    <ckeditor [(ngModel)]="entityData.mainPageContent" debounce="500" name="mainPageContent"></ckeditor>
+  </div>
+
+  <div class="form-group">
+    <label for="deliveryPageContent">Контент страницы доставки</label>
+    <ckeditor [(ngModel)]="entityData.deliveryPageContent" debounce="500" name="deliveryPageContent"></ckeditor>
+  </div>
   <div class="form-group form-actions">
     <button class="save-button" class="btn btn-primary">{{isCreating?'Создать':'Сохранить'}} </button>
   </div>
