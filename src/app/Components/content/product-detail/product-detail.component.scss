@@ -1,6 +1,6 @@
 @import '../../../../variables';
 
-$productDetailsPadding: 10px;
+$productDetailsPadding: 15px;
 $productDetailsMargin: 10px;
 
 :host{
@@ -22,7 +22,6 @@ $productDetailsMargin: 10px;
                 margin: $productDetailsMargin;
                 min-height: 500px;
                 cursor: pointer;
-                border: 1px solid gray; // TODO: remove
 
                 img{
                     width: 100%;
