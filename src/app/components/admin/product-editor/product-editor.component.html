@@ -38,7 +38,7 @@
       </div>
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !description.valid}">
         <label for="description">Описание</label>
-        <input class="form-control" type="text" [(ngModel)]="entityData.description" #description="ngModel" name="description" />
+        <ckeditor [(ngModel)]="entityData.description" #description="ngModel" debounce="500" name="description" ></ckeditor>
       </div>
       <div class="form-group form-actions">
         <button class="save-button" class="btn btn-primary">{{isCreating?'Создать':'Сохранить'}} </button>

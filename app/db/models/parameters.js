@@ -41,7 +41,6 @@ class ModelClass extends ModelBase {
 
     this._fieldValidator.validateStringLength(name, 'name');
     this._fieldValidator.validateStringLength(valueTypeId, 'valueTypeId');
-    this._fieldValidator.validateStringLength(description, 'description');
   }
 
   updateItem(data) {

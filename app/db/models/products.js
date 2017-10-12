@@ -44,7 +44,6 @@ class ModelClass extends ModelBase {
 
     this._fieldValidator.validateStringLength(name, 'name');
     this._fieldValidator.validateStringLength(categoryId, 'categoryId');
-    this._fieldValidator.validateStringLength(description, 'description');
 
     if (price !== undefined) {
       this._fieldValidator.validateNumber(price, 'price', 0, this._fieldValidator.maxPrice);

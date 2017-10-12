@@ -9,18 +9,18 @@ $productDetailsMargin: 10px;
 
     .product-details_content{
         display: flex;
-        flex-direction: row; 
+        flex-direction: column; 
 
-        .product-image-description{
+        .product-image-parameters{
             display: flex;
-            flex-direction: column;
-            width: 50%;
+            flex-direction: row;
 
             .product-image{
                 
                 padding: $productDetailsPadding;
                 margin: $productDetailsMargin;
                 min-height: 500px;
+                width: 50%;
                 cursor: pointer;
 
                 img{
@@ -29,36 +29,39 @@ $productDetailsMargin: 10px;
                 }
             }
 
-            .product-description{
+            .product-parameters{
+                display: flex;
+                flex-direction: column;
+                
+                width: 50%;
                 padding: $productDetailsPadding;
                 margin: $productDetailsMargin;
+    
+                .product-parameters__header{
+                    font-size: 16pt;
+                    font-weight: 500;
+                }
+    
+                .product-parameter{
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: space-between;
+                    padding: 5px;
+    
+                    &:nth-child(odd){
+                        background-color: $appMainColor3;
+                    }
+                }
+                
             }
+            
         }
         
-        .product-parameters{
-            display: flex;
-            flex-direction: column;
-            
-            width: 50%;
+        .product-description{
             padding: $productDetailsPadding;
             margin: $productDetailsMargin;
-
-            .product-parameters__header{
-                font-size: 16pt;
-                font-weight: 500;
-            }
-
-            .product-parameter{
-                display: flex;
-                flex-direction: row;
-                justify-content: space-between;
-                padding: 5px;
-
-                &:nth-child(odd){
-                    background-color: $appMainColor3;
-                }
-            }
-            
         }
+
+        
     }   
 }
