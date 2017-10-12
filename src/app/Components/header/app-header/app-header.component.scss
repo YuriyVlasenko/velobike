@@ -8,7 +8,14 @@
 
         display: flex;
         flex-direction: row;
-        background-color: #0C0C0C;
+        //background-color: #222222;
+        /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#4c4c4c+0,595959+0,666666+0,2c2c2c+0,000000+0,666666+100,1c1c1c+100,131313+100 */
+        background: #000; /* Old browsers */
+        //background: -moz-linear-gradient(left, #010101 0%,#010101 15%, #222 35%, #333344 100%); /* FF3.6-15 */
+        //background: -webkit-linear-gradient(left, #010101 0%,#010101 15%,#222 35%,#333344 100%); /* Chrome10-25,Safari5.1-6 */
+        //background: linear-gradient(to right, #010101 0%,#010101 15%,#222 35%,#333344 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+        background: linear-gradient(270deg, #555 0%, #070707 90%, #000 100%);
+
 
         .shop-info{
             display: flex;
@@ -20,23 +27,40 @@
                 display: flex;
                 flex-direction: column;
                 justify-content: space-between;
-                font-size: 16pt;
-                min-width: 140px;
+                font-size: 13pt;
+                min-width: 165px;
 
                 .shop-contacts_phone-list{
                     display: flex;
-                    flex-direction: column;
+                    flex-direction: row;
+                    justify-content: space-between;
                     color: white;
                     padding-bottom: 3px;
-                    .shop-contacts_phone{
-                        padding-top: 5px;
+
+                    .phone-icon{
+                        height: 100%;
+                        width: 36px;
+                        align-self: flex-end;
+                        margin-right: 5px;
                     }
+
+                    .phones{
+                        display: flex;
+                        flex-direction: column;
+
+                        .shop-contacts_phone{
+                            padding-top: 5px;
+                            text-align: right;
+                        }
+                    }
+                    
                 }
 
                 .shop-contacts_work-time{
                     color: darkgrey;
                     font-weight: 500;
                     text-align: right;
+                    font-size: 11pt;
                 }
             }
 
@@ -50,7 +74,7 @@
                 .shop-slogan{
                     flex-grow: 1;
                     color: $appMainColor1;
-                    font: 36pt Century Gothic;
+                    font: 30pt Century Gothic;
                 }
 
                 .shop-menu{

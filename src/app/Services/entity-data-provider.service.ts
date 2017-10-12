@@ -37,6 +37,8 @@ export default class EntityDataProviderService {
     private parameterManager: ParameterManager,
     private userManager: UserManager,
     private productImageManager: ProductImageManager) {
+
+      this.getProducts();
   }
 
 

@@ -9,13 +9,16 @@
             </div>
         </div>
         <div class="shop-contacts">
-                <div class="shop-contacts_work-time">
-                        <span>{{contactInfo.workTime}}</span>
-                    </div>
+            <div class="shop-contacts_work-time">
+                <span>{{contactInfo.workTime}}</span>
+            </div>
             <div class="shop-contacts_phone-list">
-                <span *ngFor="let phone of contactInfo.phonesList" class="shop-contacts_phone">
-                    {{phone}}
-                </span>
+                <img src="/assets/phones.png" class="phone-icon"/>
+                <div class="phones">
+                    <span *ngFor="let phone of contactInfo.phonesList" class="shop-contacts_phone">
+                        {{phone}}
+                    </span>
+                </div>
             </div>
         </div>
     </div>
