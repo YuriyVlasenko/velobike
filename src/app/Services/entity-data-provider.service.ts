@@ -38,7 +38,7 @@ export default class EntityDataProviderService {
     private userManager: UserManager,
     private productImageManager: ProductImageManager) {
 
-      this.getProducts();
+    this.getProducts();
   }
 
 
@@ -46,6 +46,7 @@ export default class EntityDataProviderService {
     let productLoader = this.productManager.getAll();
     productLoader = this._applyImagesForProducts(productLoader);
     productLoader = this._applyParametersForProduct(productLoader);
+    productLoader = this._applyCurrencyCourseForProduct(productLoader);
     return productLoader;
   }
 
@@ -97,6 +98,21 @@ export default class EntityDataProviderService {
     });
   }
 
+  _applyCurrencyCourseForProduct(itemsLoader: Observable<any[]>): Observable<any[]> {
+    return itemsLoader.switchMap((items) => {
+      return this._getContactInformation().map((contactInformationItems: ContactInformation[]) => {
+        if (contactInformationItems.length > 0) {
+          const course = contactInformationItems[0].usdCourse || 1;
+          console.log('course' + course);
+          items.forEach((product: Product) => {
+            product.setCourse(course);
+          })
+        }
+        return items;
+      })
+    });
+  }
+
   _applyParametersForProduct(itemsLoader: Observable<any[]>): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
       return this._getProductParameters().map((productParameterItems: ProductParameter[]) => {
@@ -125,6 +141,10 @@ export default class EntityDataProviderService {
     return this.valueTypeManager.getAll()
   }
 
+  _getContactInformation(): Observable<ContactInformation[]> {
+    return this.contactInformationManager.getAll();
+  }
+
   getParameters(): Observable<Parameter[]> {
     return this._getParameters();
   }
@@ -134,8 +154,10 @@ export default class EntityDataProviderService {
   }
 
   getContactInformation(): Observable<ContactInformation[]> {
-    return this.contactInformationManager.getAll();
+    return this._getContactInformation();
   }
+
+
 
   // TODO: check. try to return only one item.
   findCategory({ friendlyName }): Observable<Category[]> {

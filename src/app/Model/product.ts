@@ -7,6 +7,7 @@ export default class Product implements IEntity {
 
     public parameters: ProductParameter[];
     public images: ProductImage[] = [];
+    private course: number = 1;
 
     constructor(
         public id: string,
@@ -14,8 +15,29 @@ export default class Product implements IEntity {
         public categoryId: string,
         public description: string,
         public price: number = 0,
-        public order: number = 0) {
+        public order: number = 0,
+        public priceUSD: number = 0,
+        public newPriceUSD: number = 0
+    ) {
         this.parameters = [];
+    }
+
+    get actualPrice(): number {
+        if (this.price) {
+            return this.price;
+        }
+        return Math.round((this.newPriceUSD || this.priceUSD) * (this.course || 1));
+    }
+
+    get oldPrice(): number {
+        if (this.newPriceUSD) {
+            return Math.round(this.priceUSD * (this.course || 1));
+        }
+        return 0;
+    }
+
+    setCourse(course) {
+        this.course = course;
     }
 
     isMatch({ id = null, categoryId = null }): boolean {
@@ -52,6 +74,6 @@ export default class Product implements IEntity {
     }
 
     get thumbnailPhoto(): string {
-        return this.images.length > 0? this.images[0].url: '/assets/noPhoto.png';
-    } 
+        return this.images.length > 0 ? this.images[0].url : '/assets/noPhoto.png';
+    }
 } 

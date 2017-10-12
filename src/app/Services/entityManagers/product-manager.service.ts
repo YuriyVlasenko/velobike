@@ -7,7 +7,7 @@ import Product from '../../Model/product';
 
 const mapToEntity = (item)=> {
     return new Product(item.id, item.name, item.categoryId, item.description,
-        item.price, item.order);
+        item.price, item.order, item.priceUSD, item.newPriceUSD);
 }
 
 @Injectable()

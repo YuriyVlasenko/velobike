@@ -1,14 +1,14 @@
 <div class="product-details_content">
   <div class="product-image-parameters">
-  <photo-viewer class="product-image" [images]="product.images" *ngIf="product.images.length"></photo-viewer>
-  <div class="product-parameters">
-    <span class="product-parameters__header" *ngIf="product.parameters.length">Технічні характеристики:</span>
-    <span class="product-parameters__header" *ngIf="product.parameters.length == 0">Технічні характеристики будуть додані найближчим часом</span>
-    <div class="product-parameter" *ngFor="let productParameter of product.parameters">
-      <div class="product-parameter__name">{{productParameter.parameter.name}}</div>
-      <div class="product-parameter__value">{{productParameter.value}}</div>
+    <photo-viewer class="product-image" [images]="product.images" *ngIf="product.images.length"></photo-viewer>
+    <div class="product-parameters">
+      <span class="product-parameters__header" *ngIf="product.parameters.length">Технічні характеристики:</span>
+      <span class="product-parameters__header" *ngIf="product.parameters.length == 0">Технічні характеристики будуть додані найближчим часом</span>
+      <div class="product-parameter" *ngFor="let productParameter of product.parameters">
+        <div class="product-parameter__name">{{productParameter.parameter.name}}</div>
+        <div class="product-parameter__value">{{productParameter.value}}</div>
+      </div>
     </div>
   </div>
-</div>
   <div class="product-description" [innerHTML]="product.description"></div>
 </div>

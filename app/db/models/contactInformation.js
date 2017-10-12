@@ -9,6 +9,7 @@ const modelSchema = new Schema({
     phones: { type: String, required: true },
     workTime: { type: String },
     slogan: { type: String },
+    usdCourse: { type: Number, default: 1},
     deliveryPageContent: { type: String },
     mainPageContent: { type: String },
 });
@@ -20,14 +21,14 @@ class ModelClass extends ModelBase {
     constructor() {
 
         super(Model, modelName);
-        this.modelFields = ['phones', 'workTime', 'slogan', 'id', 'deliveryPageContent', 'mainPageContent'];
+        this.modelFields = ['phones', 'workTime', 'slogan', 'id', 'deliveryPageContent', 'mainPageContent', 'usdCourse'];
     }
 
     createItem(data) {
 
-        const { id, phones, workTime, slogan, deliveryPageContent, mainPageContent } = data;
+        const { id, phones, workTime, slogan, deliveryPageContent, mainPageContent, usdCourse } = data;
         const newItem = new Model({ phones, workTime, slogan, id, 
-            deliveryPageContent, mainPageContent});
+            deliveryPageContent, mainPageContent, usdCourse});
 
         return this.save(newItem);
     }
@@ -48,11 +49,10 @@ class ModelClass extends ModelBase {
 
     updateItem(data) {
 
-        const { id, phones, workTime, slogan, mainPageContent, deliveryPageContent } = data;
+        const { id, phones, workTime, slogan, mainPageContent, deliveryPageContent, usdCourse } = data;
 
         return this._updateItem(id, { phones, workTime, slogan, 
-            mainPageContent , deliveryPageContent});
-
+            mainPageContent , deliveryPageContent, usdCourse});
     }
 }
 

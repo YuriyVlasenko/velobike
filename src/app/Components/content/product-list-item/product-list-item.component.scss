@@ -1,3 +1,5 @@
+@import '../../../../variables';
+
 $productItemBorderColor: gray;
 $productItemHeaderHeigth: 50px;
 $productItemContentHeigth: 150px;
@@ -41,6 +43,22 @@ $productItemFooterHeigth: 40px;
         justify-content: center;
         align-items: center;
         font-size: 16pt;
+
+        .old-price{
+            text-decoration:line-through;
+            color: white;
+            padding: 0px 10px;
+            background-color: lightgray;
+            transform: translate3d(0,-10px, 0);
+            font-size: 15pt;
+        }
+
+        .actual-price{
+            font-weight: bold;
+            color: $appMainColor1;
+            padding: 5px;
+            font-size: 18pt;
+        }
 
         .currency{
             font-size: 14pt;

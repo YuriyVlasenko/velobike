@@ -9,7 +9,9 @@ const modelSchema = new Schema({
   name: { type: String, required: true },
   categoryId: { type: String, required: true },
   description: { type: String },
-  price: { type: Number, required: true, default: 0 },
+  price: { type: Number, default: 0 },
+  priceUSD: { type: Number, default: 0 },
+  newPriceUSD: { type: Number, default: 0 },
   order: { type: Number, default: 0 }
 });
 
@@ -19,33 +21,50 @@ class ModelClass extends ModelBase {
   constructor() {
     super(Model, modelName);
 
-    this.modelFields = ['id', 'name', 'categoryId', 'description', 'price', 'order'];
+    this.modelFields = ['id', 'name', 'categoryId', 'description', 'price', 'order', 'priceUSD', 'newPriceUSD'];
   }
 
   createItem(data) {
 
-    const { id, name, categoryId, description, price, order } = data;
-    const newItem = new Model({ name, categoryId, description, price, order, id });
+    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD } = data;
+    const newItem = new Model({ name, categoryId, description, price, order, id, priceUSD, newPriceUSD });
 
     return this.save(newItem);
   }
 
   validate(data, isCreate) {
 
-    const { name, categoryId, description, price, order } = data;
+    let { name, categoryId, description, price, order, priceUSD, newPriceUSD } = data;
+
 
     if (isCreate) {
+
+      price = price || 0;
+      newPriceUSD = newPriceUSD || 0;
 
       this._fieldValidator.validateStringEmpty(name, 'name');
       this._fieldValidator.validateStringEmpty(categoryId, 'categoryId');
       this._fieldValidator.validateNumber(price, 'price', 0, this._fieldValidator.maxPrice);
+      this._fieldValidator.validateNumber(priceUSD, 'priceUSD', 0, this._fieldValidator.maxPrice);
+      this._fieldValidator.validateNumber(newPriceUSD, 'newPriceUSD', 0, this._fieldValidator.maxPrice);
 
     }
 
     this._fieldValidator.validateStringLength(name, 'name');
     this._fieldValidator.validateStringLength(categoryId, 'categoryId');
 
+    if (newPriceUSD !== undefined) {
+      newPriceUSD = newPriceUSD || 0;
+      this._fieldValidator.validateNumber(newPriceUSD, 'newPriceUSD', 0, this._fieldValidator.maxPrice);
+    }
+
+    if (priceUSD !== undefined) {
+      priceUSD = priceUSD || 0;
+      this._fieldValidator.validateNumber(priceUSD, 'priceUSD', 0, this._fieldValidator.maxPrice);
+    }
+
     if (price !== undefined) {
+      price = price || 0;
       this._fieldValidator.validateNumber(price, 'price', 0, this._fieldValidator.maxPrice);
     }
 
@@ -57,9 +76,9 @@ class ModelClass extends ModelBase {
 
   updateItem(data) {
 
-    const { id, name, categoryId, description, price, order } = data;
+    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD } = data;
 
-    return this._updateItem(id, { name, categoryId, description, price, order });
+    return this._updateItem(id, { name, categoryId, description, price, order, priceUSD, newPriceUSD });
 
   }
 }

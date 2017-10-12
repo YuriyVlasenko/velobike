@@ -7,7 +7,7 @@ import ContactInformation from '../../Model/contactInformation';
 
 const mapToEntity = (item) => {
   return new ContactInformation(item.id, item.phones, item.workTime,
-    item.slogan, item.deliveryPageContent, item.mainPageContent);
+    item.slogan, item.deliveryPageContent, item.mainPageContent, item.usdCourse);
 }
 
 @Injectable()

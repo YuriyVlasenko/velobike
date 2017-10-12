@@ -6,9 +6,10 @@ export default class ContactInformation implements IEntity {
         public id: string,
         public phones: string,
         public workTime: string,
-        public slogan: string, 
+        public slogan: string,
         public deliveryPageContent: string,
-        public mainPageContent: string) {
+        public mainPageContent: string,
+        public usdCourse: number) {
     }
 
     get phonesList(): String[] {
@@ -19,7 +20,7 @@ export default class ContactInformation implements IEntity {
         return this.phones.split(';');
     }
 
-    get displayName():string {
+    get displayName(): string {
         return `${this.slogan} ${this.workTime}`;
     }
 }
