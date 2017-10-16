@@ -21,8 +21,11 @@ export class MainPageComponent implements OnInit {
   public product: Product = null;
   public isMainPageContentVisible: boolean = true;
   public mainPageContent: string;
+  public currentPage: number = 1;
 
   private currentCategoryFriendlyName: String;
+
+
 
   constructor(
     private edp: EntityDataProvider,

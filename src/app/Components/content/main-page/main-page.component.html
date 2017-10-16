@@ -18,7 +18,8 @@
         </product-detail>
         <span *ngIf="!products.length && product == null && !isMainPageContentVisible">Товари відсутні</span>
         <div class="products_list" *ngIf="products.length">
-            <product-list-item (productSelected)="selectProduct($event)" class="products_list_item" *ngFor="let product of products"
+            <product-list-item (productSelected)="selectProduct($event)" class="products_list_item" *ngFor="let product of products | paginate: { itemsPerPage: 8, currentPage: currentPage }"
                 [product]="product">
             </product-list-item>
         </div>
+        <pagination-controls *ngIf="products.length" class="pagination-controls" nextLabel="Следующие" previousLabel="Предыдущие"  autoHide="true" (pageChange)="currentPage = $event"></pagination-controls>
