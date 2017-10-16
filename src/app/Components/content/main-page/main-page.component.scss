@@ -1,3 +1,4 @@
+@import '../../../../variables';
 $productItemMargin: 1%;
 $productItemPadding: 10px;
 
@@ -9,7 +10,7 @@ $productItemPadding: 10px;
 }
 
 :host{
-
+    width: calc(100% - #{$navigationBlockWidth}); 
     flex-grow: 1;
 
     .carousel_container{
@@ -20,7 +21,7 @@ $productItemPadding: 10px;
         width: 100%;
         overflow: hidden;
 
-        .carousel.slide{
+        .carousel.slide{ 
             height: 100%;
             width: 100%;
             .carousel-inner{

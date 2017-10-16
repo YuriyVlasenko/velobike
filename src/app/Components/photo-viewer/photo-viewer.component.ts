@@ -36,8 +36,8 @@ export class PhotoViewerComponent implements OnInit {
 
     this.galleryOptions = [
       {
-        width : '600px',
-        height: '500px',
+        width : '500px',
+        height: '450px',
         thumbnailsColumns: 4,
         imageAnimation: NgxGalleryAnimation.Slide,
         imageSize : NgxGalleryImageSize.Contain,

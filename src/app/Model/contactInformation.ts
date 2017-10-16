@@ -9,7 +9,8 @@ export default class ContactInformation implements IEntity {
         public slogan: string,
         public deliveryPageContent: string,
         public mainPageContent: string,
-        public usdCourse: number) {
+        public usdCourse: number, 
+        public headerColor: string) {
     }
 
     get phonesList(): String[] {

@@ -5,15 +5,10 @@ $searchBarHeight: 30px;
     flex-direction: row;
     height: $searchBarHeight;
     
-
     .search-expression{
         height: 100%;
         border: 1px solid white;
-        width: 300px;
-
-        @media (max-width: 1200px){
-            width: 150px;
-        }
+        width: 100%;
     }
 
     .search-action{

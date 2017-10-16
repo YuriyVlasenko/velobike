@@ -9,7 +9,6 @@
         display: flex;
         flex-direction: row;
         background: #000; /* Old browsers */
-        background: linear-gradient(270deg, #555 0%, #070707 90%, #000 100%);
 
         .shop-info{
             display: flex;
@@ -69,6 +68,21 @@
                     flex-grow: 1;
                     color: $appMainColor1;
                     font: 30pt Century Gothic;
+
+                    @media (max-width: 1400px){
+                        font-size: 24pt;
+                    }
+                }
+
+                search-bar{
+                    width: 300px;
+                    @media (max-width: 1400px){
+                            width: 150px;
+                    }
+
+                    @media (max-width: 1200px){
+                        display: none;
+                    }
                 }
 
                 .shop-menu{

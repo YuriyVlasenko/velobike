@@ -18,11 +18,10 @@ body.app{
     display: flex;
     width: $bodyWidth; 
     justify-content: center;
-
     min-height: 100%; 
 
-    @media screen and (max-width: 1500px){
-        width: 100%;
+    @media (max-width: 1200px){
+        width: 90%;
     }
 }
 

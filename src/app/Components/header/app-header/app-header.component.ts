@@ -12,7 +12,7 @@ export class AppHeaderComponent implements OnInit {
   public contactInfo: ContactInformation;
 
   constructor(private edp: EntityDataProviderService) {
-    this.contactInfo = new ContactInformation('', '', '','', '', '', 1)
+    this.contactInfo = new ContactInformation('', '', '','', '', '', 1, '')
   }
 
   ngOnInit() {

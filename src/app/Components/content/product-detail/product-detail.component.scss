@@ -19,7 +19,7 @@ $productDetailsMargin: 10px;
                 
                 padding: $productDetailsPadding;
                 margin: $productDetailsMargin;
-                min-height: 500px;
+                min-height: 400px;
                 width: 50%;
                 cursor: pointer;
 
@@ -32,8 +32,8 @@ $productDetailsMargin: 10px;
             .product-parameters{
                 display: flex;
                 flex-direction: column;
-                
-                width: 50%;
+                flex-grow: 1;
+                flex-shrink: 1;
                 padding: $productDetailsPadding;
                 margin: $productDetailsMargin;
     
