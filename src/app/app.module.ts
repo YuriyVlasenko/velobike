@@ -22,6 +22,7 @@ import ProductImagesManagerService from './Services/entityManagers/product-image
 import ContactInformationService from './Services/entityManagers/contact-information.service';
 import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
+import SlidesManagerService from './Services/entityManagers/slides-manager.service';
 import AuthService from './Services/auth.service';
 import AuthGuard from './Services/guards/auth.guard';
 import UIEventsService from './Services/ui-events.service';
@@ -49,6 +50,7 @@ import { UserEditorComponent } from './components/admin/user-editor/user-editor.
 import { ContactInformationEditorComponent } from './components/admin/contact-information-editor/contact-information-editor.component';
 import { ParameterEditorComponent } from './components/admin/parameter-editor/parameter-editor.component';
 import { ProductEditorComponent } from './components/admin/product-editor/product-editor.component';
+import { SlideEditorComponent } from './components/admin/slide-editor/slide-editor.component';
 import { PhotoUploadComponent } from './components/admin/photo-upload/photo-upload.component';
 import { PhotoViewerComponent } from './components/photo-viewer/photo-viewer.component';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
@@ -135,6 +137,7 @@ const appRoutes: Routes = [
     ContactInformationEditorComponent,
     ParameterEditorComponent,
     ProductEditorComponent,
+    SlideEditorComponent,
     PhotoUploadComponent,
     PhotoViewerComponent,
     PhotoEditorComponent,
@@ -167,7 +170,8 @@ const appRoutes: Routes = [
     { provide: UsersManagerService, useClass: UsersManagerService },
     { provide: AuthGuard, useClass: AuthGuard },
     { provide: UIEventsService, useClass: UIEventsService },
-    { provide: ProductImagesManagerService, useClass: ProductImagesManagerService }
+    { provide: ProductImagesManagerService, useClass: ProductImagesManagerService },
+    { provide: SlidesManagerService, useClass: SlidesManagerService }
   ],
   bootstrap: [AppComponent] 
 })

@@ -5,6 +5,7 @@
       <contact-information-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'contactInformation'"></contact-information-editor>
       <parameter-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'parameters'"></parameter-editor>
       <product-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'products'"></product-editor>
+      <slide-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'slides'"></slide-editor>
       <user-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'users'"></user-editor>
       <value-type-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'valueTypes'"></value-type-editor>
     </div>

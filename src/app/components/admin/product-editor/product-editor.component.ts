@@ -14,7 +14,7 @@ import IEntity from '../../../Model/IEntity';
 })
 export class ProductEditorComponent implements OnInit {
 
-  @Input() entityData: Product;
+  @Input() entityData: Product; 
   @Output() onChange = new EventEmitter<Product>();
 
   public categoriesList: Category[];

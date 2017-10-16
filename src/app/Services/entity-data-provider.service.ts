@@ -10,6 +10,7 @@ import ParameterManager from './entityManagers/parameter-manager.service';
 import UserManager from './entityManagers/users-manager.service';
 import EntityManager from './entityManagers/entity-manager.service';
 import ProductImageManager from './entityManagers/product-images-manager.service';
+import SlidesManager from './entityManagers/slides-manager.service';
 
 import Parameter from '../Model/parameter';
 import ValueType from '../Model/valueType';
@@ -18,6 +19,7 @@ import Category from '../Model/category';
 import Product from '../Model/product';
 import ProductImage from '../Model/productImage';
 import ContactInformation from '../Model/contactInformation';
+import Slide from '../Model/slide';
 import IEntity from './../Model/IEntity';
 
 import entityTypes from '../Services/entity-types';
@@ -36,7 +38,8 @@ export default class EntityDataProviderService {
     private valueTypeManager: ValueTypeManager,
     private parameterManager: ParameterManager,
     private userManager: UserManager,
-    private productImageManager: ProductImageManager) {
+    private productImageManager: ProductImageManager,
+    private slidesManager: SlidesManager) {
 
     this.getProducts();
   }
@@ -48,6 +51,10 @@ export default class EntityDataProviderService {
     productLoader = this._applyParametersForProduct(productLoader);
     productLoader = this._applyCurrencyCourseForProduct(productLoader);
     return productLoader;
+  }
+
+  getSlides(): Observable<Slide[]> {
+    return this.slidesManager.getAll();
   }
 
   _applyImagesForProducts(productsLoader: Observable<any[]>): Observable<any[]> {
@@ -248,6 +255,9 @@ export default class EntityDataProviderService {
       }
       case entityTypes.CONTACT_INFORMATION.Name: {
         return this.contactInformationManager;
+      }
+      case entityTypes.SLIDES.Name: {
+        return this.slidesManager;
       }
       case entityTypes.PRODUCT_PARAMETER.Name: {
         return this.productParameterManager;

@@ -23,6 +23,7 @@ export class EntityTypeListComponent implements OnInit {
       entityTypes.PARAMETERS,
       entityTypes.VALUE_TYPES,
       entityTypes.PRODUCTS,
+      entityTypes.SLIDES,
       entityTypes.USERS,
       entityTypes.CONTACT_INFORMATION,
     ];

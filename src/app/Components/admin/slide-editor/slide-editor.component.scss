@@ -1,0 +1,26 @@
+@import '../../../../variables';
+
+:host{
+
+    display: flex;
+    flex-direction: column;
+
+    .image-container{
+        display: flex;
+        flex-direction: row;
+        margin: 10px 0;
+
+        .slide-image{
+            margin-right: 10px;
+            max-height: 300px;
+            width: calc(100% - 100px);
+            min-height: 100px;
+            min-width: 100px;
+        }
+
+        .loading-indicator{
+            height: 32px;
+            width: 32px;
+        }
+    }
+}

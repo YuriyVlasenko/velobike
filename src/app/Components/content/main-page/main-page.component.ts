@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, Params } from '@angular/router';
 
 import Product from '../../../Model/product';
+import Slide from '../../../Model/slide';
+
 import Category from '../../../Model/category';
 import ContactInformation from '../../../Model/contactInformation';
 import EntityDataProvider from '../../../Services/entity-data-provider.service';
@@ -14,6 +16,7 @@ import UIEventsService from '../../../Services/ui-events.service';
 })
 export class MainPageComponent implements OnInit {
 
+  public slides: Slide[] = [];
   public products: Product[] = [];
   public product: Product = null;
   public isMainPageContentVisible: boolean = true;
@@ -29,6 +32,10 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.edp.getSlides().subscribe((slides) => {
+      this.slides = slides;
+    })
+
     this.activatedRoute.params.subscribe((params: Params) => {
 
       this.currentCategoryFriendlyName = params.category;

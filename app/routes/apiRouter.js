@@ -6,6 +6,7 @@ import productsModel from '../db/models/products';
 import valueTypesModel from '../db/models/valueTypes';
 import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
+import slidesModel from '../db/models/slides';
 import productImagesModel from '../db/models/productImages';
 import cloudinary from 'cloudinary';
 import cacheManager from '../cacheManager';
@@ -103,7 +104,8 @@ const createModelApi = (router, model) => {
         cacheManager.reset(model.name);
 
         let modelSpecificAction = new Promise((resolve, reject) => {
-            if (model.name === productImagesModel.name) {
+            
+            if (model.name === productImagesModel.name || model.name === slidesModel.name) {
 
                 console.log('get entity wit id: ' + itemId);
 
@@ -146,7 +148,7 @@ const createModelApi = (router, model) => {
 const apiRouter = express.Router();
 
 const models = [categoriesModel, parametersModel, productParametersModel, productsModel, valueTypesModel,
-    contactInformationModel, usersModel, productImagesModel];
+    contactInformationModel, usersModel, productImagesModel, slidesModel];
 
 // Create routes for models.
 for (let i = 0; i < models.length; i++) {

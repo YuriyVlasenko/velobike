@@ -1,0 +1,20 @@
+<form #f="ngForm" name="from" (ngSubmit)="f.form.valid && saveChanges()">
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !order.valid}">
+    <label for="order">Порядок отображения в списке</label>
+    <input class="form-control" type="number" min="0" [(ngModel)]="entityData.order" #order="ngModel" name="order" required/>
+    <span class="error-message"> введите порядок </span>
+  </div>
+  <div class="form-group" [ngClass]="{'has-error': f.submitted && !url.valid}">
+    <label for="url">Изображение</label>
+    <input class="form-control" type="text" readonly [(ngModel)]="entityData.url" #url="ngModel" name="url" required/>
+    <div class="image-container">
+      <img class="slide-image" src="{{entityData.url}}"/>
+      <photo-upload (startUploading)="startUploading()" (imageUploaded)="setImage($event)"></photo-upload>
+      <loading-indicator *ngIf="isImageLoading"></loading-indicator>
+    </div>
+    <span class="error-message"> загрузите изображение </span>
+  </div>
+  <div class="form-group form-actions">
+    <button class="save-button" class="btn btn-primary">{{isCreating?'Создать':'Сохранить'}} </button>
+  </div>
+</form>

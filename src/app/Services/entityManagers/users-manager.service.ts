@@ -6,7 +6,7 @@ import EntityManagerService from './entity-manager.service';
 import User from '../../Model/user';
 
 const mapToEntity = (item) => {
-    if (!item){
+    if (!item) {
         return null;
     }
     return new User(item.id, item.name);
@@ -27,5 +27,5 @@ export default class UsersManagerService extends EntityManagerService {
 
     getOne(id: string): Observable<User> {
         return super.getOne(id).map(mapToEntity);
-    }    
+    }
 }
