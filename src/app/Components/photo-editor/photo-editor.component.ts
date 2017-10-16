@@ -2,7 +2,9 @@ import { Component, OnInit, Input } from '@angular/core';
 import Product from '../../Model/product';
 import ProductImage from '../../Model/productImage';
 
+import entityTypes from '../../Services/entity-types';
 import ProductImageManager from '../../Services/entityManagers/product-images-manager.service';
+import EntityDataProviderService from '../../Services/entity-data-provider.service';
 
 @Component({
   selector: 'photo-editor',
@@ -13,9 +15,17 @@ export class PhotoEditorComponent implements OnInit {
 
   @Input() product: Product;
 
-  constructor(private productImageManager: ProductImageManager) { }
+  public isImageLoading: boolean = false;
+  public isMarkAsMainImageProcessing: boolean = false;
+
+  constructor(private productImageManager: ProductImageManager,
+    private edp: EntityDataProviderService) { }
 
   ngOnInit() {
+  }
+
+  startUploading() {
+    this.isImageLoading = true;
   }
 
   addImage({ url, width, height }) {
@@ -29,8 +39,35 @@ export class PhotoEditorComponent implements OnInit {
           productImage.id = newItemId;
           this.product.images.push(productImage);
         }
+        this.isImageLoading = false;
       })
 
+  }
+
+  selectImage(image) {
+    // deselect all
+    this.product.images.forEach((image) => {
+      image.isSelected = false;
+    });
+
+    image.isSelected = true;
+  }
+
+  markAsMainImage() {
+    const selectedImages = this.product.images.filter((image) => image.isSelected);
+    if (selectedImages.length === 0) {
+      return;
+    }
+
+    this.isMarkAsMainImageProcessing = true;
+
+    this.product.imageUrl = selectedImages[0].url;
+
+    this.edp
+      .createOrUpdateEntity(entityTypes.PRODUCTS.Name, this.product)
+      .subscribe((result) => {
+        this.isMarkAsMainImageProcessing = false;
+      });
   }
 
   removeImage(imageId) {
@@ -46,3 +83,4 @@ export class PhotoEditorComponent implements OnInit {
   }
 
 }
+

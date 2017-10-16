@@ -52,6 +52,7 @@ import { ProductEditorComponent } from './components/admin/product-editor/produc
 import { PhotoUploadComponent } from './components/admin/photo-upload/photo-upload.component';
 import { PhotoViewerComponent } from './components/photo-viewer/photo-viewer.component';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
+import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
 
 const appRoutes: Routes = [
   {
@@ -136,7 +137,8 @@ const appRoutes: Routes = [
     ProductEditorComponent,
     PhotoUploadComponent,
     PhotoViewerComponent,
-    PhotoEditorComponent
+    PhotoEditorComponent,
+    LoadingIndicatorComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: false }),

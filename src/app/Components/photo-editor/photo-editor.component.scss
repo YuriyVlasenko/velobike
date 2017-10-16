@@ -1,3 +1,6 @@
+
+@import '../../../variables';
+
 :host{
     .image-container{
 
@@ -9,9 +12,16 @@
             position: relative;
             max-width: 300px;
             max-height: 300px;
+            min-height: 100px;
+            min-width: 100px;
+
             padding: 5px;
             margin: 5px;
             border: 1px solid gray;
+
+            &.selected{
+                background-color: $appMainColor1;
+            }
 
             button{
                 cursor: pointer;
@@ -24,6 +34,23 @@
                 max-height: 100%;
                 max-width: 100%;
             }
+        }
+    }
+
+    .uploader-container{
+        display: flex;
+        flex-direction: row;
+        align-content: center;
+
+        .mark-main-imag-btn{
+            margin-bottom: 8px;
+            margin-left: 10px;
+        }
+
+        .loading-indicator{
+            margin-left: 10px;
+            height: 32px;
+            width: 32px;
         }
     }
 }

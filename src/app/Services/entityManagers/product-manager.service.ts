@@ -7,7 +7,7 @@ import Product from '../../Model/product';
 
 const mapToEntity = (item)=> {
     return new Product(item.id, item.name, item.categoryId, item.description,
-        item.price, item.order, item.priceUSD, item.newPriceUSD);
+        item.price, item.order, item.priceUSD, item.newPriceUSD, item.imageUrl);
 }
 
 @Injectable()
@@ -19,7 +19,11 @@ export default class ParameterManagerService extends EntityManagerService {
 
     getAll(): Observable<Product[]> {
         return super.getAll().map((items: any[]) => {
-            return items.map(mapToEntity);
+            return items.map(mapToEntity).sort((productA: Product, productB: Product) => {
+                if (productA.order === productB.order) return 0;
+                if (productA.order > productB.order) return 1;
+                return -1;
+              });
         });
     }
 

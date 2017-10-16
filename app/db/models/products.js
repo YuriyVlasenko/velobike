@@ -9,6 +9,7 @@ const modelSchema = new Schema({
   name: { type: String, required: true },
   categoryId: { type: String, required: true },
   description: { type: String },
+  imageUrl: { type: String },
   price: { type: Number, default: 0 },
   priceUSD: { type: Number, default: 0 },
   newPriceUSD: { type: Number, default: 0 },
@@ -21,13 +22,13 @@ class ModelClass extends ModelBase {
   constructor() {
     super(Model, modelName);
 
-    this.modelFields = ['id', 'name', 'categoryId', 'description', 'price', 'order', 'priceUSD', 'newPriceUSD'];
+    this.modelFields = ['id', 'name', 'categoryId', 'description', 'price', 'order', 'priceUSD', 'newPriceUSD', 'imageUrl'];
   }
 
   createItem(data) {
 
-    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD } = data;
-    const newItem = new Model({ name, categoryId, description, price, order, id, priceUSD, newPriceUSD });
+    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl } = data;
+    const newItem = new Model({ name, categoryId, description, price, order, id, priceUSD, newPriceUSD, imageUrl });
 
     return this.save(newItem);
   }
@@ -76,9 +77,9 @@ class ModelClass extends ModelBase {
 
   updateItem(data) {
 
-    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD } = data;
+    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl } = data;
 
-    return this._updateItem(id, { name, categoryId, description, price, order, priceUSD, newPriceUSD });
+    return this._updateItem(id, { name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl });
 
   }
 }

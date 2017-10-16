@@ -12,6 +12,7 @@ import { Cloudinary } from '@cloudinary/angular-4.x';
 export class PhotoUploadComponent implements OnInit {
 
   @Output() imageUploaded = new EventEmitter<{ url: string, width: number, height: number }>();
+  @Output() startUploading = new EventEmitter();
 
   private responses: Array<any>;
   private hasBaseDropZoneOver: boolean = false;
@@ -66,7 +67,6 @@ export class PhotoUploadComponent implements OnInit {
 
     // Insert or update an entry in the responses array
     const upsertResponse = fileItem => {
-
       // Run the update in a custom zone since for some reason change detection isn't performed
       // as part of the XHR request to upload the files.
       // Running in a custom zone forces change detection
@@ -99,12 +99,12 @@ export class PhotoUploadComponent implements OnInit {
     // Update model on completion of uploading a file
     this.uploader.onCompleteItem = (item: any, response: string, status: number, headers: ParsedResponseHeaders) => {
       return upsertResponse({ file: item.file, status, data: JSON.parse(response) })
-
     }
 
 
     // Update model on upload progress event
     this.uploader.onProgressItem = (fileItem: any, progress: any) => {
+      this.startUploading.emit();
       return upsertResponse({ file: fileItem.file, progress, data: {} });
     }
   }

@@ -19,8 +19,11 @@ const assignChildItems = (processedItem: Category, allItems: Category[]) => {
   });
 }
 
-const mapToEntity = (item)=>{
-  return new Category(item.id, item.name, item.parentId, item.friendlyName,  item.order);
+const mapToEntity = (item) => {
+  if (item) {
+    return new Category(item.id, item.name, item.parentId, item.friendlyName, item.order);
+  }
+  return null;
 }
 
 @Injectable()
@@ -32,7 +35,11 @@ export default class CategoriesManagerService extends EntityManagerService {
 
   getAll(): Observable<Category[]> {
     return super.getAll().map((items: any[]) => {
-      return items.map(mapToEntity);
+      return items.map(mapToEntity).sort((categoryA: Category, categoryB: Category) => {
+        if (categoryA.order === categoryB.order) return 0;
+        if (categoryA.order > categoryB.order) return 1;
+        return -1;
+      });
     });
   }
 
@@ -42,7 +49,7 @@ export default class CategoriesManagerService extends EntityManagerService {
 
   getAllAsTree(): Observable<CategoryTreeNode[]> {
 
-    return this.getAll().map((items:Category[]) => {
+    return this.getAll().map((items: Category[]) => {
 
       const nodeItems = items.map((item) => new CategoryTreeNode(item));
 

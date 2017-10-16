@@ -1,10 +1,13 @@
 <div class="image-container">
-    <div class="image-item" *ngFor="let image of product.images">
+    <div [ngClass]="{'image-item': true, 'selected': image.isSelected}" *ngFor="let image of product.images">
         <button (click)="removeImage(image.id)" class="btn btn-danger">
             X
         </button>
-        <img [src]="image.url"/>
+        <img [src]="image.url" (click)="selectImage(image)" />
     </div>
 </div>
-<photo-upload (imageUploaded)="addImage($event)"></photo-upload>
-
+<div class="uploader-container">
+    <photo-upload (startUploading)="startUploading()" (imageUploaded)="addImage($event)"></photo-upload>
+    <button class="btn btn-success mark-main-imag-btn" (click)="markAsMainImage()">Сделать главной</button>
+    <loading-indicator *ngIf="isImageLoading || isMarkAsMainImageProcessing"></loading-indicator>
+</div>

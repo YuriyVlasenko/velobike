@@ -17,7 +17,8 @@ export default class Product implements IEntity {
         public price: number = 0,
         public order: number = 0,
         public priceUSD: number = 0,
-        public newPriceUSD: number = 0
+        public newPriceUSD: number = 0,
+        public imageUrl: string = ''
     ) {
         this.parameters = [];
     }
@@ -74,6 +75,9 @@ export default class Product implements IEntity {
     }
 
     get thumbnailPhoto(): string {
+        if (this.imageUrl){
+            return this.imageUrl;
+        }
         return this.images.length > 0 ? this.images[0].url : '/assets/noPhoto.png';
     }
 } 
