@@ -6,6 +6,9 @@
     display: flex;
     flex-direction: column;
 
+    .checkbox{
+        width: 20px;
+    }
     .tab-pane{
      padding: 10px;   
     }

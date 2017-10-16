@@ -1,4 +1,4 @@
-import { Input, Output, HostListener, Component, OnInit, EventEmitter } from '@angular/core';
+import { Input, Output, HostListener, Component, OnInit, EventEmitter, HostBinding } from '@angular/core';
 import Product from '../../../Model/product';
 
 @Component({
@@ -10,10 +10,12 @@ export class ProductListItemComponent implements OnInit {
 
   @Input() product: Product;
   @Output() productSelected = new EventEmitter<string>();
+  @HostBinding('class.is-sold-out') isSoldOut: boolean;
 
   constructor() { }
 
   ngOnInit() {
+    this.isSoldOut = !this.product.isActive;
   }
 
   @HostListener('mouseup', ['$event'])

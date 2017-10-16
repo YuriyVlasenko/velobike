@@ -5,9 +5,9 @@ import { Observable } from 'rxjs/Rx';
 import EntityManagerService from './entity-manager.service';
 import Product from '../../Model/product';
 
-const mapToEntity = (item)=> {
+const mapToEntity = (item) => {
     return new Product(item.id, item.name, item.categoryId, item.description,
-        item.price, item.order, item.priceUSD, item.newPriceUSD, item.imageUrl);
+        item.price, item.order, item.priceUSD, item.newPriceUSD, item.imageUrl, item.isActive);
 }
 
 @Injectable()
@@ -23,7 +23,7 @@ export default class ParameterManagerService extends EntityManagerService {
                 if (productA.order === productB.order) return 0;
                 if (productA.order > productB.order) return 1;
                 return -1;
-              });
+            });
         });
     }
 

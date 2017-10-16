@@ -18,7 +18,8 @@ export default class Product implements IEntity {
         public order: number = 0,
         public priceUSD: number = 0,
         public newPriceUSD: number = 0,
-        public imageUrl: string = ''
+        public imageUrl: string = '',
+        public isActive: boolean = true
     ) {
         this.parameters = [];
     }

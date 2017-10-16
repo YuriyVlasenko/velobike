@@ -24,6 +24,10 @@
         <input class="form-control" type="number" min="0" [(ngModel)]="entityData.order" #productOrder="ngModel" name="order" required/>
         <span class="error-message"> введите порядок категории </span>
       </div>
+      <div class="form-group">
+          <label for="isActive">В наличии</label>
+          <input class="form-control checkbox" type="checkbox" [(ngModel)]="entityData.isActive" name="isActive"/>
+        </div>
       <div class="form-group" [ngClass]="{'has-error': f.submitted && !productPriceUSD.valid}">
         <label for="priceUSD">Стоимость в USD</label>
         <input class="form-control" type="number" min="0" [(ngModel)]="entityData.priceUSD" #productPriceUSD="ngModel" name="priceUSD"/>

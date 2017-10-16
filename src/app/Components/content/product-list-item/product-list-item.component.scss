@@ -9,9 +9,31 @@ $productItemFooterHeigth: 40px;
     display: flex;
     flex-direction: column;
     justify-content: center;
+    position: relative;
 
     cursor: pointer;
     border: 1px solid $productItemBorderColor;
+
+    &.is-sold-out{
+        background-color: lightgray;   
+    }
+
+    .sold-out-label{
+        position: absolute;
+        display: block;
+        box-sizing: border-box;
+        margin: 0 auto;
+        width: 100%;
+        border-width: 3px 0;
+        border-style: solid;
+        border-color: darkgray;
+        background-color: lightgray;
+        color: black;
+        margin-left: -10px;
+        padding: 5px;
+        font-size: 16pt;
+        text-align: center;
+    }
 
     .product_header{
         display: flex;

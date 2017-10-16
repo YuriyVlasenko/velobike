@@ -13,7 +13,8 @@ const modelSchema = new Schema({
   price: { type: Number, default: 0 },
   priceUSD: { type: Number, default: 0 },
   newPriceUSD: { type: Number, default: 0 },
-  order: { type: Number, default: 0 }
+  order: { type: Number, default: 0 },
+  isActive: { type: Boolean, default: true }
 });
 
 const Model = mongoose.model(modelName, modelSchema);
@@ -22,13 +23,13 @@ class ModelClass extends ModelBase {
   constructor() {
     super(Model, modelName);
 
-    this.modelFields = ['id', 'name', 'categoryId', 'description', 'price', 'order', 'priceUSD', 'newPriceUSD', 'imageUrl'];
+    this.modelFields = ['id', 'name', 'categoryId', 'description', 'price', 'order', 'priceUSD', 'newPriceUSD', 'imageUrl', 'isActive'];
   }
 
   createItem(data) {
 
-    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl } = data;
-    const newItem = new Model({ name, categoryId, description, price, order, id, priceUSD, newPriceUSD, imageUrl });
+    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl, isActive } = data;
+    const newItem = new Model({ name, categoryId, description, price, order, id, priceUSD, newPriceUSD, imageUrl, isActive });
 
     return this.save(newItem);
   }
@@ -77,9 +78,9 @@ class ModelClass extends ModelBase {
 
   updateItem(data) {
 
-    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl } = data;
+    const { id, name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl, isActive } = data;
 
-    return this._updateItem(id, { name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl });
+    return this._updateItem(id, { name, categoryId, description, price, order, priceUSD, newPriceUSD, imageUrl, isActive });
 
   }
 }
