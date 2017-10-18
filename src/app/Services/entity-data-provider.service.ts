@@ -164,8 +164,6 @@ export default class EntityDataProviderService {
     return this._getContactInformation(useCache);
   }
 
-
-
   // TODO: check. try to return only one item.
   findCategory({ friendlyName }, useCache: boolean = false): Observable<Category[]> {
     return this.categoriesManager.getAll(useCache).map((categories: Category[]) => {
@@ -180,7 +178,7 @@ export default class EntityDataProviderService {
 
     const localSubject = new AsyncSubject<Product[]>();
 
-    this.getProducts().subscribe((productItems) => {
+    this.getProducts(true).subscribe((productItems) => {
 
       let filteredProducts = productItems.filter((product: Product) => {
         return product.isMatch({ id, categoryId }) && product.isContains({ name });
