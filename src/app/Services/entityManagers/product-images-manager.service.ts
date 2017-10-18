@@ -16,9 +16,8 @@ export default class ProductImagesManagerService extends EntityManagerService {
     super(http, 'productImages')
   }
 
-  getAll(): Observable<ProductImage[]> {
-
-    return super.getAll().map((items: any[]) => {
+  getAll(useCache: boolean = false): Observable<ProductImage[]> {
+    return super.getAll(useCache).map((items: any[]) => {
       return items.map(mapToEntity);
     });
   }

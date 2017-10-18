@@ -19,8 +19,8 @@ export default class UsersManagerService extends EntityManagerService {
         super(http, 'users');
     }
 
-    getAll(): Observable<User[]> {
-        return super.getAll().map((items: any[]) => {
+    getAll(useCache: boolean = false): Observable<User[]> {
+        return super.getAll(useCache).map((items: any[]) => {
             return items.map(mapToEntity);
         });
     }

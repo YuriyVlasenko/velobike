@@ -1,3 +1,3 @@
 export default {
-    url: 'mongodb://35.166.33.218:28018/velobike'
+    url: 'mongodb://34.215.59.141:28018/velobike'
 }

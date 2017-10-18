@@ -17,8 +17,8 @@ export default class ParameterManagerService extends EntityManagerService {
         super(http, 'products')
     }
 
-    getAll(): Observable<Product[]> {
-        return super.getAll().map((items: any[]) => {
+    getAll(useCache: boolean = false): Observable<Product[]> {
+        return super.getAll(useCache).map((items: any[]) => {
             return items.map(mapToEntity).sort((productA: Product, productB: Product) => {
                 if (productA.order === productB.order) return 0;
                 if (productA.order > productB.order) return 1;

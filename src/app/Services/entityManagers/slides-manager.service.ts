@@ -19,8 +19,8 @@ export default class SlidesManagerService extends EntityManagerService {
         super(http, 'slides');
     }
 
-    getAll(): Observable<Slide[]> {
-        return super.getAll().map((items: any[]) => {
+    getAll(useCache: boolean = false): Observable<Slide[]> {
+        return super.getAll(useCache).map((items: any[]) => {
             return items.map(mapToEntity).sort((productA: Slide, productB: Slide) => {
                 if (productA.order === productB.order) return 0;
                 if (productA.order > productB.order) return 1;

@@ -17,8 +17,8 @@ export default class ContactInformationService extends EntityManagerService {
     super(http, 'contactInformation');
   }
 
-  getAll(): Observable<ContactInformation[]> {
-    return super.getAll().map((items: any[]) => {
+  getAll(useCache: boolean = false): Observable<ContactInformation[]> {
+    return super.getAll(useCache).map((items: any[]) => {
       return items.map(mapToEntity);
     });
   }

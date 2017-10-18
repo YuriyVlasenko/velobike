@@ -33,8 +33,8 @@ export default class CategoriesManagerService extends EntityManagerService {
     super(http, 'categories');
   }
 
-  getAll(): Observable<Category[]> {
-    return super.getAll().map((items: any[]) => {
+  getAll(useCache: boolean = false): Observable<Category[]> {
+    return super.getAll(useCache).map((items: any[]) => {
       return items.map(mapToEntity).sort((categoryA: Category, categoryB: Category) => {
         if (categoryA.order === categoryB.order) return 0;
         if (categoryA.order > categoryB.order) return 1;

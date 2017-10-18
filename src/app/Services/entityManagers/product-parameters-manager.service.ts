@@ -16,9 +16,9 @@ export default class ParameterManagerService extends EntityManagerService {
         super(http, 'productParameters')
     }
 
-    getAll(): Observable<ProductParameter[]> {
+    getAll(useCache: boolean = false): Observable<ProductParameter[]> {
 
-        return super.getAll().map((items: any[]) => {
+        return super.getAll(useCache).map((items: any[]) => {
             return items.map(mapToEntity);
         });
     }

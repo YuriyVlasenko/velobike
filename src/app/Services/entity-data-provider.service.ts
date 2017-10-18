@@ -41,20 +41,20 @@ export default class EntityDataProviderService {
     private productImageManager: ProductImageManager,
     private slidesManager: SlidesManager) {
 
-    this.getProducts();
+    this.getProducts(true);
   }
 
 
-  getProducts(): Observable<Product[]> {
-    let productLoader = this.productManager.getAll();
+  getProducts(useCache: boolean = false): Observable<Product[]> {
+    let productLoader = this.productManager.getAll(useCache);
     productLoader = this._applyImagesForProducts(productLoader);
     productLoader = this._applyParametersForProduct(productLoader);
     productLoader = this._applyCurrencyCourseForProduct(productLoader);
     return productLoader;
   }
 
-  getSlides(): Observable<Slide[]> {
-    return this.slidesManager.getAll();
+  getSlides(useCache: boolean = false): Observable<Slide[]> {
+    return this.slidesManager.getAll(useCache);
   }
 
   _applyImagesForProducts(productsLoader: Observable<any[]>): Observable<any[]> {
@@ -73,8 +73,8 @@ export default class EntityDataProviderService {
     );
   }
 
-  _getProductImages(): Observable<ProductImage[]> {
-    return this.productImageManager.getAll();
+  _getProductImages(useCache: boolean = false): Observable<ProductImage[]> {
+    return this.productImageManager.getAll(useCache);
   }
 
   _applyParametersForProductParameters(productParametersLoader: Observable<any[]>): Observable<any[]> {
@@ -134,41 +134,41 @@ export default class EntityDataProviderService {
     });
   }
 
-  _getProductParameters(): Observable<ProductParameter[]> {
-    let ppLoader = this.productParameterManager.getAll();
+  _getProductParameters(useCache: boolean = false): Observable<ProductParameter[]> {
+    let ppLoader = this.productParameterManager.getAll(useCache);
     ppLoader = this._applyParametersForProductParameters(ppLoader);
     return ppLoader;
   }
 
-  _getParameters(): Observable<Parameter[]> {
-    return this._applyValueTypesForParameters(this.parameterManager.getAll());
+  _getParameters(useCache: boolean = false): Observable<Parameter[]> {
+    return this._applyValueTypesForParameters(this.parameterManager.getAll(useCache));
   }
 
-  _getValueTypes(): Observable<ValueType[]> {
-    return this.valueTypeManager.getAll()
+  _getValueTypes(useCache: boolean = false): Observable<ValueType[]> {
+    return this.valueTypeManager.getAll(useCache)
   }
 
-  _getContactInformation(): Observable<ContactInformation[]> {
-    return this.contactInformationManager.getAll();
+  _getContactInformation(useCache: boolean = false): Observable<ContactInformation[]> {
+    return this.contactInformationManager.getAll(useCache);
   }
 
-  getParameters(): Observable<Parameter[]> {
-    return this._getParameters();
+  getParameters(useCache: boolean = false): Observable<Parameter[]> {
+    return this._getParameters(useCache);
   }
 
   getCategoriesTree(): Observable<CategoryTreeNode[]> {
     return this.categoriesManager.getAllAsTree();
   }
 
-  getContactInformation(): Observable<ContactInformation[]> {
-    return this._getContactInformation();
+  getContactInformation(useCache: boolean = false): Observable<ContactInformation[]> {
+    return this._getContactInformation(useCache);
   }
 
 
 
   // TODO: check. try to return only one item.
-  findCategory({ friendlyName }): Observable<Category[]> {
-    return this.categoriesManager.getAll().map((categories: Category[]) => {
+  findCategory({ friendlyName }, useCache: boolean = false): Observable<Category[]> {
+    return this.categoriesManager.getAll(useCache).map((categories: Category[]) => {
       const result = categories.filter((category: Category) => {
         return category.isMatch({ friendlyName })
       });
@@ -211,8 +211,8 @@ export default class EntityDataProviderService {
     return itemLoader;
   }
 
-  getEntities(entityType: string): Observable<IEntity[]> {
-    const itemsLoader = this._getEntityManagerService(entityType).getAll();
+  getEntities(entityType: string, useCache: boolean = false): Observable<IEntity[]> {
+    const itemsLoader = this._getEntityManagerService(entityType).getAll(useCache);
 
     if (entityType === entityTypes.PRODUCTS.Name) {
 

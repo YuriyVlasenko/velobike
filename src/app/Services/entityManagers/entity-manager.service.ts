@@ -5,6 +5,10 @@ import httpHelper from '../httpHelper';
 
 const apiPrefix = '/api'
 
+const cachingheaders: Headers = new Headers({
+  'Cache-Control': 'max-age=3600, must-revalidate'
+});
+
 const preventCachingheaders: Headers = new Headers({
   'Cache-Control': 'no-cache, no-store, must-revalidate',
   'Pragma': 'no-cache',
@@ -16,9 +20,9 @@ export default class EntityManagerService {
 
   constructor(private http: Http, private apiMethod: String) { }
 
-  getAll(): Observable<any> {
+  getAll(useCache: boolean = false): Observable<any> {
     return httpHelper.processResponse(this.http.get(`${apiPrefix}/${this.apiMethod}`, {
-      headers: preventCachingheaders
+      headers: useCache ? preventCachingheaders : cachingheaders
     }));
   }
 
