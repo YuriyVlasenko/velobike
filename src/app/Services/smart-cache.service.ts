@@ -1,5 +1,6 @@
 import { Observable } from "rxjs/Observable";
 import { AsyncSubject } from "rxjs";
+import { Injectable } from "@angular/core";
 
 const getDataSubject = (dataFn: any) => {
     const subject = new AsyncSubject();
@@ -10,12 +11,15 @@ const getDataSubject = (dataFn: any) => {
     return subject;
 }
 
+@Injectable()
 export default class SmartCacheService {
 
     private cache = {};
-    constructor() { }
+    constructor() { 
+        console.log('cache init');
+    }
 
-    set(key: string, dataFn: (fromCache: boolean) => Observable<any[]>, storeTime: number = 10 * 1000) {
+    set(key: string, dataFn: (fromCache: boolean) => Observable<any[]>, storeTime: number = 60 * 60 * 1000) {
 
         if (this.cache[key]) {
             clearInterval(this.cache[key].interval);

@@ -35,7 +35,7 @@ export class MainPageComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.edp.getSlides().subscribe((slides) => {
+    this.edp.getSlides(true).subscribe((slides) => {
       this.slides = slides;
     })
 
@@ -54,7 +54,7 @@ export class MainPageComponent implements OnInit {
 
       if (params.category) {
         this.edp
-          .findCategory({ friendlyName: params.category })
+          .findCategory({ friendlyName: params.category }, true)
           .subscribe((categories: Category[]) => {
             if (categories.length > 0) {
               this.uiEventsService.onCategorySelected.emit(categories[0]);
@@ -75,14 +75,14 @@ export class MainPageComponent implements OnInit {
           else {
             this.product = null;
             this.router.navigate([this.currentCategoryFriendlyName]);
-          }
+          } 
         });
         return;
       }
 
       if (params.category) {
         // load category products
-        this.edp.findCategory({ friendlyName: params.category })
+        this.edp.findCategory({ friendlyName: params.category }, true)
           .switchMap((categories: Category[]) => {
 
             if (categories.length === 0) {

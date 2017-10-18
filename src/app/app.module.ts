@@ -24,6 +24,7 @@ import ContactInformationService from './Services/entityManagers/contact-informa
 import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
 import SlidesManagerService from './Services/entityManagers/slides-manager.service';
+import SmartCacheService from './Services/smart-cache.service';
 
 import AuthService from './Services/auth.service';
 import AuthGuard from './Services/guards/auth.guard';
@@ -174,7 +175,9 @@ const appRoutes: Routes = [
     { provide: AuthGuard, useClass: AuthGuard },
     { provide: UIEventsService, useClass: UIEventsService },
     { provide: ProductImagesManagerService, useClass: ProductImagesManagerService },
-    { provide: SlidesManagerService, useClass: SlidesManagerService }
+    { provide: SlidesManagerService, useClass: SlidesManagerService },
+    { provide: SmartCacheService, useClass: SmartCacheService }
+    
   ],
   bootstrap: [AppComponent] 
 })

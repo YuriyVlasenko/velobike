@@ -10,7 +10,7 @@ const mapToEntity = (item) => {
 }
 
 @Injectable()
-export default class ParameterManagerService extends EntityManagerService {
+export default class ValueTypeManagerService extends EntityManagerService {
 
     constructor(http: Http) {
         super(http, 'valueTypes')

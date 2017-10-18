@@ -34,7 +34,6 @@ export default class CategoriesManagerService extends EntityManagerService {
   }
 
   getAll(useCache: boolean = false): Observable<Category[]> {
-
     return super.getAll(useCache).map((items: any[]) => {
       return items
         .map(mapToEntity)
@@ -50,9 +49,9 @@ export default class CategoriesManagerService extends EntityManagerService {
     return super.getOne(id).map(mapToEntity);
   }
 
-  getAllAsTree(): Observable<CategoryTreeNode[]> {
+  getAllAsTree(useCach: boolean = false): Observable<CategoryTreeNode[]> {
 
-    return this.getAll().map((items: Category[]) => {
+    return this.getAll(useCach).map((items: Category[]) => {
 
       const nodeItems = items.map((item) => new CategoryTreeNode(item));
 

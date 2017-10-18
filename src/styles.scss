@@ -19,6 +19,7 @@ body.app{
     width: $bodyWidth; 
     justify-content: center;
     min-height: 100%; 
+    overflow: hidden;
 
     @media (max-width: 1200px){
         width: 90%;

@@ -47,9 +47,9 @@ export default class EntityDataProviderService {
 
   getProducts(useCache: boolean = false): Observable<Product[]> {
     let productLoader = this.productManager.getAll(useCache);
-    productLoader = this._applyImagesForProducts(productLoader);
-    productLoader = this._applyParametersForProduct(productLoader);
-    productLoader = this._applyCurrencyCourseForProduct(productLoader);
+    productLoader = this._applyImagesForProducts(productLoader, useCache);
+    productLoader = this._applyParametersForProduct(productLoader, useCache);
+    productLoader = this._applyCurrencyCourseForProduct(productLoader, useCache);
     return productLoader;
   }
 
@@ -57,9 +57,9 @@ export default class EntityDataProviderService {
     return this.slidesManager.getAll(useCache);
   }
 
-  _applyImagesForProducts(productsLoader: Observable<any[]>): Observable<any[]> {
+  _applyImagesForProducts(productsLoader: Observable<any[]>, useCache: boolean = false): Observable<any[]> {
     return productsLoader.switchMap((products) => {
-      return this._getProductImages().map((productImages: ProductImage[]) => {
+      return this._getProductImages(useCache).map((productImages: ProductImage[]) => {
         // Add images to products
         products.forEach((product: Product) => {
 
@@ -77,10 +77,10 @@ export default class EntityDataProviderService {
     return this.productImageManager.getAll(useCache);
   }
 
-  _applyParametersForProductParameters(productParametersLoader: Observable<any[]>): Observable<any[]> {
+  _applyParametersForProductParameters(productParametersLoader: Observable<any[]>, useCache: boolean = false): Observable<any[]> {
     return productParametersLoader.switchMap((productParameters) => {
 
-      return this.getParameters().map((parameterItems: Parameter[]) => {
+      return this.getParameters(useCache).map((parameterItems: Parameter[]) => {
 
         productParameters.forEach((productParameter) => {
           productParameter.parameter = parameterItems.find((parameterItem) => parameterItem.id === productParameter.parameterId);
@@ -91,10 +91,10 @@ export default class EntityDataProviderService {
     });
   }
 
-  _applyValueTypesForParameters(parametersLoader: Observable<any[]>): Observable<any[]> {
+  _applyValueTypesForParameters(parametersLoader: Observable<any[]>, useCache: boolean = false): Observable<any[]> {
 
     return parametersLoader.switchMap((parameters) => {
-      return this._getValueTypes().map((valueTypeItems: ValueType[]) => {
+      return this._getValueTypes(useCache).map((valueTypeItems: ValueType[]) => {
 
         parameters.forEach((parameter) => {
           parameter.valueType = valueTypeItems.find((valueTypeItem) => valueTypeItem.id === parameter.valueTypeId);
@@ -105,12 +105,11 @@ export default class EntityDataProviderService {
     });
   }
 
-  _applyCurrencyCourseForProduct(itemsLoader: Observable<any[]>): Observable<any[]> {
+  _applyCurrencyCourseForProduct(itemsLoader: Observable<any[]>, useCache: boolean = false): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
-      return this._getContactInformation().map((contactInformationItems: ContactInformation[]) => {
+      return this._getContactInformation(useCache).map((contactInformationItems: ContactInformation[]) => {
         if (contactInformationItems.length > 0) {
           const course = contactInformationItems[0].usdCourse || 1;
-          console.log('course' + course);
           items.forEach((product: Product) => {
             product.setCourse(course);
           })
@@ -120,9 +119,9 @@ export default class EntityDataProviderService {
     });
   }
 
-  _applyParametersForProduct(itemsLoader: Observable<any[]>): Observable<any[]> {
+  _applyParametersForProduct(itemsLoader: Observable<any[]>, useCache: boolean = false): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
-      return this._getProductParameters().map((productParameterItems: ProductParameter[]) => {
+      return this._getProductParameters(useCache).map((productParameterItems: ProductParameter[]) => {
         // Add parameters to products
         items.forEach((productItem: Product) => {
           productItem.parameters = productParameterItems.filter((productParameterItem) => {
@@ -136,12 +135,12 @@ export default class EntityDataProviderService {
 
   _getProductParameters(useCache: boolean = false): Observable<ProductParameter[]> {
     let ppLoader = this.productParameterManager.getAll(useCache);
-    ppLoader = this._applyParametersForProductParameters(ppLoader);
+    ppLoader = this._applyParametersForProductParameters(ppLoader, useCache);
     return ppLoader;
   }
 
   _getParameters(useCache: boolean = false): Observable<Parameter[]> {
-    return this._applyValueTypesForParameters(this.parameterManager.getAll(useCache));
+    return this._applyValueTypesForParameters(this.parameterManager.getAll(useCache), useCache);
   }
 
   _getValueTypes(useCache: boolean = false): Observable<ValueType[]> {
@@ -157,7 +156,7 @@ export default class EntityDataProviderService {
   }
 
   getCategoriesTree(): Observable<CategoryTreeNode[]> {
-    return this.categoriesManager.getAllAsTree();
+    return this.categoriesManager.getAllAsTree(true);
   }
 
   getContactInformation(useCache: boolean = false): Observable<ContactInformation[]> {
@@ -215,8 +214,8 @@ export default class EntityDataProviderService {
     if (entityType === entityTypes.PRODUCTS.Name) {
 
       let productLoader = itemsLoader;
-      productLoader = this._applyParametersForProduct(productLoader);
-      productLoader = this._applyImagesForProducts(productLoader);
+      productLoader = this._applyParametersForProduct(productLoader, useCache);
+      productLoader = this._applyImagesForProducts(productLoader, useCache);
 
       return itemsLoader;
     }
