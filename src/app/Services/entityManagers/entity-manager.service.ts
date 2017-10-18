@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Rx';
 import { Http, Response, Headers } from '@angular/http';
 import httpHelper from '../httpHelper';
+import SmartCacheService from '../smart-cache.service';
 
 const apiPrefix = '/api'
 
@@ -18,14 +19,29 @@ const preventCachingheaders: Headers = new Headers({
 @Injectable()
 export default class EntityManagerService {
 
-  constructor(private http: Http, private apiMethod: String) { }
+  private smartCache: SmartCacheService;
 
-  getAll(useCache: boolean = false): Observable<any> {
-    return httpHelper.processResponse(this.http.get(`${apiPrefix}/${this.apiMethod}`, {
-      headers: useCache ? preventCachingheaders : cachingheaders
-    }));
+  constructor(private http: Http, private apiMethod: string) {
+    this.smartCache = new SmartCacheService();
   }
 
+  getAll(useCache: boolean = false): Observable<any> {
+
+    const dataLoader = (fromCache) => {
+      return httpHelper.processResponse(this.http.get(`${apiPrefix}/${this.apiMethod}`, {
+        headers: preventCachingheaders
+      }));
+    }
+
+    if (useCache) {
+      if (!this.smartCache.get(this.apiMethod)) {
+        this.smartCache.set(this.apiMethod, dataLoader);
+      }
+      return this.smartCache.get(this.apiMethod);
+    }
+
+    return dataLoader(useCache);
+  }
 
   getOne(id: String): Observable<any> {
     return httpHelper.processResponse(this.http.get(`${apiPrefix}/${this.apiMethod}/${id}`, {

@@ -24,6 +24,7 @@ import ContactInformationService from './Services/entityManagers/contact-informa
 import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
 import SlidesManagerService from './Services/entityManagers/slides-manager.service';
+
 import AuthService from './Services/auth.service';
 import AuthGuard from './Services/guards/auth.guard';
 import UIEventsService from './Services/ui-events.service';
