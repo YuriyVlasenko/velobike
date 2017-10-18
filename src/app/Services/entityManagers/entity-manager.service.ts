@@ -27,8 +27,6 @@ export default class EntityManagerService {
 
   getAll(useCache: boolean = false): Observable<any> {
 
-    console.log('getAll' + this.apiMethod + useCache);
-
     const dataLoader = (fromCache) => {
       return httpHelper.processResponse(this.http.get(`${apiPrefix}/${this.apiMethod}`, {
         headers: preventCachingheaders

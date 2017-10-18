@@ -33,7 +33,7 @@ export class EntityItemsListComponent implements OnInit {
 
         this.entityType = params.entityType;
 
-        this.edp.getEntities(params.entityType, true)
+        this.edp.getEntities(params.entityType, false)
           .subscribe((entitiesList) => {
             this.entities = entitiesList;
           });
