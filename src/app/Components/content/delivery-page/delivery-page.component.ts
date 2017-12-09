@@ -18,7 +18,7 @@ export class DeliveryPageComponent implements OnInit {
   ngOnInit() {
     this.uiEventsService.onCategorySelected.emit(null);
 
-    this.edp.getContactInformation().subscribe((contactinformationItems) => {
+    this.edp.getContactInformation(true).subscribe((contactinformationItems) => {
       if (contactinformationItems.length > 0){
         this.deliveryPageContent = contactinformationItems[0].deliveryPageContent;
       }

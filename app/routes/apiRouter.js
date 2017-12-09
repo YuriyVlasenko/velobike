@@ -32,6 +32,29 @@ const authenticator = (req, res, next) => {
     res.status(403).end();
 }
 
+const removeImageFromCloudinary = (model, itemId) => {
+    return new Promise((resolve, reject) => {
+        model.getOne(itemId).then((entity) => {
+
+            console.log(entity);
+            console.log('get entity wit id: ' + itemId);
+
+            if (entity) {
+                const imageCode = entity.getImageCode();
+                console.log('imageCode', imageCode);
+
+                cloudinary.v2.api.delete_resources([imageCode], function (error, result) {
+                    console.log(error, result);
+                    resolve();
+                });
+            }
+            else {
+                resolve();
+            }
+        });
+    });
+}
+
 const createModelApi = (router, model) => {
 
     // get all items
@@ -95,6 +118,8 @@ const createModelApi = (router, model) => {
 
     });
 
+
+
     // delete item
     router.delete(`/${model.name}/:id`, getAuthenticator(), function (req, res) {
 
@@ -104,31 +129,44 @@ const createModelApi = (router, model) => {
         cacheManager.reset(model.name);
 
         let modelSpecificAction = new Promise((resolve, reject) => {
-            
-            if (model.name === productImagesModel.name || model.name === slidesModel.name) {
+            switch (model.name) {
+                case productsModel.name: {
 
-                console.log('get entity wit id: ' + itemId);
+                    //itemId
+                    productImagesModel
+                        .find({ productId: itemId })
+                        .then((productImages) => {
 
-                model.getOne(itemId).then((entity) => {
+                            let imageCodes = productImages.map((image) => {
+                                return image.getImageCode();
+                            });
 
-                    console.log(entity);
-
-                    if (entity) {
-                        const imageCode = entity.getImageCode();
-                        console.log('imageCode', imageCode);
-
-                        cloudinary.v2.api.delete_resources([imageCode], function (error, result) {
-                            console.log(error, result);
-                            resolve();
+                            cloudinary.v2.api.delete_resources(imageCodes, function (error, result) {
+                                console.log(error, result);
+                                resolve();
+                            });
                         });
-                    }
-                    else {
-                        resolve();
-                    }
-                });
-            }
-            else {
-                resolve();
+
+                    productParametersModel
+                        .find({ productId: itemId })
+                        .then((productParameters) => {
+                            let ppIds = productParameters.map((productParameter) => productParameter.id);
+                            for (let i = 0; i < ppIds.length; i++) {
+                                productParametersModel.deleteOne(ppIds[i]);
+                            }
+                            resolve();
+                        })
+
+                    break;
+                }
+                case productImagesModel.name:
+                case slidesModel.name: {
+                    removeImageFromCloudinary(model, itemId).then(resolve).catch(reject);
+                    break;
+                }
+                default: {
+                    resolve();
+                }
             }
         })
 
