@@ -8,4 +8,11 @@
         width: $navigationBlockWidth;
         flex-shrink: 0;
     }
+.contact-block{
+    padding-top: 20px;
+}
+    .left-bar{
+        display: flex;
+        flex-direction: column;
+    }
 }

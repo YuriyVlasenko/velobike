@@ -20,11 +20,15 @@
   </div>
 
   <div class="form-group">
-      <label for="usdCourse">Цвет шапки</label>
-      <input type="color" class="form-control header-color"  [(ngModel)]="entityData.headerColor" name="headerColor" required/>
-      <span class="error-message"> введите цвет шапки </span>
-    </div>
+    <label for="usdCourse">Цвет шапки</label>
+    <input type="color" class="form-control header-color" [(ngModel)]="entityData.headerColor" name="headerColor" required/>
+    <span class="error-message"> введите цвет шапки </span>
+  </div>
 
+  <div class="form-group">
+    <label for="additionalContacts">Контакты (дополнительно)</label>
+    <ckeditor [(ngModel)]="entityData.additionalContacts" debounce="500" name="additionalContacts"></ckeditor>
+  </div>
   <div class="form-group">
     <label for="mainPageContent">Контент главной страницы</label>
     <ckeditor [(ngModel)]="entityData.mainPageContent" debounce="500" name="mainPageContent"></ckeditor>

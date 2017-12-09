@@ -23,7 +23,6 @@ export class ContactInformationEditorComponent implements OnInit {
   }
 
   saveChanges() {
-    console.log(this.entityData);
     this.onChange.emit(this.entityData);
   }
 

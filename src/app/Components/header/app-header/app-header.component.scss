@@ -17,11 +17,16 @@
             padding: 10px;
 
             .shop-contacts{
+
                 display: flex;
                 flex-direction: column;
-                justify-content: space-between;
+                justify-content: space-between; 
                 font-size: 13pt;
                 min-width: 165px;
+
+                @media (max-width: 1400px){
+                    display: none;
+                }
 
                 .shop-contacts_phone-list{
                     display: flex;
@@ -72,14 +77,14 @@
                     @media (max-width: 1400px){
                         font-size: 24pt;
                     }
+                    @media (max-width: 1000px){
+                        font-size: 22pt;
+                    }
                 }
 
                 search-bar{
                     width: 300px;
-                    @media (max-width: 1400px){
-                            width: 150px;
-                    }
-
+                  
                     @media (max-width: 1200px){
                         display: none;
                     }

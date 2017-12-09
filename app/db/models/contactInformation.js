@@ -12,7 +12,8 @@ const modelSchema = new Schema({
     usdCourse: { type: Number, default: 1 },
     deliveryPageContent: { type: String },
     mainPageContent: { type: String },
-    headerColor: { type: String }
+    headerColor: { type: String },
+    additionalContacts:  { type: String }
 });
 
 const Model = mongoose.model(modelName, modelSchema);
@@ -22,15 +23,15 @@ class ModelClass extends ModelBase {
     constructor() {
 
         super(Model, modelName);
-        this.modelFields = ['phones', 'workTime', 'slogan', 'id', 'deliveryPageContent', 'mainPageContent', 'usdCourse', 'headerColor'];
+        this.modelFields = ['phones', 'workTime', 'slogan', 'id', 'deliveryPageContent', 'mainPageContent', 'usdCourse', 'headerColor', 'additionalContacts'];
     }
 
     createItem(data) {
 
-        const { id, phones, workTime, slogan, deliveryPageContent, mainPageContent, usdCourse, headerColor } = data;
+        const { id, phones, workTime, slogan, deliveryPageContent, mainPageContent, usdCourse, headerColor, additionalContacts } = data;
         const newItem = new Model({
             phones, workTime, slogan, id,
-            deliveryPageContent, mainPageContent, usdCourse, headerColor
+            deliveryPageContent, mainPageContent, usdCourse, headerColor, additionalContacts
         });
 
         return this.save(newItem);
@@ -38,7 +39,7 @@ class ModelClass extends ModelBase {
 
     validate(data, isCreate) {
 
-        const { phones, workTime, slogan, headerColor } = data;
+        const { phones, workTime, slogan, headerColor, additionalContacts } = data;
 
         if (isCreate) {
 
@@ -49,15 +50,16 @@ class ModelClass extends ModelBase {
         this._fieldValidator.validateStringLength(workTime, 'workTime');
         this._fieldValidator.validateStringLength(slogan, 'slogan');
         this._fieldValidator.validateStringLength(headerColor, 'headerColor');
+        this._fieldValidator.validateStringLength(additionalContacts, 'additionalContacts');
     }
 
     updateItem(data) {
 
-        const { id, phones, workTime, slogan, mainPageContent, deliveryPageContent, usdCourse, headerColor } = data;
+        const { id, phones, workTime, slogan, mainPageContent, deliveryPageContent, usdCourse, headerColor, additionalContacts } = data;
 
         return this._updateItem(id, {
             phones, workTime, slogan,
-            mainPageContent, deliveryPageContent, usdCourse, headerColor
+            mainPageContent, deliveryPageContent, usdCourse, headerColor, additionalContacts
         });
     }
 } 
