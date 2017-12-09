@@ -1,12 +1,14 @@
 import ProductParameter from './productParameter';
 import ProductImage from './productImage';
 import IEntity from './IEntity';
+import Category from './category';
 
 
 export default class Product implements IEntity {
 
     public parameters: ProductParameter[];
     public images: ProductImage[] = [];
+    public category: Category = null;
     private course: number = 1;
 
     constructor(

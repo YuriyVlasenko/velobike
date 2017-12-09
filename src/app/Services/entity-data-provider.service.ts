@@ -155,6 +155,10 @@ export default class EntityDataProviderService {
     return this._getParameters(useCache);
   }
 
+  getCategory(id): Observable<Category> {
+    return this.categoriesManager.getOne(id);
+  }
+
   getCategoriesTree(): Observable<CategoryTreeNode[]> {
     return this.categoriesManager.getAllAsTree(true);
   }

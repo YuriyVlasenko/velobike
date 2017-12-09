@@ -75,7 +75,7 @@ export class MainPageComponent implements OnInit {
           else {
             this.product = null;
             this.router.navigate([this.currentCategoryFriendlyName]);
-          } 
+          }
         });
         return;
       }
@@ -115,6 +115,21 @@ export class MainPageComponent implements OnInit {
   }
 
   selectProduct(productId) {
-    this.router.navigate([this.currentCategoryFriendlyName, productId]);
+
+    if (this.currentCategoryFriendlyName) {
+      this.router.navigate([this.currentCategoryFriendlyName, productId]);
+    }
+    else {
+    
+      this.edp.findProducts({
+        id: productId,
+        categoryId: undefined,
+        name: undefined
+      }).switchMap((products) => { 
+        return this.edp.getCategory(products[0].categoryId);
+      }).subscribe((category)=>{
+        this.router.navigate([category.friendlyName, productId]);
+      });
+    }
   }
 }
