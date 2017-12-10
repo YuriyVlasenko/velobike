@@ -10,6 +10,13 @@
         flex-direction: row;
         background: #000; /* Old browsers */
 
+.logo{
+    width: 30vw;
+    min-width: 250px;
+    max-width: 400px;
+    
+}
+
         .shop-info{
             display: flex;
             flex-direction: row;
@@ -24,7 +31,7 @@
                 font-size: 13pt;
                 min-width: 165px;
 
-                @media (max-width: 1400px){
+                @media (max-width: 650px){
                     display: none;
                 }
 
@@ -72,20 +79,17 @@
                 .shop-slogan{
                     flex-grow: 1;
                     color: $appMainColor1;
-                    font: 30pt Century Gothic;
-
-                    @media (max-width: 1400px){
-                        font-size: 24pt;
-                    }
-                    @media (max-width: 1000px){
-                        font-size: 22pt;
-                    }
+                    font: 2.4vw Century Gothic;
+                    
                 }
 
                 search-bar{
                     width: 300px;
                   
                     @media (max-width: 1200px){
+                        width: 150px;
+                    }
+                    @media (max-width: 900px){
                         display: none;
                     }
                 }
