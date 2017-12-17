@@ -11,6 +11,7 @@ import UserManager from './entityManagers/users-manager.service';
 import EntityManager from './entityManagers/entity-manager.service';
 import ProductImageManager from './entityManagers/product-images-manager.service';
 import SlidesManager from './entityManagers/slides-manager.service';
+import OrdersManager from './entityManagers/order-manager.service';
 
 import Parameter from '../Model/parameter';
 import ValueType from '../Model/valueType';
@@ -20,6 +21,7 @@ import Product from '../Model/product';
 import ProductImage from '../Model/productImage';
 import ContactInformation from '../Model/contactInformation';
 import Slide from '../Model/slide';
+import Order from '../Model/order';
 import IEntity from './../Model/IEntity';
 
 import entityTypes from '../Services/entity-types';
@@ -28,6 +30,7 @@ import CategoryTreeNode from '../Model/categoryTreeNode';
 @Injectable()
 export default class EntityDataProviderService {
 
+  public currentOrder = new Order('', '', '', '', [], [], '');
   public activatedRoute = new BehaviorSubject([]); // TODO: check
 
   constructor(
@@ -39,11 +42,27 @@ export default class EntityDataProviderService {
     private parameterManager: ParameterManager,
     private userManager: UserManager,
     private productImageManager: ProductImageManager,
-    private slidesManager: SlidesManager) {
+    private slidesManager: SlidesManager,
+    private ordersManager: OrdersManager) {
 
     this.getProducts(true);
   }
 
+  addItemToBasket(itemId, count) {
+    this.currentOrder.itemIds.push(itemId);
+    this.currentOrder.itemCounts.push(count);
+  }
+
+  removeItemFromBasket(itemId) {
+    let index =  this.currentOrder.itemIds.indexOf(itemId);
+    this.currentOrder.itemIds.splice(index, 1);
+    this.currentOrder.itemCounts.splice(index, 1);
+  }
+
+  setBasketItemCount(itemId, count){
+    let index =  this.currentOrder.itemIds.indexOf(itemId);
+    this.currentOrder.itemCounts[index] = count;
+  }
 
   getProducts(useCache: boolean = false): Observable<Product[]> {
     let productLoader = this.productManager.getAll(useCache);
@@ -52,6 +71,13 @@ export default class EntityDataProviderService {
     productLoader = this._applyCurrencyCourseForProduct(productLoader, useCache);
     return productLoader;
   }
+
+  getOrders(useCache: boolean = false): Observable<Order[]> {
+    let ordersLoader = this.ordersManager.getAll(useCache);
+    return ordersLoader;
+  }
+
+
 
   getSlides(useCache: boolean = false): Observable<Slide[]> {
     return this.slidesManager.getAll(useCache);

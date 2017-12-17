@@ -1,0 +1,23 @@
+:host{
+    .basket-customer-info{
+        padding: 20px 0 0 0;
+        .form-group{
+            display: flex;
+            flex-direction: row;
+
+            
+        }
+
+        label{
+         width: 250px;       
+        }
+    }
+
+    .title{
+        font-size: 1.5em;
+    }
+    .basket-summary{
+        font-size: 1.3em;
+        font-weight: bold;
+    }
+}

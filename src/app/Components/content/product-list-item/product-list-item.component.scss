@@ -3,7 +3,7 @@
 $productItemBorderColor: gray;
 $productItemHeaderHeigth: 70px;
 $productItemContentHeigth: 150px;
-$productItemFooterHeigth: 40px;
+$productItemFooterHeigth: 60px;
 
 :host{
     display: flex;
@@ -11,12 +11,20 @@ $productItemFooterHeigth: 40px;
     justify-content: center;
     position: relative;
 
-    cursor: pointer;
+    
     border: 1px solid $productItemBorderColor;
 
     &.is-sold-out{
         background-color: lightgray;   
     }
+
+.basket-action{
+ position: absolute;
+ right: 5px;
+ bottom: 5px;
+ width: 30px;
+ height:  30px;
+}
 
     .sold-out-label{
         position: absolute;
@@ -44,9 +52,11 @@ $productItemFooterHeigth: 40px;
         overflow: hidden;
         font-size: 12pt;
         color: blue;
+        cursor: pointer;
     }
 
     .product_content{
+        cursor: pointer;
         display: flex;
         justify-content: center;
         align-items: center;

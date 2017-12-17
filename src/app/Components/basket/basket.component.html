@@ -1,0 +1,41 @@
+<form #fOrder="ngForm" name="orderFrom" (ngSubmit)="fParams.form.valid && saveOrder()">
+  <span class="title" *ngIf="order.items.legnth">Товары в корзине:</span>
+  <span class="title" *ngIf="!order.items.legnth">Страница в разработке</span>
+  <div class="basket-items">
+    <div class="basket-item" *ngFor="let orderItem of order.items; let i = index;">
+      <div class="backet-item__photo">
+        <img src={{orderItem.photo}} />
+      </div>
+      <div class="backet-item__name">
+        {{orderItem.displayName}}
+      </div>
+      <div class="backet-item__count">
+        <input [(ngModel)]="orderItem.count" />
+      </div>
+      <div class="backet-item__summ">
+        {{orderItem.summ}}
+      </div>
+      <div class="backet-item__summ" (click)="removeOrderItem(i)">
+        <img src="/assets/delete.png" />
+      </div>
+    </div>
+  </div>
+  <div class="basket-summary" *ngIf="order.items.legnth">
+    <span> Сумма заказа {{getOrderSumm()}} грн.</span>
+  </div>
+  <div class="basket-customer-info" *ngIf="order.items.legnth">
+    <div class="form-group" [ngClass]="{'has-error': fOrder.submitted && !customerName.valid}">
+      <label for="customerName">Имя</label>
+      <input class="form-control" type="text" [(ngModel)]="order.customerName" name="customerName" #customerName="ngModel" required placeholder="Ваше имя"
+      />
+      <span class="error-message">введите Ваше имя</span>
+    </div>
+    <div class="form-group" [ngClass]="{'has-error': fOrder.submitted && !customerPhone.valid}">
+      <label for="customerPhone">Номер телефона</label>
+      <input class="form-control" type="text" [(ngModel)]="order.customerPhone" name="customerPhone" #customerPhone="ngModel" required
+        placeholder="номер телефона" />
+      <span class="error-message">введите номер телефона</span>
+    </div>
+  </div>
+  <button type="submit" class="btn btn-primary" *ngIf="order.items.legnth">Оформить заказ</button>
+</form>

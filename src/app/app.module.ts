@@ -10,9 +10,9 @@ import * as  Cloudinary from 'cloudinary-core';
 import cloudinaryConfiguration from './Config/cloudinaryConfiguration';
 import { TreeModule } from 'angular-tree-component';
 import { FileUploadModule } from 'ng2-file-upload';
-import { NgxGalleryModule  } from 'ngx-gallery';
+import { NgxGalleryModule } from 'ngx-gallery';
 import { CKEditorModule } from 'ng2-ckeditor';
-import {NgxPaginationModule} from 'ngx-pagination'; 
+import { NgxPaginationModule } from 'ngx-pagination';
 
 import CategoriesManagerService from './Services/entityManagers/categories-manager.service';
 import ParameterManagerService from './Services/entityManagers/parameter-manager.service';
@@ -24,6 +24,7 @@ import ContactInformationService from './Services/entityManagers/contact-informa
 import EntityDataProviderService from './Services/entity-data-provider.service';
 import UsersManagerService from './Services/entityManagers/users-manager.service';
 import SlidesManagerService from './Services/entityManagers/slides-manager.service';
+import OrderManagerService from './Services/entityManagers/order-manager.service';
 import SmartCacheService from './Services/smart-cache.service';
 
 import AuthService from './Services/auth.service';
@@ -58,6 +59,8 @@ import { PhotoUploadComponent } from './components/admin/photo-upload/photo-uplo
 import { PhotoViewerComponent } from './components/photo-viewer/photo-viewer.component';
 import { PhotoEditorComponent } from './components/photo-editor/photo-editor.component';
 import { LoadingIndicatorComponent } from './components/loading-indicator/loading-indicator.component';
+import { BasketComponent } from './components/basket/basket.component';
+import { BasketActionComponent } from './components/basket-action/basket-action.component';
 
 const appRoutes: Routes = [
   {
@@ -93,6 +96,7 @@ const appRoutes: Routes = [
         path: '',
         component: MainPageComponent
       },
+      { path: 'basket', component: BasketComponent },
       {
         path: 'delivery',
         component: DeliveryPageComponent
@@ -144,7 +148,9 @@ const appRoutes: Routes = [
     PhotoUploadComponent,
     PhotoViewerComponent,
     PhotoEditorComponent,
-    LoadingIndicatorComponent
+    LoadingIndicatorComponent,
+    BasketComponent,
+    BasketActionComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: false }),
@@ -176,10 +182,10 @@ const appRoutes: Routes = [
     { provide: UIEventsService, useClass: UIEventsService },
     { provide: ProductImagesManagerService, useClass: ProductImagesManagerService },
     { provide: SlidesManagerService, useClass: SlidesManagerService },
-    { provide: SmartCacheService, useClass: SmartCacheService }
-    
+    { provide: SmartCacheService, useClass: SmartCacheService },
+    { provide: OrderManagerService, useClass: OrderManagerService}
+
   ],
-  bootstrap: [AppComponent] 
+  bootstrap: [AppComponent]
 })
 export class AppModule { }
- 

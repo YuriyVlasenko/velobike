@@ -31,6 +31,28 @@
                 font-size: 13pt;
                 min-width: 165px;
 
+                .shop-contacts__basket_work-time{
+                 display: flex;
+                 flex-direction: row;   
+
+                 .shop-contacts_basket{
+position: relative;                     
+                     padding-top: 10px;
+                     img{
+                        height: 40px;
+                        width: 40px;
+                     }
+                     
+                     
+                     .basket-counter{
+                         position: absolute;
+                         color: white;
+left:0;
+top: -3px;
+                     }
+                 }
+                }
+
                 @media (max-width: 650px){
                     display: none;
                 }

@@ -9,11 +9,18 @@
             </div>
         </div>
         <div class="shop-contacts">
-            <div class="shop-contacts_work-time">
-                <span>{{contactInfo.workTime}}</span>
+            <div class="shop-contacts__basket_work-time">
+                <div class="shop-contacts_basket" (click)="goToBasket()">
+                        <img src="/assets/basket.png" class="basket-icon" />
+                        <span class="basket-counter" *ngIf="order.ItemsCount" >{{order.ItemsCount}}</span>
+                </div>
+                <div class="shop-contacts_work-time">
+                    <span>{{contactInfo.workTime}}</span>
+                </div>
             </div>
+
             <div class="shop-contacts_phone-list">
-                <img src="/assets/phones.gif" class="phone-icon"/>
+                <img src="/assets/phones.gif" class="phone-icon" />
                 <div class="phones">
                     <span *ngFor="let phone of contactInfo.phonesList" class="shop-contacts_phone">
                         {{phone}}

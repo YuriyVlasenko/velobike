@@ -1,7 +1,7 @@
-<div class="product_header">
+<div class="product_header" (click)="selectItem()">
   {{product.name}}
 </div>
-<div class="product_content">
+<div class="product_content" (click)="selectItem()">
   <img src={{product.thumbnailPhoto}} class="product_thumbnail" />
 </div>
 <div class="product_footer">
@@ -16,3 +16,5 @@
 <div class="sold-out-label" *ngIf="isSoldOut">
   продано
 </div>
+<basket-action class="basket-action" productId={{product.id}}
+*ngIf="!isSoldOut"></basket-action>

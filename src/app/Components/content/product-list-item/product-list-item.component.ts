@@ -18,12 +18,7 @@ export class ProductListItemComponent implements OnInit {
     this.isSoldOut = !this.product.isActive;
   }
 
-  @HostListener('mouseup', ['$event'])
-  onMouseUp(event) {
-    // Only left mouse button click is allowed.
-    if (event.which === 1) {
-      this.productSelected.emit(this.product.id);
-    }
+  selectItem(){
+    this.productSelected.emit(this.product.id);
   }
-
 }

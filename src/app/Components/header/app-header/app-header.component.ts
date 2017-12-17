@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import ContactInformation from '../../../Model/contactInformation';
 import EntityDataProviderService from '../../../Services/entity-data-provider.service';
+import { Router } from '@angular/router';
+import Order from '../../../Model/order';
 
 @Component({
   selector: 'app-header',
@@ -10,9 +12,16 @@ import EntityDataProviderService from '../../../Services/entity-data-provider.se
 export class AppHeaderComponent implements OnInit {
 
   public contactInfo: ContactInformation;
+  public order: Order;
 
-  constructor(private edp: EntityDataProviderService) {
+
+  constructor(private edp: EntityDataProviderService, private router: Router) {
     this.contactInfo = new ContactInformation('', '', '','', '', '', 1, '', '')
+    this.order = this.edp.currentOrder;
+  }
+
+  goToBasket(){
+    this.router.navigate(['/', 'basket']);
   }
 
   ngOnInit() {

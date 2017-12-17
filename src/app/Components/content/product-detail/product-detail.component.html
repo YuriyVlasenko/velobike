@@ -8,7 +8,9 @@
         <div class="product-parameter__name">{{productParameter.parameter.name}}</div>
         <div class="product-parameter__value">{{productParameter.value}}</div>
       </div>
+      <basket-action class="basket-action" productId={{product.id}}></basket-action>
     </div>
+  
   </div>
   <div class="product-description" [innerHTML]="product.description"></div>
 </div>

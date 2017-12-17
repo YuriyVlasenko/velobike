@@ -1,0 +1,3 @@
+
+<img class="action-icon" (click)="addToBasket()" *ngIf="!isItemInBasket()" src="./assets/basketAdd.png"/>
+<img class="action-icon" (click)="removeFromBasket()" *ngIf="isItemInBasket()" src="./assets/basketRemove.png"/>

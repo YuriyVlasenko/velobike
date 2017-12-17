@@ -27,6 +27,7 @@ body.app{
     }
 }
 
+
 .error-message{
     min-height: $errorMessageHeight;
     color: $errorMessageColor;
@@ -42,6 +43,40 @@ body.app{
             display: block;
         }
     }
+}
+
+.contact-phone{
+    height: 30px;
+    margin-top: 5px;
+    &::before{
+        content: '';
+        display: inline-block;
+        height: 30px;
+        width: 30px;
+        margin-bottom: -5px;
+        margin-right: 5px;
+        background-position: center;
+        background-size: contain;
+        background-repeat: no-repeat;
+        
+    }
+    
+    &.viber::before{
+        background-image: url('./assets/viber.png');
+    }
+    &.lifecell::before{
+        background-image: url('./assets/lifecell.png');
+    }
+    &.vodafone::before{
+        background-image: url('./assets/vodafone.png');
+    }
+    &.kyivstar::before{
+        background-image: url('./assets/kyivstar.png');
+    }
+} 
+
+.work-days{
+ padding-top: 20px;   
 }
 
 // tree overloades

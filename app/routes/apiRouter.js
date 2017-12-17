@@ -15,7 +15,6 @@ const protectedModels = [usersModel.name];
 
 const getAuthenticator = (modelName) => {
 
-    // TODO: remove this face auth
     return (req, res, next) => next();
 
     if (modelName) {

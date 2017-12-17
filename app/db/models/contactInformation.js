@@ -50,7 +50,6 @@ class ModelClass extends ModelBase {
         this._fieldValidator.validateStringLength(workTime, 'workTime');
         this._fieldValidator.validateStringLength(slogan, 'slogan');
         this._fieldValidator.validateStringLength(headerColor, 'headerColor');
-        this._fieldValidator.validateStringLength(additionalContacts, 'additionalContacts');
     }
 
     updateItem(data) {
