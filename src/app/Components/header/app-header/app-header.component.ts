@@ -16,11 +16,11 @@ export class AppHeaderComponent implements OnInit {
 
 
   constructor(private edp: EntityDataProviderService, private router: Router) {
-    this.contactInfo = new ContactInformation('', '', '','', '', '', 1, '', '')
+    this.contactInfo = new ContactInformation('', '', '', '', '', '', 1, '', '')
     this.order = this.edp.currentOrder;
   }
 
-  goToBasket(){
+  goToBasket() {
     this.router.navigate(['/', 'basket']);
   }
 
@@ -28,7 +28,7 @@ export class AppHeaderComponent implements OnInit {
     this.edp.getContactInformation()
       .subscribe((contactInfoItems: ContactInformation[]) => {
 
-      if (contactInfoItems.length) {
+        if (contactInfoItems.length) {
           this.contactInfo = contactInfoItems[0];
         }
       });

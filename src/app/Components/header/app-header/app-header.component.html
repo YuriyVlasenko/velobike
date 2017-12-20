@@ -2,21 +2,20 @@
     <logo class="logo"></logo>
     <div class="shop-info">
         <div class="shop-main-info">
-            <div class="shop-slogan">{{contactInfo.slogan}}</div>
+            <div class="shop-slogan">{{contactInfo.slogan}}
+                <div class="shop-contacts_basket" (click)="goToBasket()">
+                    <img src="/assets/basket.png" class="basket-icon" />
+                    <span class="basket-counter" *ngIf="order.ItemsCount" >{{order.ItemsCount}}</span>
+                </div>
+            </div>
             <div class="shop-menu">
                 <menu-bar></menu-bar>
                 <search-bar></search-bar>
             </div>
         </div>
         <div class="shop-contacts">
-            <div class="shop-contacts__basket_work-time">
-                <div class="shop-contacts_basket" (click)="goToBasket()">
-                        <img src="/assets/basket.png" class="basket-icon" />
-                        <span class="basket-counter" *ngIf="order.ItemsCount" >{{order.ItemsCount}}</span>
-                </div>
-                <div class="shop-contacts_work-time">
-                    <span>{{contactInfo.workTime}}</span>
-                </div>
+            <div class="shop-contacts_work-time">
+                <span>{{contactInfo.workTime}}</span>
             </div>
 
             <div class="shop-contacts_phone-list">

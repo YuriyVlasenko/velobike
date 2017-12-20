@@ -31,27 +31,8 @@
                 font-size: 13pt;
                 min-width: 165px;
 
-                .shop-contacts__basket_work-time{
-                 display: flex;
-                 flex-direction: row;   
 
-                 .shop-contacts_basket{
-position: relative;                     
-                     padding-top: 10px;
-                     img{
-                        height: 40px;
-                        width: 40px;
-                     }
-                     
-                     
-                     .basket-counter{
-                         position: absolute;
-                         color: white;
-left:0;
-top: -3px;
-                     }
-                 }
-                }
+                 
 
                 @media (max-width: 650px){
                     display: none;
@@ -99,6 +80,7 @@ top: -3px;
                 padding: 5px 20px 5px 10px;
 
                 .shop-slogan{
+                    position: relative;
                     flex-grow: 1;
                     color: $appMainColor1;
                     font: 2.4vw Century Gothic;
@@ -129,8 +111,28 @@ top: -3px;
         }
     }
 
+    .shop-contacts_basket{
+        position: absolute;                     
+         right: -5px;
+         bottom: 10px;
+         cursor: pointer;
+         img{
+            height: 40px;
+            width: 40px;
+         }
+         
+         
+         .basket-counter{
+             position: absolute;
+             color: white;
+             font-size: 15px;
+                left:30px;
+                top: 35px;
+         }
+     }
+
     .header-bottom{
-        display: flex;
+display: flex;
         flex-direction: row;
 
         background: -webkit-linear-gradient(top, rgb(0,0,0) 0%,rgb(255,255,255) 100%);

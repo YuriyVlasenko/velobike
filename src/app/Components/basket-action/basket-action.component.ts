@@ -20,6 +20,10 @@ export class BasketActionComponent implements OnInit {
     return this.edp.currentOrder.itemIds.indexOf(this.productId) !== -1;
   }
 
+  toggleItem() {
+    this.isItemInBasket() ? this.removeFromBasket() : this.addToBasket();
+  }
+
   addToBasket() {
     this.edp.addItemToBasket(this.productId, 1);
   }
