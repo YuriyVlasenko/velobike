@@ -10,8 +10,8 @@ const mapToEntity = (item) => {
         return null;
     }
     return new Order(item.id, item.date, item.customerName, item.customerPhone,
-        item.itemIds, item.itemCounts, item.summ);
-}
+        item.itemIds, item.itemCounts, item.summ, item.city, item.deliveryPoint);
+};
 
 @Injectable()
 export default class OrderManagerService extends EntityManagerService {

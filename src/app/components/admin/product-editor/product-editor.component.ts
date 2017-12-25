@@ -72,14 +72,11 @@ export class ProductEditorComponent implements OnInit {
           })[0];
 
           this.entityData.parameters.push(pp);
-          
         }
-      })
+      });
   }
 
   editProductParameter(productParameter: ProductParameter) {
-
-    console.log('product parameter selected for editing', productParameter);
     this.selectedParameterId = productParameter.parameterId;
     this.selectedParameterValue = productParameter.value;
   }
@@ -93,6 +90,6 @@ export class ProductEditorComponent implements OnInit {
             return parameter.id !== productParameter.id;
           });
         }
-      })
+      });
   }
 }

@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import entityTypes from '../../../Services/entity-types';
 
 class EntityTypeItem {
-
   constructor(public Name: string, public DisplayName: string) { }
-
 }
 
 @Component({
@@ -18,12 +16,13 @@ export class EntityTypeListComponent implements OnInit {
   public entityTypes: EntityTypeItem[];
 
   constructor() {
-  this.entityTypes = [
+    this.entityTypes = [
       entityTypes.CATEGORIES,
       entityTypes.PARAMETERS,
       entityTypes.VALUE_TYPES,
       entityTypes.PRODUCTS,
       entityTypes.SLIDES,
+      entityTypes.ORDERS,
       entityTypes.USERS,
       entityTypes.CONTACT_INFORMATION,
     ];

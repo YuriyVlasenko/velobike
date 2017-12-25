@@ -54,13 +54,13 @@ export default class EntityDataProviderService {
   }
 
   removeItemFromBasket(itemId) {
-    let index =  this.currentOrder.itemIds.indexOf(itemId);
+    const index = this.currentOrder.itemIds.indexOf(itemId);
     this.currentOrder.itemIds.splice(index, 1);
     this.currentOrder.itemCounts.splice(index, 1);
   }
 
-  setBasketItemCount(itemId, count){
-    let index =  this.currentOrder.itemIds.indexOf(itemId);
+  setBasketItemCount(itemId, count) {
+    const index = this.currentOrder.itemIds.indexOf(itemId);
     this.currentOrder.itemCounts[index] = count;
   }
 
@@ -73,11 +73,13 @@ export default class EntityDataProviderService {
   }
 
   getOrders(useCache: boolean = false): Observable<Order[]> {
-    let ordersLoader = this.ordersManager.getAll(useCache);
+    const ordersLoader = this.ordersManager.getAll(useCache);
     return ordersLoader;
   }
 
-
+  createOrder(orderData) {
+    return this.ordersManager.createOrUpdate(orderData);
+  }
 
   getSlides(useCache: boolean = false): Observable<Slide[]> {
     return this.slidesManager.getAll(useCache);
@@ -90,9 +92,9 @@ export default class EntityDataProviderService {
         products.forEach((product: Product) => {
 
           product.images = productImages.filter((productImage) => {
-            return productImage.productId === product.id
-          })
-        })
+            return productImage.productId === product.id;
+          });
+        });
         return products;
       });
     }
@@ -138,10 +140,10 @@ export default class EntityDataProviderService {
           const course = contactInformationItems[0].usdCourse || 1;
           items.forEach((product: Product) => {
             product.setCourse(course);
-          })
+          });
         }
         return items;
-      })
+      });
     });
   }
 
@@ -152,10 +154,10 @@ export default class EntityDataProviderService {
         items.forEach((productItem: Product) => {
           productItem.parameters = productParameterItems.filter((productParameterItem) => {
             return productParameterItem.productId === productItem.id
-          })
-        })
+          });
+        });
         return items;
-      })
+      });
     });
   }
 
@@ -197,7 +199,7 @@ export default class EntityDataProviderService {
   findCategory({ friendlyName }, useCache: boolean = false): Observable<Category[]> {
     return this.categoriesManager.getAll(useCache).map((categories: Category[]) => {
       const result = categories.filter((category: Category) => {
-        return category.isMatch({ friendlyName })
+        return category.isMatch({ friendlyName });
       });
       return result;
     });
@@ -209,7 +211,7 @@ export default class EntityDataProviderService {
 
     this.getProducts(true).subscribe((productItems) => {
 
-      let filteredProducts = productItems.filter((product: Product) => {
+      const filteredProducts = productItems.filter((product: Product) => {
         return product.isMatch({ id, categoryId }) && product.isContains({ name });
       });
 
@@ -228,7 +230,7 @@ export default class EntityDataProviderService {
 
     if (entityType === entityTypes.PRODUCTS.Name) {
 
-      let productLoader = itemLoader.map((product) => { return [product]; });
+      let productLoader = itemLoader.map((product) => [product]);
       productLoader = this._applyParametersForProduct(productLoader);
       productLoader = this._applyImagesForProducts(productLoader);
 
@@ -288,6 +290,9 @@ export default class EntityDataProviderService {
       }
       case entityTypes.PRODUCT_PARAMETER.Name: {
         return this.productParameterManager;
+      }
+      case entityTypes.ORDERS.Name: {
+        return this.ordersManager;
       }
       default: {
         throw new Error(`Loader for ${entityType} wasn't implemented. `);

@@ -1,25 +1,5 @@
 import IEntity from './IEntity';
-
-import Product from './product';
-
-class OrderItem {
-
-    constructor(public product: Product, public count: number) {
-
-    }
-
-    get summ(): number {
-        return this.count * this.product.actualPrice;
-    }
-
-    get photo(): string {
-        return this.product.thumbnailPhoto;
-    }
-
-    get displayName(): string {
-        return this.product.displayName;
-    }
-}
+import OrderItem from './orderItem';
 
 export default class Order implements IEntity {
 
@@ -32,7 +12,10 @@ export default class Order implements IEntity {
         public customerPhone: string = '',
         public itemIds: string[],
         public itemCounts: number[],
-        public summ: string = '', ) {
+        public summ: string = '',
+        public city: string = '',
+        public deliveryPoint: string = ''
+    ) {
         this.items = [];
     }
 
@@ -49,6 +32,6 @@ export default class Order implements IEntity {
     }
 
     get displayName(): string {
-        return `${this.date} ${this.customerName} ${this.customerPhone}`;
+        return `${this.id.substr(this.id.length - 6, 6)} ${this.date} ${this.customerName} ${this.customerPhone} (${this.city})`;
     }
 } 

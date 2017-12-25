@@ -15,14 +15,12 @@ export class SlideEditorComponent implements OnInit {
   @Input() entityData: Slide;
   @Output() onChange = new EventEmitter<Slide>();
 
-  public isCreating: boolean = false;
-  public isImageLoading: boolean = false;
+  public isCreating = false;
+  public isImageLoading = false;
 
   constructor(private edp: EntityDataProvider) { }
 
   ngOnInit() {
-
-    console.log(this.entityData);
     this.isCreating = !this.entityData.id;
   }
 

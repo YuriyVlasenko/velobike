@@ -77,9 +77,7 @@ export default class ModelBase {
     }
 
     createOrUpdate(data) {
-
         data = this.__restrictFields(data, this.modelFields);
-
         const isCreateMode = !data.id;
         let error = null;
 

@@ -32,7 +32,6 @@ export default class EntityManagerService {
         headers: preventCachingheaders
       }));
     }
-
     if (useCache) {
       if (!this.smartCache.get(this.apiMethod)) {
         this.smartCache.set(this.apiMethod, dataLoader);

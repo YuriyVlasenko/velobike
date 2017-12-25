@@ -38,13 +38,12 @@ export class EntityEditorComponent implements OnInit {
   }
 
   processEntity(entityData, shouldGoBack: boolean = true) {
-    console.log('processEntity', entityData);
     this.edp
       .createOrUpdateEntity(this.entityType, entityData)
       .subscribe((entityId) => {
         if (entityId) {
           entityData.id = entityId;
-          if (shouldGoBack){
+          if (shouldGoBack) {
             this.location.back();
             return;
           }

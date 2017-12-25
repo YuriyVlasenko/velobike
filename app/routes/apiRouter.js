@@ -7,6 +7,7 @@ import valueTypesModel from '../db/models/valueTypes';
 import contactInformationModel from '../db/models/contactInformation';
 import usersModel from '../db/models/users';
 import slidesModel from '../db/models/slides';
+import ordersModel from '../db/models/orders';
 import productImagesModel from '../db/models/productImages';
 import cloudinary from 'cloudinary';
 import cacheManager from '../cacheManager';
@@ -185,7 +186,7 @@ const createModelApi = (router, model) => {
 const apiRouter = express.Router();
 
 const models = [categoriesModel, parametersModel, productParametersModel, productsModel, valueTypesModel,
-    contactInformationModel, usersModel, productImagesModel, slidesModel];
+    contactInformationModel, usersModel, productImagesModel, slidesModel, ordersModel];
 
 // Create routes for models.
 for (let i = 0; i < models.length; i++) {

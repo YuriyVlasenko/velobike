@@ -1,15 +1,74 @@
+$itemHeight: 10vh;
+$basketItemPartsPadding: 1vw;
+@import '../../../variables';
+
 :host{
+    width: calc(100% - #{$navigationBlockWidth}); 
+
+    .basket-items{
+        display: flex;
+        flex-direction: column;
+
+
+        .basket-item{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            margin: 2vh;
+            height: $itemHeight;
+
+            .backet-item__photo{
+                padding-right: $basketItemPartsPadding;
+                img{
+                    max-width: $itemHeight * 16 / 9;
+                    max-height: $itemHeight;
+                }
+            }
+            .backet-item__name{
+                padding-right: $basketItemPartsPadding;
+                flex-grow: 1;
+            }
+            .backet-item__count{
+                padding-right: $basketItemPartsPadding;
+                min-width: 100px;
+                width: 100px;
+                input{
+                    width: 100%;
+                }
+            }
+            .backet-item__summ{
+                padding-right: $basketItemPartsPadding;
+                min-width: 100px;
+                width: 100px;
+            }
+            .backet-item__action{
+                cursor: pointer;
+                img{
+                    height: 100%;
+                    max-width: 100%;
+                }
+            }
+        }
+
+    }
     .basket-customer-info{
         padding: 20px 0 0 0;
         .form-group{
             display: flex;
             flex-direction: row;
-
+            padding-bottom: 0;
             
         }
 
         label{
-         width: 250px;       
+         width: 200px;       
+        }
+        input{
+            width: 300px;
+        }
+
+        .error-message{
+            padding-left: 1vw;
         }
     }
 
