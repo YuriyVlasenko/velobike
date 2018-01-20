@@ -8,4 +8,5 @@
       <slide-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'slides'"></slide-editor>
       <user-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'users'"></user-editor>
       <value-type-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'valueTypes'"></value-type-editor>
+      <order-editor [entityData]="entity" (onChange)="processEntity($event)" *ngIf="entityType === 'orders'"></order-editor>
     </div>

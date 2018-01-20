@@ -40,9 +40,6 @@ app.use('/', (req, res)=> {
     res.sendFile(path.resolve(`${__dirname}/${staticFolder}/index.html`))
 })
 
-
-
-
 app.listen(serverConfig.port, ()=>{
     console.log(`server lintened on ${serverConfig.port}`);
 

@@ -7,6 +7,7 @@ import Category from './category';
 export default class Product implements IEntity {
 
     public parameters: ProductParameter[];
+    public categoryFriendName: string;
     public images: ProductImage[] = [];
     public category: Category = null;
     private course: number = 1;

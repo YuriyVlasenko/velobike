@@ -69,6 +69,7 @@ export default class EntityDataProviderService {
     productLoader = this._applyImagesForProducts(productLoader, useCache);
     productLoader = this._applyParametersForProduct(productLoader, useCache);
     productLoader = this._applyCurrencyCourseForProduct(productLoader, useCache);
+    productLoader = this._applyCategoryData(productLoader, useCache);
     return productLoader;
   }
 
@@ -133,6 +134,25 @@ export default class EntityDataProviderService {
     });
   }
 
+  _applyCategoryData(itemsLoader: Observable<any[]>, useCache: boolean = false): Observable<Product[]> {
+    return itemsLoader.switchMap((items) => {
+      return this.getCategories(useCache).map((categories) => {
+
+        items.forEach((item) => {
+
+          let itemCategory = categories.filter((category) => {
+            return category.id == item.categoryId;
+          })
+          if (itemCategory.length) {
+            item.categoryFriendName = itemCategory[0].friendlyName;
+          }
+        })
+
+        return items;
+      })
+    });
+  }
+
   _applyCurrencyCourseForProduct(itemsLoader: Observable<any[]>, useCache: boolean = false): Observable<any[]> {
     return itemsLoader.switchMap((items) => {
       return this._getContactInformation(useCache).map((contactInformationItems: ContactInformation[]) => {
@@ -185,6 +205,10 @@ export default class EntityDataProviderService {
 
   getCategory(id): Observable<Category> {
     return this.categoriesManager.getOne(id);
+  }
+
+  getCategories(useCache: boolean = false): Observable<Category[]> {
+    return this.categoriesManager.getAll(useCache);
   }
 
   getCategoriesTree(): Observable<CategoryTreeNode[]> {

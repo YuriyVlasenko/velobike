@@ -51,6 +51,7 @@ import { DisplayNamePipe } from './pipes/display-name.pipe';
 import { CategoryEditorComponent } from './components/admin/category-editor/category-editor.component';
 import { ValueTypeEditorComponent } from './components/admin/value-type-editor/value-type-editor.component';
 import { UserEditorComponent } from './components/admin/user-editor/user-editor.component';
+import { OrderEditorComponent } from './components/admin/order-editor/order-editor.component';
 import { ContactInformationEditorComponent } from './components/admin/contact-information-editor/contact-information-editor.component';
 import { ParameterEditorComponent } from './components/admin/parameter-editor/parameter-editor.component';
 import { ProductEditorComponent } from './components/admin/product-editor/product-editor.component';
@@ -150,7 +151,8 @@ const appRoutes: Routes = [
     PhotoEditorComponent,
     LoadingIndicatorComponent,
     BasketComponent,
-    BasketActionComponent
+    BasketActionComponent,
+    OrderEditorComponent
   ],
   imports: [
     RouterModule.forRoot(appRoutes, { enableTracing: false }),
