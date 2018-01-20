@@ -35,6 +35,7 @@ export class OrderEditorComponent implements OnInit {
     this.orderDetailsItems.push(new OrderDetailItem('Телефон: ', this.entityData.customerPhone));
     this.orderDetailsItems.push(new OrderDetailItem('Город: ', this.entityData.city));
     this.orderDetailsItems.push(new OrderDetailItem('Отделение: ', this.entityData.deliveryPoint));
+    this.orderDetailsItems.push(new OrderDetailItem('Сумма: ', this.entityData.summ));
     this.isCreating = !this.entityData.id;
 
     this.edp.getProducts(true).subscribe((products)=>{

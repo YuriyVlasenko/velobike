@@ -7,7 +7,10 @@
 <div class="order-items">
     <div class="order-item" *ngFor="let orderItem of entityData.items; let i = index;">
         <img class="order-item__img" src={{orderItem.photo}}/>
-        <a target="black" [routerLink]="['/', orderItem.product.categoryFriendName, orderItem.product.id]"  class="order-item__display-name" >{{orderItem.displayName}}</a>
-        <span class="order-item__count">{{orderItem.count}} шт.</span>
+        <div class="order-item__description">
+            <a target="black" [routerLink]="['/', orderItem.product.categoryFriendName, orderItem.product.id]"  class="order-item__display-name" >{{orderItem.displayName}}</a>
+            <span>{{orderItem.product.actualPrice}} грн.</span>
+            <span>{{orderItem.count}} шт.</span>
+        </div>
     </div>
 </div>

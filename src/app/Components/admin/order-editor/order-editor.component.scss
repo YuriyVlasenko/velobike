@@ -21,12 +21,10 @@
                 width: 100px;
                 max-height: 100px;
             }
-            .order-item__display-name{
-                padding: 5px;
-            }
-            .order-item__count{
-                padding: 5px;
-                font-weight: bold;
+            .order-item__description{
+                padding: 10px;
+                display: flex;
+                flex-direction: column;
             }
         }
     }
